@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Bubbles</string>
+
+    <string name="sign_in_title">Bem-vindo de volta!</string>
+    <string name="sign_in_disclaimer">Ainda não furou a bolha?</string>
+    <string name="sign_in_text_button">Cadastre-se</string>
+    <string name="sign_in_email">E-mail</string>
+    <string name="sign_in_password">Senha</string>
+    <string name="sign_in_button">ENTRAR</string>
+
+    <string name="sign_up_title">Vamos furar a bolha!</string>
+    <string name="sign_up_disclaimer">Já faz parte da Bubbles?</string>
+    <string name="sign_up_text_button">Entre</string>
+    <string name="sign_up_nickname">Apelido</string>
+    <string name="sign_up_email">E-mail</string>
+    <string name="sign_up_password">Senha</string>
+    <string name="sign_up_repeat_password">Repetir senha</string>
+    <string name="sign_up_button">CADASTRAR-SE</string>
+
+
 </resources>
