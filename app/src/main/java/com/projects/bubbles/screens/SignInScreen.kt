@@ -24,7 +24,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
+import com.projects.bubbles.Screen
 import com.projects.bubbles.components.ArrowRight
 import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.ButtonComponent
@@ -39,7 +42,7 @@ import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navController: NavController) {
     val context = LocalContext.current
 
     var email = remember { mutableStateOf("") }
@@ -110,7 +113,7 @@ fun SignInScreen() {
 
                             ButtonComponent(
                                 value = stringResource(id = R.string.sign_in_action_button),
-                                onClick = {})
+                                onClick = { navController.navigate(Screen.Account.withArgs(email.value)) })
                         }
                     }
 
@@ -124,5 +127,5 @@ fun SignInScreen() {
 @Preview
 @Composable
 fun PreviewSignInScreen() {
-    SignInScreen()
+    SignInScreen(navController = rememberNavController())
 }
