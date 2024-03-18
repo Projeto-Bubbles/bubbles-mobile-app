@@ -11,6 +11,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.projects.bubbles.ui.theme.Zinc500
 import com.projects.bubbles.ui.theme.Zinc700
 
 
@@ -19,8 +20,7 @@ fun NormalText(value: String) {
     Text(
         text = value,
         modifier = Modifier
-            .fillMaxWidth()
-            .heightIn(min = 40.dp),
+            .fillMaxWidth(),
         style = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.Normal,
@@ -43,5 +43,21 @@ fun TitleText(value: String) {
             fontStyle = FontStyle.Normal
         ),
         color = Zinc700
+    )
+}
+
+@Composable
+fun SubtitleText(value: String) {
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 10.dp),
+        style = TextStyle(
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            fontStyle = FontStyle.Normal
+        ),
+        color = Zinc500
     )
 }

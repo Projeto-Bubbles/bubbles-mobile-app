@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -40,14 +39,11 @@ import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SignUpScreen() {
+fun SignInScreen() {
     val context = LocalContext.current
 
-    // Estado para os valores dos campos de entrada
-    var nickname = remember { mutableStateOf("") }
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
-    var repeatPassword = remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier
@@ -55,7 +51,6 @@ fun SignUpScreen() {
             .background(Color.White)
             .background(color = Slate100)
     ) {
-
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -84,8 +79,8 @@ fun SignUpScreen() {
                         verticalArrangement = Arrangement.Center
                     ) {
                         ArrowRight()
-                        TitleText(value = stringResource(id = R.string.sign_up_title))
-                        NormalText(value = stringResource(id = R.string.sign_up_disclaimer))
+                        TitleText(value = stringResource(id = R.string.sign_in_title))
+                        NormalText(value = stringResource(id = R.string.sign_in_disclaimer))
                     }
 
                     Box(
@@ -96,17 +91,6 @@ fun SignUpScreen() {
                             .padding(32.dp)
                     ) {
                         Column {
-                            SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
-
-                            Spacer(Modifier.height(20.dp))
-
-                            TextField(
-                                label = stringResource(id = R.string.sign_up_nickname),
-                                icon = painterResource(id = R.drawable.user_duotone),
-                                value = nickname.value,
-                                onValueChange = { nickname.value = it }
-                            )
-
                             TextField(
                                 label = stringResource(id = R.string.sign_up_email),
                                 icon = painterResource(id = R.drawable.user_duotone),
@@ -121,18 +105,11 @@ fun SignUpScreen() {
                                 onValueChange = { password.value = it }
                             )
 
-                            PasswordField(
-                                label = stringResource(id = R.string.sign_up_repeat_password),
-                                icon = painterResource(id = R.drawable.user_duotone),
-                                value = repeatPassword.value,
-                                onValueChange = { repeatPassword.value = it }
-                            )
-
 
                             Spacer(Modifier.height(20.dp))
 
                             ButtonComponent(
-                                value = stringResource(id = R.string.sign_up_action_button),
+                                value = stringResource(id = R.string.sign_in_action_button),
                                 onClick = {})
                         }
                     }
@@ -142,11 +119,10 @@ fun SignUpScreen() {
             }
         }
     }
-
 }
 
 @Preview
 @Composable
-fun PreviewSignUpScreen() {
-    SignUpScreen()
+fun PreviewSignInScreen() {
+    SignInScreen()
 }
