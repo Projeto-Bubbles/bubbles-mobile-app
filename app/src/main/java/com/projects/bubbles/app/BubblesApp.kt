@@ -8,10 +8,5 @@ import androidx.compose.ui.graphics.Color
 
 @Composable
 fun BubblesApp() {
-    Surface(
-        modifier = Modifier.fillMaxSize(),
-        color = Color.White
-    ) {
-
-    }
+    Surface(modifier = Modifier.fillMaxSize(), color = Color.White) {}
 }

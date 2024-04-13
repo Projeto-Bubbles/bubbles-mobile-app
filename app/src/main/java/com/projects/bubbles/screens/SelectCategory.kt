@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,13 +39,11 @@ import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
+import java.util.Locale.Category
 
 @Composable
-fun SignInScreen(navController: NavController) {
+fun SelectCategory(navController: NavController) {
     val context = LocalContext.current
-
-    var email = remember { mutableStateOf("") }
-    var password = remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier
@@ -59,7 +58,7 @@ fun SignInScreen(navController: NavController) {
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .height(200.dp),
+                    .height(100.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -69,54 +68,16 @@ fun SignInScreen(navController: NavController) {
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .clip(rounded.small)
-                    .background(Zinc300)
-            )
-            {
-                Column {
-
-                    Column(
-                        Modifier.padding(32.dp),
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        ArrowRight()
-                        TitleText(value = stringResource(id = R.string.sign_in_title))
-                        NormalText(value = stringResource(id = R.string.sign_in_disclaimer))
-                    }
-
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .clip(rounded.small)
-                            .background(Zinc350)
-                            .padding(32.dp)
-                    ) {
-                        Column {
-                            TextField(
-                                label = stringResource(id = R.string.sign_up_email),
-                                icon = painterResource(id = R.drawable.user_duotone),
-                                value = email.value,
-                                onValueChange = { email.value = it }
-                            )
-
-                            PasswordField(
-                                label = stringResource(id = R.string.sign_up_password),
-                                icon = painterResource(id = R.drawable.user_duotone),
-                                value = password.value,
-                                onValueChange = { password.value = it }
-                            )
-
-
-                            Spacer(Modifier.height(20.dp))
-
-                            ButtonComponent(
-                                value = stringResource(id = R.string.sign_in_action_button),
-                                onClick = { navController.navigate(Screen.Account.withArgs(email.value)) })
-                        }
-                    }
-
+                    .fillMaxHeight()
+                    .padding(top = 80.dp)
+            ) {
+                Column(
+                    Modifier.padding(32.dp),
+                    verticalArrangement = Arrangement.Center,
+                ) {
+                    ArrowRight()
+                    TitleText(value = stringResource(id = R.string.category_choice))
                 }
-
             }
         }
     }
@@ -124,6 +85,6 @@ fun SignInScreen(navController: NavController) {
 
 @Preview
 @Composable
-fun PreviewSignInScreen() {
-    SignInScreen(navController = rememberNavController())
+fun PreviewSelectCategory() {
+    SelectCategory(navController = rememberNavController())
 }

@@ -25,5 +25,6 @@
     <string name="sign_up_repeat_password">Repetir senha</string>
     <string name="sign_up_button">CADASTRAR-SE</string>
 
-
+    <!-- Category info texts-->
+    <string name="category_choice">Escolha suas bolhas</string>>
 </resources>
