@@ -31,7 +31,7 @@ fun NormalText(value: String) {
 }
 
 @Composable
-fun TitleText(value: String) {
+fun TitleText(value: String, fontWeight:FontWeight = FontWeight.Bold) {
     Text(
         text = value,
         modifier = Modifier
@@ -39,7 +39,6 @@ fun TitleText(value: String) {
             .heightIn(min = 10.dp),
         style = TextStyle(
             fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
         ),
         color = Zinc700
