@@ -31,6 +31,7 @@ import com.projects.bubbles.Screen
 import com.projects.bubbles.components.ArrowRight
 import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.ButtonComponent
+import com.projects.bubbles.components.ButtonSelectBubble
 import com.projects.bubbles.components.NormalText
 import com.projects.bubbles.components.PasswordField
 import com.projects.bubbles.components.SubtitleText
@@ -104,10 +105,9 @@ fun SignInScreen(navController: NavController) {
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_password),
                                 icon = painterResource(id = R.drawable.user_duotone),
-                                value = password.value,
+                                 value = password.value,
                                 onValueChange = { password.value = it }
                             )
-
 
                             Spacer(Modifier.height(20.dp))
 
