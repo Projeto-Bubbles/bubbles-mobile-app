@@ -18,6 +18,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -146,13 +147,16 @@ fun CategoryButton (
     icon: Painter,
     label: String,
     onClick: () -> Unit,
+    backgroundColorButton: Color = Color.LightGray,
+    backgroundColorIcon: Color = Color.Gray,
     modifier: Modifier = Modifier
 ) {
     Column(
         modifier = modifier
-            .padding(8.dp)
-            .width(50.dp)
-            .height(80.dp),
+            .padding(horizontal = 4.dp)
+            .width(85.dp)
+            .height(100.dp)
+            .background(color = backgroundColorButton, shape = RoundedCornerShape(8.dp)),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -161,20 +165,21 @@ fun CategoryButton (
                 .size(50.dp)
                 .clip(CircleShape)
                 .clickable(onClick = onClick)
-                .background(color = Color.Gray, shape = CircleShape),
+                .background(color = backgroundColorIcon, shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 painter = icon,
                 contentDescription = label,
-                tint = Color.White,
-                modifier = Modifier.size(30.dp)
+                tint = Color.Black,
+                modifier = Modifier.size(17.dp)
             )
         }
         Text(
             text = label,
-            style = TextStyle(fontSize = 12.sp),
-            textAlign = TextAlign.Center
+            style = TextStyle(fontSize = 11.sp),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 10.dp)
         )
     }
 }
