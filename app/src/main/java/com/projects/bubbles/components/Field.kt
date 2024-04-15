@@ -199,7 +199,7 @@ fun ButtonSelectBubble(valueText: String, icon: Painter, buttonColor: Color) {
             ) {
                 Icon(
                     modifier = Modifier
-                        .height(25.dp),
+                        .height(35.dp),
                     painter = icon,
                     contentDescription = null,
                     tint = Slate800

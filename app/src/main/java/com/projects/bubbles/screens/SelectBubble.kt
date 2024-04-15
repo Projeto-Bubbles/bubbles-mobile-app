@@ -103,17 +103,17 @@ fun SelectBubble() {
                                     ) {
                                         ButtonSelectBubble(
                                             valueText = "música",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.music),
                                             buttonColor = bubbleGreen
                                         )
                                         ButtonSelectBubble(
                                             valueText = "ciência",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.science),
                                             buttonColor = bubblePurple
                                         )
                                         ButtonSelectBubble(
                                             valueText = "tecnologia",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.technology),
                                             buttonColor = bubbbleYellow
                                         )
                                     }
@@ -125,17 +125,17 @@ fun SelectBubble() {
                                     ) {
                                         ButtonSelectBubble(
                                             valueText = "gastronomia",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.culinary),
                                             buttonColor = bubbleGrey
                                         )
                                         ButtonSelectBubble(
                                             valueText = "livros",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.reading),
                                             buttonColor = bubbleGrey
                                         )
                                         ButtonSelectBubble(
                                             valueText = "arte ",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.art),
                                             buttonColor = bubbleGrey
                                         )
                                     }
@@ -146,13 +146,13 @@ fun SelectBubble() {
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         ButtonSelectBubble(
-                                            valueText = "moda",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            valueText = "jogos",
+                                            icon = painterResource(id = R.mipmap.games),
                                             buttonColor = bubbleBlue
                                         )
                                         ButtonSelectBubble(
                                             valueText = "esportes",
-                                            icon = painterResource(id = R.drawable.user_duotone),
+                                            icon = painterResource(id = R.mipmap.sports ),
                                             buttonColor = bubbleGrey
                                         )
                                     }
