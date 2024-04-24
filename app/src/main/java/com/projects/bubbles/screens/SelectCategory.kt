@@ -66,8 +66,10 @@ fun SelectCategory(navController: NavController) {
                     Modifier.padding(horizontal = 12.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    ArrowRight()
-                    TitleText(value = stringResource(id = R.string.category_choice))
+                    Column(Modifier.padding(start = 20.dp)) {
+                        ArrowRight()
+                        TitleText(value = stringResource(id = R.string.category_choice))
+                    }
 
                     Column(
                         modifier = Modifier
@@ -80,29 +82,29 @@ fun SelectCategory(navController: NavController) {
                                 icon = painterResource(id = R.mipmap.sports),
                                 label = "Esporte",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe9e3cf),
+                                backgroundColorButton = Color(0xFFfde68a),
                                 backgroundColorIcon = Color(0xFFede9d9)
                             )
                             CategoryButton(
                                 icon = painterResource(id = R.mipmap.music),
                                 label = "Música",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFc9cdf9),
+                                backgroundColorButton = Color(0xFFc4b5fd),
                                 backgroundColorIcon = Color(0xFFd4d7fa)
                             )
                             CategoryButton(
                                 icon = painterResource(id = R.mipmap.games),
                                 label = "Games",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe4e4e4),
+                                backgroundColorButton = Color(0xFFbbf7d0),
                                 backgroundColorIcon = Color(0xFFe6f2ee)
                             )
                             CategoryButton(
                                 icon = painterResource(id = R.mipmap.art),
                                 label = "Arte",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe9e3cf),
-                                backgroundColorIcon = Color(0xFFede9d9)
+                                backgroundColorButton = Color(0xFFf5d0fe),
+                                backgroundColorIcon = Color(0xFFf0e0ed)
                             )
                         }
 
@@ -113,29 +115,29 @@ fun SelectCategory(navController: NavController) {
                                 icon = painterResource(id = R.mipmap.technology),
                                 label = "Tecnologia",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe9e3cf),
-                                backgroundColorIcon = Color(0xFFede9d9)
+                                backgroundColorButton = Color(0xFF99f6e4),
+                                backgroundColorIcon = Color(0xFFdaeff1)
                             )
                             CategoryButton(
                                 icon = painterResource(id = R.mipmap.science),
                                 label = "Ciência",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe9e3cf),
-                                backgroundColorIcon = Color(0xFFede9d9)
+                                backgroundColorButton = Color(0xFFbfdbfe),
+                                backgroundColorIcon = Color(0xFFe0e9f6)
                             )
                             CategoryButton(
                                 icon = painterResource(id = R.mipmap.culinary),
                                 label = "Gastronomia",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe9e3cf),
-                                backgroundColorIcon = Color(0xFFede9d9)
+                                backgroundColorButton = Color(0xFFfed7aa),
+                                backgroundColorIcon = Color(0xFFf2e9dd)
                             )
                             CategoryButton(
                                 icon = painterResource(id = R.mipmap.reading),
                                 label = "Livros",
                                 onClick = {},
-                                backgroundColorButton = Color(0xFFe9e3cf),
-                                backgroundColorIcon = Color(0xFFede9d9)
+                                backgroundColorButton = Color(0xFFd9f99d),
+                                backgroundColorIcon = Color(0xFFe8f0d7)
                             )
                         }
                     }

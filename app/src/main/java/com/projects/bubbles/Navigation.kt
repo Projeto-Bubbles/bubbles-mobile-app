@@ -7,14 +7,15 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.projects.bubbles.screens.AccountScreen
+import com.projects.bubbles.screens.SelectCategory
 import com.projects.bubbles.screens.SignInScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = Screen.SignIn.route) {
-        composable(route = Screen.SignIn.route) {
-            SignInScreen(navController)
+    NavHost(navController = navController, startDestination = Screen.SelectCategory.route) {
+        composable(route = Screen.SelectCategory.route) {
+            SelectCategory(navController)
         }
 
         composable(

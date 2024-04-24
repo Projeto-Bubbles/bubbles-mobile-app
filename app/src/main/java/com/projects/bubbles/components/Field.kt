@@ -146,12 +146,18 @@ fun CategoryButton (
     backgroundColorIcon: Color = Color.Gray,
     modifier: Modifier = Modifier
 ) {
+    val clicked = remember { mutableStateOf(false) }
+
     Column(
         modifier = modifier
             .padding(horizontal = 4.dp)
             .width(85.dp)
             .height(100.dp)
-            .background(color = backgroundColorButton, shape = RoundedCornerShape(8.dp)),
+            .background(color = if (clicked.value) backgroundColorButton else Color.LightGray, shape = RoundedCornerShape(8.dp))
+            .clickable {
+                clicked.value = !clicked.value
+                onClick()
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
@@ -159,7 +165,6 @@ fun CategoryButton (
             modifier = Modifier
                 .size(50.dp)
                 .clip(CircleShape)
-                .clickable(onClick = onClick)
                 .background(color = backgroundColorIcon, shape = CircleShape),
             contentAlignment = Alignment.Center
         ) {
@@ -172,7 +177,7 @@ fun CategoryButton (
         }
         Text(
             text = label,
-            style = TextStyle(fontSize = 11.sp),
+            style = TextStyle(fontSize = 11.sp, color = Color.Black),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 10.dp)
         )
