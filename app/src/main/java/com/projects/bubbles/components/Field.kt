@@ -1,5 +1,6 @@
 package com.projects.bubbles.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,6 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -16,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -36,6 +37,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,7 +49,9 @@ import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
+import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc700
+import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
@@ -143,7 +147,7 @@ fun ButtonComponent(value: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun CategoryButton (
+fun CategoryButton(
     icon: Painter,
     label: String,
     onClick: () -> Unit,
@@ -221,4 +225,87 @@ fun ButtonSelectBubble(valueText: String, icon: Painter, buttonColor: Color) {
     }
 }
 
+@Composable
+fun bubbleCard() {
+    Box(
+        modifier = Modifier
+            .size(270.dp)
+            .background(color = Zinc300, shape = RoundedCornerShape(16.dp))
+    ) {
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .padding(15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                ButtonSelectBubble(
+                    valueText = "jogos",
+                    icon = painterResource(id = R.mipmap.games),
+                    buttonColor = bubbleBlue
+                )
 
+                Row {
+                    Icon(
+                        modifier = Modifier
+                            .height(16.dp),
+                        painter = painterResource(id = R.drawable.user_duotone),
+                        contentDescription = null,
+                        tint = Slate800
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(
+                        text = "22K",
+                        fontSize = 12.sp,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
+            }
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+            ) {
+
+                Text(
+                    text = "Title",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Lorem ipsum dolor sit amet consectetur." +
+                            " At sagittis mattis cursus leo habitant adipiscing" +
+                            ". Malesuada non amet sit laoreet. Volutpat et magna.",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        color = Color.Transparent,
+                        shape = RoundedCornerShape(30.dp)
+                    )
+            ) {
+                Image(
+                    painter = painterResource(id = R.mipmap.basquete), // Substitua R.mipmap.basquete pelo ID da sua imagem
+                    contentDescription = "basquete",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp)), // Aplica o mesmo formato da caixa à imagem
+                    contentScale = ContentScale.Crop // Ajuste a escala da imagem conforme necessário
+                )
+            }
+
+
+        }
+    }
+}

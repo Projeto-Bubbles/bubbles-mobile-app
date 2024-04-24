@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.projects.bubbles.screens.SelectBubble
+import com.projects.bubbles.screens.SelectCategory
 import com.projects.bubbles.screens.SignUpScreen
 import com.projects.bubbles.ui.theme.BubblesTheme
 
@@ -19,7 +20,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             BubblesTheme {
-                SelectBubble()
+                SelectCategory()
             }
         }
     }

@@ -32,7 +32,7 @@ import com.projects.bubbles.components.TitleText
 import com.projects.bubbles.ui.theme.Slate100
 
 @Composable
-fun SelectCategory(navController: NavController) {
+fun SelectCategory() {
     val context = LocalContext.current
 
     Surface(
@@ -148,5 +148,5 @@ fun SelectCategory(navController: NavController) {
 @Preview
 @Composable
 fun PreviewSelectCategory() {
-    SelectCategory(navController = rememberNavController())
+    SelectCategory()
 }
