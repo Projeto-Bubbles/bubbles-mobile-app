@@ -27,6 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
 import com.projects.bubbles.components.ArrowRight
 import com.projects.bubbles.components.BubbleLogo
+import com.projects.bubbles.components.ButtonComponent
 import com.projects.bubbles.components.CategoryButton
 import com.projects.bubbles.components.TitleText
 import com.projects.bubbles.ui.theme.Slate100
@@ -141,6 +142,12 @@ fun SelectCategory(navController: NavController) {
                             )
                         }
                     }
+
+                    Spacer(Modifier.height(20.dp))
+
+                    ButtonComponent(
+                        value = "SELECIONAR BOLHAS",
+                        onClick = {})
                 }
             }
         }
