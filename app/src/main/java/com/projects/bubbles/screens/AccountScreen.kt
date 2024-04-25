@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.projects.bubbles.ui.theme.Slate100
-import com.projects.bubbles.ui.theme.SpaceGrotesk
+import com.projects.bubbles.ui.theme.DarkerGrotesk
 
 @Composable
 fun AccountScreen(name: String?) {
@@ -20,7 +20,7 @@ fun AccountScreen(name: String?) {
             .background(color = Slate100)
     ) {
 
-        Text(text = "Hello $name", fontFamily = SpaceGrotesk)
+        Text(text = "Hello $name", fontFamily = DarkerGrotesk)
     }
 }
 

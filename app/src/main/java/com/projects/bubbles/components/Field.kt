@@ -178,7 +178,9 @@ fun CategoryButton (
         }
         Text(
             text = label,
-            style = TextStyle(fontSize = 11.sp, color = Color.Black),
+            fontSize = 11.sp,
+            color = Color(0xFF423f46),
+            fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 10.dp)
         )
