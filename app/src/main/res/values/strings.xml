@@ -27,4 +27,5 @@
 
     <!-- Category info texts-->
     <string name="category_choice">Escolha suas bolhas</string>>
+    <string name="category_selection">SELECIONAR BOLHAS</string>>
 </resources>

@@ -157,10 +157,10 @@ fun SelectCategory(navController: NavController) {
                             }
                         }
 
-                        Spacer(Modifier.height(150.dp))
+                        Spacer(Modifier.height(100.dp))
 
                         ButtonSelectCategory(
-                            value = "SELECIONAR BOLHAS",
+                            value = stringResource(id = R.string.category_selection),
                             onClick = {})
                     }
                 }
