@@ -28,6 +28,7 @@ import com.projects.bubbles.R
 import com.projects.bubbles.components.ArrowRight
 import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.ButtonComponent
+import com.projects.bubbles.components.ButtonSelectCategory
 import com.projects.bubbles.components.CategoryButton
 import com.projects.bubbles.components.TitleText
 import com.projects.bubbles.ui.theme.Slate100
@@ -66,6 +67,7 @@ fun SelectCategory(navController: NavController) {
                 Column(
                     Modifier.padding(horizontal = 12.dp),
                     verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Column(Modifier.padding(start = 20.dp)) {
                         ArrowRight()
@@ -143,9 +145,9 @@ fun SelectCategory(navController: NavController) {
                         }
                     }
 
-                    Spacer(Modifier.height(20.dp))
+                    Spacer(Modifier.height(150.dp))
 
-                    ButtonComponent(
+                    ButtonSelectCategory(
                         value = "SELECIONAR BOLHAS",
                         onClick = {})
                 }

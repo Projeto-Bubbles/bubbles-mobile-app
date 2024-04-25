@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -152,7 +153,7 @@ fun CategoryButton (
         modifier = modifier
             .padding(horizontal = 4.dp)
             .width(85.dp)
-            .height(100.dp)
+            .height(105.dp)
             .background(color = if (clicked.value) backgroundColorButton else Color.LightGray, shape = RoundedCornerShape(8.dp))
             .clickable {
                 clicked.value = !clicked.value
@@ -184,3 +185,28 @@ fun CategoryButton (
     }
 }
 
+@Composable
+fun ButtonSelectCategory(value: String, onClick: () -> Unit) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .widthIn(240.dp)
+            .heightIn(45.dp),
+        contentPadding = PaddingValues(5.dp),
+        colors = ButtonDefaults.buttonColors(Color(0xFFb1c5e1))
+    ) {
+        Icon(
+            painter = painterResource(id = R.mipmap.simple_arrow_rigth),
+            contentDescription = "Selecionar Categorias",
+            tint = Color(0xFF423f46),
+            modifier = Modifier.size(30.dp).padding(end = 10.dp)
+        )
+
+        Text(
+            text = value,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xFF423f46)
+        )
+    }
+}
