@@ -1,7 +1,6 @@
 package com.projects.bubbles.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,7 +32,6 @@ import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.ButtonSelectCategory
 import com.projects.bubbles.components.CategoryButton
 import com.projects.bubbles.components.TitleText
-import com.projects.bubbles.ui.theme.Slate100
 
 @Composable
 fun SelectCategory(navController: NavController) {
