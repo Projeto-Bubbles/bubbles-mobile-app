@@ -197,6 +197,7 @@ fun ButtonSelectBubble(valueText: String, icon: Painter, buttonColor: Color) {
             .clip(shape = RoundedCornerShape(6.dp))
             .height(38.dp)
             .background(color = buttonColor)
+            .clickable(onClick = {})
     ) {
         Button(
             onClick = {},

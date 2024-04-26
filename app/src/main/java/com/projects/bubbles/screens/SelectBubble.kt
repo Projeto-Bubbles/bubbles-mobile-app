@@ -30,6 +30,7 @@ import com.projects.bubbles.components.ButtonSelectBubble
 import com.projects.bubbles.components.NormalText
 import com.projects.bubbles.components.SubtitleText
 import com.projects.bubbles.components.TitleText
+import com.projects.bubbles.model.Bubble
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
@@ -41,7 +42,7 @@ import com.projects.bubbles.ui.theme.bubblePurple
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SelectBubble() {
+fun SelectBubble(bubbleList: List<Bubble>) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -72,7 +73,7 @@ fun SelectBubble() {
                 Column {
 
                     Column(
-                        Modifier.padding(32.dp), verticalArrangement = Arrangement.Center
+                        Modifier.padding(25.dp), verticalArrangement = Arrangement.Center
                     ) {
                         ArrowRight()
                         TitleText(value = stringResource(id = R.string.sign_up_title))
@@ -87,74 +88,34 @@ fun SelectBubble() {
                             .padding(12.dp)
                     ) {
                         Column {
-                            SubtitleText(value = stringResource(id = R.string.bubble_infos))
 
-                            Spacer(Modifier.height(20.dp))
 
                             Box(
-                                Modifier
+                                modifier = Modifier
                                     .fillMaxWidth()
+                                    .padding(12.dp)
                             ) {
-                                Column{
+
+                                Column {
+                                    SubtitleText(value = stringResource(id = R.string.bubble_infos))
+
+                                    Spacer(Modifier.height(20.dp))
                                     Row(
-                                        modifier = Modifier.fillMaxWidth(),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .background(color = Color.Gray),
                                         horizontalArrangement = Arrangement.spacedBy(12.dp),
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
-                                        ButtonSelectBubble(
-                                            valueText = "música",
-                                            icon = painterResource(id = R.mipmap.music),
-                                            buttonColor = bubbleGreen
-                                        )
-                                        ButtonSelectBubble(
-                                            valueText = "ciência",
-                                            icon = painterResource(id = R.mipmap.science),
-                                            buttonColor = bubblePurple
-                                        )
-                                        ButtonSelectBubble(
-                                            valueText = "tecnologia",
-                                            icon = painterResource(id = R.mipmap.technology),
-                                            buttonColor = bubbbleYellow
-                                        )
-                                    }
-                                    Spacer(Modifier.height(20.dp))
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        ButtonSelectBubble(
-                                            valueText = "gastronomia",
-                                            icon = painterResource(id = R.mipmap.culinary),
-                                            buttonColor = bubbleGrey
-                                        )
-                                        ButtonSelectBubble(
-                                            valueText = "livros",
-                                            icon = painterResource(id = R.mipmap.reading),
-                                            buttonColor = bubbleGrey
-                                        )
-                                        ButtonSelectBubble(
-                                            valueText = "arte ",
-                                            icon = painterResource(id = R.mipmap.art),
-                                            buttonColor = bubbleGrey
-                                        )
-                                    }
-                                    Spacer(Modifier.height(20.dp))
-                                    Row(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        horizontalArrangement = Arrangement.spacedBy(16.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
-                                        ButtonSelectBubble(
-                                            valueText = "jogos",
-                                            icon = painterResource(id = R.mipmap.games),
-                                            buttonColor = bubbleBlue
-                                        )
-                                        ButtonSelectBubble(
-                                            valueText = "esportes",
-                                            icon = painterResource(id = R.mipmap.sports ),
-                                            buttonColor = bubbleGrey
-                                        )
+                                        Column(modifier = Modifier) {
+                                            bubbleList.forEach {
+                                                ButtonSelectBubble(
+                                                    valueText = it.nome,
+                                                    icon = painterResource(id = it.icon),
+                                                    buttonColor = it.cor
+                                                )
+                                            }
+                                        }
                                     }
                                     Spacer(Modifier.height(20.dp))
 
@@ -176,5 +137,15 @@ fun SelectBubble() {
 @Preview
 @Composable
 fun PreviewSelectBubble() {
-    SelectBubble()
+    val lista = listOf(
+        Bubble("música", R.mipmap.music, bubbleBlue),
+        Bubble("ciência", R.mipmap.science, bubbleGreen),
+        Bubble("tecnologia", R.mipmap.technology, bubblePurple),
+        Bubble("gastronomia", R.mipmap.culinary, bubbleGrey),
+        Bubble("livros", R.mipmap.reading, bubbleGrey),
+        Bubble("arte", R.mipmap.reading, bubbleGrey),
+        Bubble("jogos", R.mipmap.reading, bubbleGrey),
+        Bubble("esportes", R.mipmap.reading, bubbleGrey),
+    )
+    SelectBubble(lista)
 }
