@@ -146,7 +146,7 @@ fun ButtonComponent(value: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun CategoryButton (
+fun CategoryButton(
     icon: Painter,
     label: String,
     onClick: () -> Unit,
@@ -161,7 +161,10 @@ fun CategoryButton (
             .padding(horizontal = 4.dp)
             .width(85.dp)
             .height(105.dp)
-            .background(color = if (clicked.value) backgroundColorButton else Color.LightGray, shape = RoundedCornerShape(8.dp))
+            .background(
+                color = if (clicked.value) backgroundColorButton else Color.LightGray,
+                shape = RoundedCornerShape(8.dp)
+            )
             .clickable {
                 clicked.value = !clicked.value
                 onClick()
@@ -208,7 +211,9 @@ fun ButtonSelectCategory(value: String, onClick: () -> Unit) {
             painter = painterResource(id = R.mipmap.simple_arrow_rigth),
             contentDescription = "Selecionar Categorias",
             tint = Color(0xFF423f46),
-            modifier = Modifier.size(30.dp).padding(end = 10.dp)
+            modifier = Modifier
+                .size(30.dp)
+                .padding(end = 10.dp)
         )
 
         Text(
@@ -221,11 +226,11 @@ fun ButtonSelectCategory(value: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun NavigationBar() {
+fun NavigationBar(currentPage: Int) {
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth()
-            .height(56.dp),
+            .height(85.dp),
         contentPadding = PaddingValues(16.dp),
         containerColor = Color.White
     ) {
@@ -236,24 +241,57 @@ fun NavigationBar() {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Icon(
-                painter = painterResource(id = R.mipmap.bubbles_section),
-                contentDescription = "Selecionar Categorias",
-                tint = Color(0xFF423f46),
-                modifier = Modifier.size(24.dp)
-            )
-            Icon(
-                painter = painterResource(id = R.mipmap.feed_section),
-                contentDescription = "Selecionar Categorias",
-                tint = Color(0xFF423f46),
-                modifier = Modifier.size(24.dp)
-            )
-            Icon(
-                painter = painterResource(id = R.mipmap.events_section),
-                contentDescription = "Selecionar Categorias",
-                tint = Color(0xFF423f46),
-                modifier = Modifier.size(24.dp)
-            )
+            Box(
+                modifier = Modifier
+                    .size(34.dp)
+                    .clip(CircleShape)
+                    .background(
+                        color = if (currentPage == 0) Color(0xFFe4e4e4) else Color.White,
+                        shape = CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.mipmap.bubbles_section),
+                    contentDescription = "Bolhas",
+                    tint = Color(0xFF423f46),
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .size(65.dp)
+                    .clip(CircleShape)
+                    .background(
+                        color = if (currentPage == 1) Color(0xFFe4e4e4) else Color.White,
+                        shape = CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.mipmap.feed_section),
+                    contentDescription = "Feed",
+                    tint = Color(0xFF423f46),
+                    modifier = Modifier.size(24.dp)
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .size(34.dp)
+                    .clip(CircleShape)
+                    .background(
+                        color = if (currentPage == 2) Color(0xFFe4e4e4) else Color.White,
+                        shape = CircleShape
+                    ),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    painter = painterResource(id = R.mipmap.events_section),
+                    contentDescription = "Eventos",
+                    tint = Color(0xFF423f46),
+                    modifier = Modifier.size(24.dp)
+                )
+            }
         }
     }
 }
