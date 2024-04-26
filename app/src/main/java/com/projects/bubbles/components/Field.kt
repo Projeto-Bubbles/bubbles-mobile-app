@@ -226,7 +226,7 @@ fun ButtonSelectCategory(value: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun NavigationBar(currentPage: Int) {
+fun NavigationBar(currentPage: String) {
     BottomAppBar(
         modifier = Modifier
             .fillMaxWidth()
@@ -241,57 +241,12 @@ fun NavigationBar(currentPage: Int) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Box(
-                modifier = Modifier
-                    .size(34.dp)
-                    .clip(CircleShape)
-                    .background(
-                        color = if (currentPage == 0) Color(0xFFe4e4e4) else Color.White,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.mipmap.bubbles_section),
-                    contentDescription = "Bolhas",
-                    tint = Color(0xFF423f46),
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .size(65.dp)
-                    .clip(CircleShape)
-                    .background(
-                        color = if (currentPage == 1) Color(0xFFe4e4e4) else Color.White,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.mipmap.feed_section),
-                    contentDescription = "Feed",
-                    tint = Color(0xFF423f46),
-                    modifier = Modifier.size(24.dp)
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .size(34.dp)
-                    .clip(CircleShape)
-                    .background(
-                        color = if (currentPage == 2) Color(0xFFe4e4e4) else Color.White,
-                        shape = CircleShape
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.mipmap.events_section),
-                    contentDescription = "Eventos",
-                    tint = Color(0xFF423f46),
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+            NavbarIcon(currentPage = if (currentPage == "bubbles") true else false,
+                icon = painterResource(id = R.mipmap.bubbles_section))
+            NavbarIcon(currentPage = if (currentPage == "feed") true else false,
+                icon = painterResource(id = R.mipmap.feed_section))
+            NavbarIcon(currentPage = if (currentPage == "events") true else false,
+                icon = painterResource(id = R.mipmap.events_section))
         }
     }
 }

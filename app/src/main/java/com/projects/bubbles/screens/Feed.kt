@@ -45,7 +45,7 @@ fun Feed(navController: NavController) {
             ) {
                 BubbleLogo()
             }
-            NavigationBar(1)
+            NavigationBar("feed")
         }
     }
 }
