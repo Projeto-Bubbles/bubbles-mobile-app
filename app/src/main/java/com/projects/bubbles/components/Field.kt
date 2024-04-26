@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -222,6 +223,24 @@ fun ButtonSelectCategory(value: String, onClick: () -> Unit) {
             fontWeight = FontWeight.Bold,
             color = Color(0xFF423f46)
         )
+    }
+}
+
+@Composable
+fun HeaderBar() {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(85.dp)
+            .padding(start = 145.dp, end = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        BubbleLogo()
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        Perfil()
     }
 }
 

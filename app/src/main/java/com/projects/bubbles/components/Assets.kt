@@ -21,9 +21,7 @@ fun BubbleLogo() {
     Image(
         painter = painterResource(id = R.mipmap.logo),
         contentDescription = "Logo",
-        modifier = Modifier
-            .fillMaxWidth()
-            .size(40.dp)
+        modifier = Modifier.size(100.dp)
     )
 }
 
@@ -35,6 +33,27 @@ fun ArrowRight(){
         modifier = Modifier
             .size(40.dp)
     )
+}
+
+@Composable
+fun Perfil() {
+    Box(
+        modifier = Modifier
+            .size(35.dp)
+            .clip(CircleShape)
+            .background(
+                color = Color(0xFFe4e4e4),
+                shape = CircleShape
+            ),
+        contentAlignment = androidx.compose.ui.Alignment.Center
+    ) {
+        Icon(
+            painter = painterResource(id = R.mipmap.perfil),
+            contentDescription = "Perfil",
+            tint = Color(0xFF423f46),
+            modifier = Modifier.size(20.dp)
+        )
+    }
 }
 
 @Composable

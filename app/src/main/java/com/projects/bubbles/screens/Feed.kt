@@ -9,24 +9,19 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.components.BubbleLogo
+import com.projects.bubbles.components.HeaderBar
 import com.projects.bubbles.components.NavigationBar
+import com.projects.bubbles.components.Perfil
 
 @Composable
 fun Feed(navController: NavController) {
-    val context = LocalContext.current
-
-    val currentPage = remember { mutableStateOf(0) }
-
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -35,16 +30,8 @@ fun Feed(navController: NavController) {
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .padding(vertical = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                BubbleLogo()
-            }
+            HeaderBar()
+
             NavigationBar("feed")
         }
     }
