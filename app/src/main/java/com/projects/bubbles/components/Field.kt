@@ -258,12 +258,18 @@ fun NavigationBar(currentPage: String) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            NavbarIcon(currentPage = if (currentPage == "bubbles") true else false,
-                icon = painterResource(id = R.mipmap.bubbles_section))
-            NavbarIcon(currentPage = if (currentPage == "feed") true else false,
-                icon = painterResource(id = R.mipmap.feed_section))
-            NavbarIcon(currentPage = if (currentPage == "events") true else false,
-                icon = painterResource(id = R.mipmap.events_section))
+            NavbarIcon(
+                currentPage = if (currentPage == "bubbles") true else false,
+                icon = painterResource(id = R.mipmap.bubbles_section)
+            )
+            NavbarIcon(
+                currentPage = if (currentPage == "feed") true else false,
+                icon = painterResource(id = R.mipmap.feed_section)
+            )
+            NavbarIcon(
+                currentPage = if (currentPage == "events") true else false,
+                icon = painterResource(id = R.mipmap.events_section)
+            )
         }
     }
 }
@@ -285,6 +291,69 @@ fun EventCard(
             contentDescription = null,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
+        )
+    }
+}
+
+@Composable
+fun AcessButton(
+    content: String,
+    onClick: () -> Unit,
+    backgroundColor: Color
+) {
+    Button(
+        onClick = onClick,
+        modifier = Modifier
+            .height(25.dp),
+        contentPadding = PaddingValues(start = 10.dp, end = 10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor)
+    ) {
+        Text(
+            text = content,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color.White
+        )
+    }
+}
+
+@Composable
+fun AcessCard() {
+    Box(
+        modifier = Modifier
+            .background(
+                Color(0xFF0f172a),
+                shape = RoundedCornerShape(16.dp)
+            )
+            .fillMaxWidth()
+            .height(120.dp)
+            .fillMaxSize()
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = "Venha interagir com a bolha!",
+                fontSize = 19.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Row {
+                AcessButton(content = "LOGIN", onClick = {}, backgroundColor = Color(0xFF938acb))
+                Spacer(modifier = Modifier.width(16.dp))
+                AcessButton(content = "CADASTRO", onClick = {}, backgroundColor = Color(0xFF5676a2))
+            }
+        }
+
+        Image(
+            painter = painterResource(id = R.mipmap.effect),
+            contentDescription = null,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .height(60.dp),
+            contentScale = ContentScale.FillBounds
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.projects.bubbles.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +12,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,16 +22,19 @@ import com.projects.bubbles.components.EventCard
 import com.projects.bubbles.components.HeaderBar
 import com.projects.bubbles.components.NavigationBar
 import com.projects.bubbles.R
+import com.projects.bubbles.components.AcessCard
 
 @Composable
 fun Feed(navController: NavController) {
     Surface(
         modifier = Modifier
             .fillMaxSize()
+            .background(Color.White)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.background(Color.White)
         ) {
             HeaderBar()
 
@@ -44,6 +49,14 @@ fun Feed(navController: NavController) {
                 EventCard(image = painterResource(id = R.mipmap.event_bg_2))
                 EventCard(image = painterResource(id = R.mipmap.event_bg_3))
                 EventCard(image = painterResource(id = R.mipmap.event_bg_4))
+            }
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 28.dp, end = 28.dp)
+            ) {
+                AcessCard()
             }
 
             NavigationBar("feed")

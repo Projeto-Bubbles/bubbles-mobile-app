@@ -6,6 +6,7 @@ sealed class Screen(val route: String) {
     object SignIn : Screen("sign_in")
     object Account : Screen("account")
     object SelectCategory : Screen("select_category")
+    object Feed : Screen("feed")
 
     fun withArgs(vararg args: String): String {
         return buildString {
@@ -15,5 +16,4 @@ sealed class Screen(val route: String) {
             }
         }
     }
-
 }
