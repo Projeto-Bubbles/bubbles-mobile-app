@@ -39,7 +39,7 @@ fun EventCard(
 ) {
     Box(
         modifier = modifier
-            .width(70.dp)
+            .width(75.dp)
             .height(115.dp)
             .clip(RoundedCornerShape(50.dp)),
         contentAlignment = Alignment.Center,

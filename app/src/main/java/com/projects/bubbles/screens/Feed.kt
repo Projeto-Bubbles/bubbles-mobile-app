@@ -43,32 +43,25 @@ fun Feed(navController: NavController) {
         ) {
             HeaderBar()
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 28.dp, end = 28.dp),
-                horizontalArrangement = Arrangement.SpaceAround,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                EventCard(image = painterResource(id = R.mipmap.event_bg))
-                EventCard(image = painterResource(id = R.mipmap.event_bg_2))
-                EventCard(image = painterResource(id = R.mipmap.event_bg_3))
-                EventCard(image = painterResource(id = R.mipmap.event_bg_4))
-            }
-
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 28.dp, end = 28.dp)
             ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    EventCard(image = painterResource(id = R.mipmap.event_bg))
+                    EventCard(image = painterResource(id = R.mipmap.event_bg_2))
+                    EventCard(image = painterResource(id = R.mipmap.event_bg_3))
+                    EventCard(image = painterResource(id = R.mipmap.event_bg_4))
+                }
+
                 AcessCard()
-            }
 
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 28.dp, end = 28.dp)
-            ) {
                 CommentBox(
                     userName = "Paulo Alvares",
                     userUsername = "paulinhoAl",
