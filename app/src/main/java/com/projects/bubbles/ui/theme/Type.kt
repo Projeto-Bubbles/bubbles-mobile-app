@@ -8,18 +8,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
 
-val SpaceGrotesk = FontFamily(
-    Font(R.font.space_grotesk_light, FontWeight.Light),
-    Font(R.font.space_grotesk_regular, FontWeight.Normal),
-    Font(R.font.space_grotesk_medium, FontWeight.Medium),
-    Font(R.font.space_grotesk_semi_bold, FontWeight.SemiBold),
-    Font(R.font.space_grotesk_bold, FontWeight.Bold)
+val DarkerGrotesk = FontFamily(
+    Font(R.font.darker_grotesque_black, FontWeight.Black),
+    Font(R.font.darker_grotesque_bold, FontWeight.Bold),
+    Font(R.font.darker_grotesque_extrabold, FontWeight.ExtraBold),
+    Font(R.font.darker_grotesque_light, FontWeight.Light),
+    Font(R.font.darker_grotesque_medium, FontWeight.Medium),
+    Font(R.font.darker_grotesque_semibold, FontWeight.SemiBold)
 )
 
 // Set of Material typography styles to start with
 val Typography = Typography(
     bodyLarge = TextStyle(
-        fontFamily = SpaceGrotesk,
+        fontFamily = DarkerGrotesk,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
