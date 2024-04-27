@@ -24,6 +24,7 @@ import com.projects.bubbles.components.HeaderBar
 import com.projects.bubbles.components.NavigationBar
 import com.projects.bubbles.R
 import com.projects.bubbles.components.AcessCard
+import com.projects.bubbles.components.CommentBox
 import com.projects.bubbles.components.ResponseField
 
 @Composable
@@ -68,7 +69,12 @@ fun Feed(navController: NavController) {
                     .fillMaxWidth()
                     .padding(start = 28.dp, end = 28.dp)
             ) {
-                ResponseField{}
+                CommentBox(
+                    userName = "Paulo Alvares",
+                    userUsername = "paulinhoAl",
+                    postTime = "2 hours ago",
+                    commentContent = "Lorem ipsum dolor sit amet consectetur. In dolor porttitor malesuada sit et. Amet enim iaculis gravida nulla egestas ultrices phasellus consequat. Eget mauris in lacus risus porttitor."
+                )
             }
 
             NavigationBar("feed")
