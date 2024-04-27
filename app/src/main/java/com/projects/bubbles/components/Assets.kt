@@ -39,7 +39,7 @@ fun ArrowRight(){
 fun Perfil() {
     Box(
         modifier = Modifier
-            .size(35.dp)
+            .size(25.dp)
             .clip(CircleShape)
             .background(
                 color = Color(0xFFe4e4e4),
@@ -51,7 +51,7 @@ fun Perfil() {
             painter = painterResource(id = R.mipmap.perfil),
             contentDescription = "Perfil",
             tint = Color(0xFF423f46),
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(13.dp)
         )
     }
 }
