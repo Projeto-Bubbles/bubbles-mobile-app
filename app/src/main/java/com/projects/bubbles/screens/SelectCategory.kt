@@ -34,7 +34,7 @@ import com.projects.bubbles.components.CategoryButton
 import com.projects.bubbles.components.TitleText
 
 @Composable
-fun SelectCategory(navController: NavController) {
+fun SelectCategory() {
     val context = LocalContext.current
 
     val backgroundImage: Painter = painterResource(id = R.drawable.selection_bubbles)
@@ -171,5 +171,5 @@ fun SelectCategory(navController: NavController) {
 @Preview
 @Composable
 fun PreviewSelectCategory() {
-    SelectCategory(navController = rememberNavController())
+    SelectCategory()
 }

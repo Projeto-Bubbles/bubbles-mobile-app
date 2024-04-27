@@ -2,6 +2,7 @@ package com.projects.bubbles.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,8 +11,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +28,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
+import com.projects.bubbles.ui.theme.Slate800
+import com.projects.bubbles.ui.theme.Zinc300
+import com.projects.bubbles.ui.theme.bubbleBlue
 
 @Composable
 fun EventCard(
@@ -85,5 +91,90 @@ fun AcessCard() {
                 .height(60.dp),
             contentScale = ContentScale.FillBounds
         )
+    }
+}
+
+@Composable
+fun bubbleCard() {
+    Box(
+        modifier = Modifier
+            .size(270.dp)
+            .background(color = Zinc300, shape = RoundedCornerShape(16.dp))
+    ) {
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+                    .padding(15.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                ButtonSelectBubble(
+                    valueText = "jogos",
+                    icon = painterResource(id = R.mipmap.games),
+                    buttonColor = bubbleBlue
+                )
+
+                Row {
+                    Icon(
+                        modifier = Modifier
+                            .height(16.dp),
+                        painter = painterResource(id = R.drawable.user_duotone),
+                        contentDescription = null,
+                        tint = Slate800
+                    )
+                    Spacer(modifier = Modifier.width(5.dp))
+                    Text(
+                        text = "22K",
+                        fontSize = 12.sp,
+                        modifier = Modifier.align(Alignment.CenterVertically)
+                    )
+                }
+            }
+
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp)
+            ) {
+
+                Text(
+                    text = "Title",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Text(
+                    text = "Lorem ipsum dolor sit amet consectetur." +
+                            " At sagittis mattis cursus leo habitant adipiscing" +
+                            ". Malesuada non amet sit laoreet. Volutpat et magna.",
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Light
+                )
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        color = Color.Transparent,
+                        shape = RoundedCornerShape(30.dp)
+                    )
+            ) {
+                Image(
+                    painter = painterResource(id = R.mipmap.basquete), // Substitua R.mipmap.basquete pelo ID da sua imagem
+                    contentDescription = "basquete",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(16.dp)), // Aplica o mesmo formato da caixa à imagem
+                    contentScale = ContentScale.Crop // Ajuste a escala da imagem conforme necessário
+                )
+            }
+
+
+        }
     }
 }

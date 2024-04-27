@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -34,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
 import com.projects.bubbles.ui.theme.Slate100
+import com.projects.bubbles.ui.theme.Slate800
 import com.projects.bubbles.ui.theme.Zinc700
 
 @Composable
@@ -154,5 +158,42 @@ fun AcessButton(
             fontWeight = FontWeight.Bold,
             color = Color.White
         )
+    }
+}
+
+@Composable
+fun ButtonSelectBubble(valueText: String, icon: Painter, buttonColor: Color) {
+    Box(
+        modifier = Modifier
+            .wrapContentSize()
+            .clip(shape = RoundedCornerShape(6.dp))
+            .height(38.dp)
+            .background(color = buttonColor)
+            .clickable(onClick = {})
+    ) {
+        Button(
+            onClick = {},
+            contentPadding = PaddingValues(6.dp),
+            colors = ButtonDefaults.buttonColors(Color.Transparent)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    modifier = Modifier
+                        .height(35.dp),
+                    painter = icon,
+                    contentDescription = null,
+                    tint = Slate800
+                )
+                Spacer(modifier = Modifier.width(5.dp))
+                Text(
+                    text = valueText,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Light,
+                    color = Slate800
+                )
+            }
+        }
     }
 }
