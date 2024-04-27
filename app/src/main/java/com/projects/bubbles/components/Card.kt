@@ -165,16 +165,14 @@ fun bubbleCard() {
                     )
             ) {
                 Image(
-                    painter = painterResource(id = R.mipmap.basquete), // Substitua R.mipmap.basquete pelo ID da sua imagem
+                    painter = painterResource(id = R.mipmap.basquete),
                     contentDescription = "basquete",
                     modifier = Modifier
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp)), // Aplica o mesmo formato da caixa à imagem
-                    contentScale = ContentScale.Crop // Ajuste a escala da imagem conforme necessário
+                        .clip(RoundedCornerShape(16.dp)),
+                    contentScale = ContentScale.Crop
                 )
             }
-
-
         }
     }
 }

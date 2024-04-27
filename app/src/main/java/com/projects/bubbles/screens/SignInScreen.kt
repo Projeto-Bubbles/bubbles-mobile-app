@@ -30,7 +30,6 @@ import com.projects.bubbles.Screen
 import com.projects.bubbles.components.ArrowRight
 import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.ButtonComponent
-import com.projects.bubbles.components.ButtonSelectBubble
 import com.projects.bubbles.components.NormalText
 import com.projects.bubbles.components.PasswordField
 import com.projects.bubbles.components.TextField

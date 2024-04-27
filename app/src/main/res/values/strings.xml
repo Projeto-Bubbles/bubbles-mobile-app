@@ -28,9 +28,10 @@
     <!-- Select bubbles infos -->
     <string name="bubble_infos">Selecione suas bolhas</string>
 
-
-
-    <!-- Category info texts-->
+    <!-- Category info texts -->
     <string name="category_choice">Escolha suas bolhas</string>>
     <string name="category_selection">SELECIONAR BOLHAS</string>>
+
+    <!-- Feed Texts -->
+    <string name="response">Responder</string>>
 </resources>
