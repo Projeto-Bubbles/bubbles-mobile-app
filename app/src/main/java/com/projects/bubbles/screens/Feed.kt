@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,18 +21,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.components.EventCard
-import com.projects.bubbles.components.HeaderBar
-import com.projects.bubbles.components.NavigationBar
 import com.projects.bubbles.R
 import com.projects.bubbles.components.AcessCard
-import com.projects.bubbles.components.PostBox
 
 @Composable
 fun Feed() {
-    val posts = remember { mutableStateListOf<String>() }
+    // val posts = remember { mutableStateListOf<String>() }
 
     Surface(
         modifier = Modifier
@@ -44,8 +38,6 @@ fun Feed() {
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.background(Color.White)
         ) {
-            HeaderBar()
-
             Column(
                 modifier = Modifier
                     .fillMaxWidth()

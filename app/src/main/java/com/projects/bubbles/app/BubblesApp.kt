@@ -23,7 +23,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
+import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.NavbarIcon
+import com.projects.bubbles.components.Perfil
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
 import com.projects.bubbles.screens.SelectCategory
@@ -31,6 +33,21 @@ import com.projects.bubbles.screens.SelectCategory
 @Composable
 fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
     Column {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(85.dp)
+                .padding(start = 145.dp, end = 32.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            BubbleLogo()
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Perfil()
+        }
+
         NavHost(
             modifier = modifier,
             navController = navConroller,
@@ -58,29 +75,20 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Card(modifier = modifier.weight(1f)) {
-                TextButton(onClick = {
-                    navConroller.navigate("bubbles")
-                }) {
-                    NavbarIcon(icon = painterResource(id = R.mipmap.bubbles_section))
-                }
-            }
+            NavbarIcon(
+                icon = painterResource(id = R.mipmap.bubbles_section),
+                onClick = { navConroller.navigate("bubbles")
+            })
 
-            Card(modifier = modifier.weight(1f)) {
-                TextButton(onClick = {
-                    navConroller.navigate("feed")
-                }) {
-                    NavbarIcon(icon = painterResource(id = R.mipmap.feed_section))
-                }
-            }
+            NavbarIcon(
+                icon = painterResource(id = R.mipmap.feed_section),
+                onClick = { navConroller.navigate("feed")
+            })
 
-            Card(modifier = modifier.weight(1f)) {
-                TextButton(onClick = {
-                    navConroller.navigate("events")
-                }) {
-                    NavbarIcon(icon = painterResource(id = R.mipmap.events_section))
-                }
-            }
+            NavbarIcon(
+                icon = painterResource(id = R.mipmap.events_section),
+                onClick = { navConroller.navigate("events")
+            })
         }
     }
 }

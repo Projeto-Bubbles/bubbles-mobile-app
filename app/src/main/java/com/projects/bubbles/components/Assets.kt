@@ -6,8 +6,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -57,8 +59,8 @@ fun Perfil() {
 }
 
 @Composable
-fun NavbarIcon(icon: Painter) {
-    Box(
+fun NavbarIcon(icon: Painter, onClick: () -> Unit) {
+    Button(
         modifier = Modifier
             .size(65.dp)
             .clip(CircleShape)
@@ -66,7 +68,7 @@ fun NavbarIcon(icon: Painter) {
                 color = Color(0xFFe4e4e4),
                 shape = CircleShape
             ),
-        contentAlignment = androidx.compose.ui.Alignment.Center
+        onClick = onClick
     ) {
         Icon(
             painter = icon,
