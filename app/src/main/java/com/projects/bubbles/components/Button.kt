@@ -22,6 +22,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -195,5 +196,25 @@ fun ButtonSelectBubble(valueText: String, icon: Painter, buttonColor: Color) {
                 )
             }
         }
+    }
+}
+
+@Composable
+fun NavbarButton(icon: Painter, onClick: () -> Unit, isSelected: Boolean) {
+    val backgroundColor = if (isSelected) Color(0xFFe4e4e4) else Color.Transparent
+
+    TextButton(
+        modifier = Modifier
+            .size(65.dp)
+            .clip(CircleShape)
+            .background(backgroundColor),
+        onClick = onClick
+    ) {
+        Icon(
+            painter = icon,
+            contentDescription = "Bolhas",
+            tint = Color(0xFF423f46),
+            modifier = Modifier.size(24.dp)
+        )
     }
 }

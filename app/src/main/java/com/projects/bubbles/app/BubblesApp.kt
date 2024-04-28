@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,7 +26,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
 import com.projects.bubbles.components.BubbleLogo
-import com.projects.bubbles.components.NavbarIcon
+import com.projects.bubbles.components.NavbarButton
 import com.projects.bubbles.components.Perfil
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
@@ -32,12 +34,14 @@ import com.projects.bubbles.screens.SelectCategory
 
 @Composable
 fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
+    var currentScreen by remember { mutableStateOf("feed") }
+
     Column {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(85.dp)
-                .padding(start = 145.dp, end = 32.dp),
+                .padding(start = 32.dp, end = 32.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -60,7 +64,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                 JoinBubble()
             }
             composable("events") {
-                SelectCategory()
+                SelectCategory() // Trocar para a tela de eventos
             }
         }
 
@@ -71,24 +75,37 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                 .fillMaxSize()
                 .height(85.dp)
                 .padding(16.dp)
+                .weight(1f)
                 .background(Color.White),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            NavbarIcon(
+            NavbarButton(
                 icon = painterResource(id = R.mipmap.bubbles_section),
-                onClick = { navConroller.navigate("bubbles")
-            })
+                onClick = {
+                    currentScreen = "bubbles"
+                    navConroller.navigate("bubbles")
+                },
+                isSelected = currentScreen == "bubbles"
+            )
 
-            NavbarIcon(
+            NavbarButton(
                 icon = painterResource(id = R.mipmap.feed_section),
-                onClick = { navConroller.navigate("feed")
-            })
+                onClick = {
+                    currentScreen = "feed"
+                    navConroller.navigate("feed")
+                },
+                isSelected = currentScreen == "feed"
+            )
 
-            NavbarIcon(
+            NavbarButton(
                 icon = painterResource(id = R.mipmap.events_section),
-                onClick = { navConroller.navigate("events")
-            })
+                onClick = {
+                    currentScreen = "events"
+                    navConroller.navigate("events")
+                },
+                isSelected = currentScreen == "events"
+            )
         }
     }
 }
