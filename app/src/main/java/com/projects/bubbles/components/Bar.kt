@@ -1,10 +1,12 @@
 package com.projects.bubbles.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -37,17 +39,15 @@ fun HeaderBar() {
 
 @Composable
 fun NavigationBar(currentPage: String) {
-    BottomAppBar(
+    Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(85.dp),
-        contentPadding = PaddingValues(16.dp),
-        containerColor = Color.White
+            .height(85.dp)
+            .padding(16.dp)
+            .background(Color.White)
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxSize(),
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {

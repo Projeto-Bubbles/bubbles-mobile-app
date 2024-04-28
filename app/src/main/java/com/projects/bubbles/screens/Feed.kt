@@ -4,13 +4,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,13 +25,10 @@ import com.projects.bubbles.components.HeaderBar
 import com.projects.bubbles.components.NavigationBar
 import com.projects.bubbles.R
 import com.projects.bubbles.components.AcessCard
-import com.projects.bubbles.components.CommentBox
-import com.projects.bubbles.components.ResponseField
+import com.projects.bubbles.components.PostBox
 
 @Composable
 fun Feed(navController: NavController) {
-    var response = remember { mutableStateOf("") }
-
     Surface(
         modifier = Modifier
             .fillMaxSize()
@@ -46,7 +44,9 @@ fun Feed(navController: NavController) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start = 28.dp, end = 28.dp)
+                    .height(600.dp)
+                    .padding(start = 28.dp, end = 28.dp),
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(
                     modifier = Modifier
@@ -60,9 +60,13 @@ fun Feed(navController: NavController) {
                     EventCard(image = painterResource(id = R.mipmap.event_bg_4))
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
                 AcessCard()
 
-                CommentBox(
+                Spacer(modifier = Modifier.height(32.dp))
+
+                PostBox(
                     userName = "Paulo Alvares",
                     userUsername = "paulinhoAl",
                     postTime = "2 hours ago",

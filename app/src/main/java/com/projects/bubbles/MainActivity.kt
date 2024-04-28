@@ -33,9 +33,8 @@ class MainActivity : ComponentActivity() {
                 Bubble("livros", R.mipmap.reading, bubbleGrey),
             )
             BubblesTheme {
-                SelectBubble(bubbleList = lista)
+                Navigation()
             }
-
         }
     }
 }
