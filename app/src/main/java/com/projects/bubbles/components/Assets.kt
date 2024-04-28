@@ -57,13 +57,13 @@ fun Perfil() {
 }
 
 @Composable
-fun NavbarIcon(currentPage: Boolean, icon: Painter) {
+fun NavbarIcon(icon: Painter) {
     Box(
         modifier = Modifier
             .size(65.dp)
             .clip(CircleShape)
             .background(
-                color = if (currentPage) Color(0xFFe4e4e4) else Color.White,
+                color = Color(0xFFe4e4e4),
                 shape = CircleShape
             ),
         contentAlignment = androidx.compose.ui.Alignment.Center

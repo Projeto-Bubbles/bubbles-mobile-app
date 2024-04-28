@@ -32,12 +32,11 @@ import com.projects.bubbles.components.AcessCard
 import com.projects.bubbles.components.PostBox
 
 @Composable
-fun Feed(navController: NavController) {
+fun Feed() {
     val posts = remember { mutableStateListOf<String>() }
 
     Surface(
         modifier = Modifier
-            .fillMaxSize()
             .background(Color.White)
     ) {
         Column(
@@ -86,8 +85,6 @@ fun Feed(navController: NavController) {
                    } */
                 }
             }
-
-            NavigationBar("feed")
         }
     }
 }
@@ -95,5 +92,5 @@ fun Feed(navController: NavController) {
 @Preview
 @Composable
 fun PreviewFeed() {
-    Feed(navController = rememberNavController())
+    Feed()
 }

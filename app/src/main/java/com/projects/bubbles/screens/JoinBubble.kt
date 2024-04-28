@@ -17,7 +17,6 @@ import com.projects.bubbles.ui.theme.Slate100
 fun JoinBubble() {
     Surface(
         modifier = Modifier
-            .fillMaxSize()
             .background(Color.White)
             .background(color = Slate100)
     ) {
