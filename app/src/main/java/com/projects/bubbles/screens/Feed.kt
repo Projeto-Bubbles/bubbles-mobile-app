@@ -29,53 +29,48 @@ import com.projects.bubbles.components.AcessCard
 fun Feed() {
     // val posts = remember { mutableStateListOf<String>() }
 
-    Surface(
-        modifier = Modifier
-            .background(Color.White)
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.background(Color.Transparent)
     ) {
         Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.background(Color.White)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(600.dp)
+                .padding(start = 28.dp, end = 28.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Column(
+            Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(600.dp)
-                    .padding(start = 28.dp, end = 28.dp)
-                    .verticalScroll(rememberScrollState()),
-                verticalArrangement = Arrangement.SpaceBetween
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    EventCard(image = painterResource(id = R.mipmap.event_bg))
-                    EventCard(image = painterResource(id = R.mipmap.event_bg_2))
-                    EventCard(image = painterResource(id = R.mipmap.event_bg_3))
-                    EventCard(image = painterResource(id = R.mipmap.event_bg_4))
-                }
+                EventCard(image = painterResource(id = R.mipmap.event_bg))
+                EventCard(image = painterResource(id = R.mipmap.event_bg_2))
+                EventCard(image = painterResource(id = R.mipmap.event_bg_3))
+                EventCard(image = painterResource(id = R.mipmap.event_bg_4))
+            }
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                AcessCard()
+            AcessCard()
 
-                Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(32.dp))
 
-                LazyColumn(
-                    modifier = Modifier.weight(1f)
-                ) {
-                    /* items(posts) { post ->
-                         PostBox(
-                            userName = post.userName,
-                            userUsername = post.userUsername,
-                            postTime = post.postTime,
-                            commentContent = post.commentContent
-                        )
-                   } */
-                }
+            LazyColumn(
+                modifier = Modifier.weight(1f)
+            ) {
+                /* items(posts) { post ->
+                     PostBox(
+                        userName = post.userName,
+                        userUsername = post.userUsername,
+                        postTime = post.postTime,
+                        commentContent = post.commentContent
+                    )
+               } */
             }
         }
     }
