@@ -96,7 +96,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     NavbarButton(
-                        icon = painterResource(id = R.mipmap.bubbles_section),
+                        icon = painterResource(id = R.drawable.bubbles_navbar),
                         onClick = {
                             currentScreen = "bubbles"
                             navConroller.navigate("bubbles")
@@ -105,7 +105,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                     )
 
                     NavbarButton(
-                        icon = painterResource(id = R.mipmap.feed_section),
+                        icon = painterResource(id = R.drawable.feed_navbar),
                         onClick = {
                             currentScreen = "feed"
                             navConroller.navigate("feed")
@@ -114,7 +114,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                     )
 
                     NavbarButton(
-                        icon = painterResource(id = R.mipmap.events_section),
+                        icon = painterResource(id = R.drawable.events_navbar),
                         onClick = {
                             currentScreen = "events"
                             navConroller.navigate("events")
