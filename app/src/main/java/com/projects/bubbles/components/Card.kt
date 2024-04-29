@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -98,21 +99,23 @@ fun AcessCard() {
 fun bubbleCard() {
     Box(
         modifier = Modifier
-            .size(270.dp)
+            .size(235.dp)
             .background(color = Zinc300, shape = RoundedCornerShape(16.dp))
     ) {
         Column {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(50.dp)
-                    .padding(15.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(10.dp)
+                    .height(30.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 ButtonSelectBubble(
                     valueText = "jogos",
                     icon = painterResource(id = R.mipmap.games),
-                    buttonColor = bubbleBlue
+                    onClick = {},
+                    backgroundColorButton = Color(0xFFfde68a)
                 )
 
                 Row {
@@ -136,7 +139,7 @@ fun bubbleCard() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(15.dp)
+                    .padding(horizontal = 15.dp)
             ) {
 
                 Text(
@@ -149,8 +152,11 @@ fun bubbleCard() {
                     text = "Lorem ipsum dolor sit amet consectetur." +
                             " At sagittis mattis cursus leo habitant adipiscing" +
                             ". Malesuada non amet sit laoreet. Volutpat et magna.",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Light
+                    style = TextStyle(
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Light,
+                        lineHeight = 16.sp
+                    )
                 )
             }
 

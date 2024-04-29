@@ -11,15 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.projects.bubbles.model.Bubble
+import com.projects.bubbles.screens.JoinBubble
 import com.projects.bubbles.screens.SelectBubble
 import com.projects.bubbles.screens.SelectCategory
 import com.projects.bubbles.screens.SignUpScreen
 import com.projects.bubbles.ui.theme.BubblesTheme
-import com.projects.bubbles.ui.theme.bubbbleYellow
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
 import com.projects.bubbles.ui.theme.bubbleGrey
 import com.projects.bubbles.ui.theme.bubblePurple
+import com.projects.bubbles.ui.theme.bubbleYellow
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,12 +29,12 @@ class MainActivity : ComponentActivity() {
             val lista = listOf(
                 Bubble("música", R.mipmap.music, bubbleBlue),
                 Bubble("ciência", R.mipmap.science, bubbleGreen),
-                Bubble("tecnologia", R.mipmap.technology, bubbbleYellow),
+                Bubble("tecnologia", R.mipmap.technology, bubbleYellow),
                 Bubble("gastronomia", R.mipmap.culinary, bubbleGrey),
                 Bubble("livros", R.mipmap.reading, bubbleGrey),
             )
             BubblesTheme {
-                SelectBubble(bubbleList = lista)
+                JoinBubble(lista)
             }
 
         }

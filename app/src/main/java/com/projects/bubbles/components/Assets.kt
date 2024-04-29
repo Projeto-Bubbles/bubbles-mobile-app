@@ -3,7 +3,9 @@ package com.projects.bubbles.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -19,9 +21,10 @@ import com.projects.bubbles.R
 @Composable
 fun BubbleLogo() {
     Image(
+        modifier = Modifier.fillMaxHeight()
+            .size(100.dp),
         painter = painterResource(id = R.mipmap.logo),
         contentDescription = "Logo",
-        modifier = Modifier.size(100.dp)
     )
 }
 

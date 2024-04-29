@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -162,38 +163,48 @@ fun AcessButton(
 }
 
 @Composable
-fun ButtonSelectBubble(valueText: String, icon: Painter, buttonColor: Color) {
+fun ButtonSelectBubble(
+    valueText: String,
+    icon: Painter,
+    onClick: () -> Unit,
+    backgroundColorButton: Color,
+    modifier: Modifier = Modifier
+) {
+    val clicked = remember { mutableStateOf(false) }
     Box(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentSize()
             .clip(shape = RoundedCornerShape(6.dp))
             .height(38.dp)
-            .background(color = buttonColor)
-            .clickable(onClick = {})
-    ) {
-        Button(
-            onClick = {},
-            contentPadding = PaddingValues(6.dp),
-            colors = ButtonDefaults.buttonColors(Color.Transparent)
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    modifier = Modifier
-                        .height(35.dp),
-                    painter = icon,
-                    contentDescription = null,
-                    tint = Slate800
-                )
-                Spacer(modifier = Modifier.width(5.dp))
-                Text(
-                    text = valueText,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Light,
-                    color = Slate800
-                )
+            .background(color = if (clicked.value) backgroundColorButton else Color.LightGray)
+            .clickable {
+                clicked.value = !clicked.value
+                onClick()
             }
+    ) {
+        Row(
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Spacer(modifier = Modifier.width(5.dp))
+            Icon(
+                modifier = Modifier
+                    .width(15.dp)
+                    .fillMaxHeight(),
+                painter = icon,
+                contentDescription = null,
+                tint = Slate800
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+            Text(
+                modifier = Modifier
+                    .height(29.dp),
+                text = valueText,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.Light,
+                color = Slate800
+            )
+            Spacer(modifier = Modifier.width(5.dp))
         }
     }
 }

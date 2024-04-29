@@ -34,12 +34,13 @@ import com.projects.bubbles.model.Bubble
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
-import com.projects.bubbles.ui.theme.bubbbleYellow
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
 import com.projects.bubbles.ui.theme.bubbleGrey
 import com.projects.bubbles.ui.theme.bubblePurple
+import com.projects.bubbles.ui.theme.bubbleYellow
 import com.projects.bubbles.ui.theme.rounded
+import kotlin.random.Random
 
 @Composable
 fun SelectBubble(bubbleList: List<Bubble>) {
@@ -112,7 +113,8 @@ fun SelectBubble(bubbleList: List<Bubble>) {
                                                 ButtonSelectBubble(
                                                     valueText = it.nome,
                                                     icon = painterResource(id = it.icon),
-                                                    buttonColor = it.cor
+                                                    onClick = {},
+                                                    backgroundColorButton = corAleatoria(),
                                                 )
                                             }
                                         }
@@ -133,6 +135,12 @@ fun SelectBubble(bubbleList: List<Bubble>) {
         }
     }
 }
+val cores = listOf(bubbleYellow, bubblePurple, bubbleGreen, bubbleBlue)
+
+fun corAleatoria(): Color {
+    val randomIndex = Random.nextInt(cores.size)
+    return cores[randomIndex]
+}
 
 @Preview
 @Composable
@@ -141,11 +149,11 @@ fun PreviewSelectBubble() {
         Bubble("música", R.mipmap.music, bubbleBlue),
         Bubble("ciência", R.mipmap.science, bubbleGreen),
         Bubble("tecnologia", R.mipmap.technology, bubblePurple),
-        Bubble("gastronomia", R.mipmap.culinary, bubbleGrey),
+        Bubble("gastronomia", R.mipmap.culinary, bubbleGreen),
         Bubble("livros", R.mipmap.reading, bubbleGrey),
-        Bubble("arte", R.mipmap.reading, bubbleGrey),
-        Bubble("jogos", R.mipmap.reading, bubbleGrey),
-        Bubble("esportes", R.mipmap.reading, bubbleGrey),
+        Bubble("arte", R.mipmap.art, bubbleGrey),
+        Bubble("jogos", R.mipmap.games, bubbleGrey),
+        Bubble("esportes", R.mipmap.sports, bubbleGrey),
     )
     SelectBubble(lista)
 }
