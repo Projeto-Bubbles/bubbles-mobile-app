@@ -39,10 +39,7 @@ fun SelectCategory() {
 
     val backgroundImage: Painter = painterResource(id = R.drawable.selection_bubbles)
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-    ) {
+    Surface{
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center,

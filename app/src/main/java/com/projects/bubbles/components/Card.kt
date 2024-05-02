@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,18 +30,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
+import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
+import com.projects.bubbles.ui.theme.Zinc100
 import com.projects.bubbles.ui.theme.Zinc300
+import com.projects.bubbles.ui.theme.Zinc500
+import com.projects.bubbles.ui.theme.Zinc700
 import com.projects.bubbles.ui.theme.bubbleBlue
 
 @Composable
-fun EventCard(
+fun EventStoryCard(
     image: Painter,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
-            .width(70.dp)
+            .width(75.dp)
             .height(115.dp)
             .clip(RoundedCornerShape(50.dp)),
         contentAlignment = Alignment.Center,
@@ -180,5 +185,74 @@ fun bubbleCard() {
                 )
             }
         }
+    }
+}
+
+
+@Composable
+fun EventCard() {
+    Box(
+        modifier = Modifier
+            .width(320.dp)
+            .height(230.dp)
+            .background(color = Zinc300, shape = RoundedCornerShape(16.dp))
+    ) {
+        Column {
+            Row {
+                Box(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .width(120.dp)
+                        )
+                {
+                    Image(
+                        painter = painterResource(id = R.mipmap.event_bg_2),
+                        contentDescription = "basquete",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .fillMaxHeight()
+                            .clip(
+                                shape = RoundedCornerShape(
+                                    topStart = 0.dp,
+                                    topEnd = 120.dp,
+                                    bottomStart = 0.dp,
+                                    bottomEnd = 120.dp
+                                )
+                            ),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(20.dp)
+                    ) {
+
+                        ButtonSelectBubble(
+                            valueText = "jogos",
+                            icon = painterResource(id = R.mipmap.games),
+                            onClick = {},
+                            backgroundColorButton = Color(0xFFfde68a)
+                        )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    TitleTextEvent(value = "Basquete dos Guri")
+                    SubtitleTextEvent(value = "Basqueteen")
+
+                    Spacer(modifier = Modifier.height(15.dp))
+
+                    LocalEvent(texto = "Rua dos bobos, 15 - SP")
+                    Spacer(modifier = Modifier.height(10.dp))
+                    Row{
+                        DataEvent(texto = "05/12/2023")
+                        Spacer(modifier = Modifier.width(10.dp))
+                        HorarioEvent(texto = "09h30")
+                    }
+                    Spacer(modifier = Modifier.height(17.dp))
+
+                    EventButton(content = "MARCAR PRESENÇA", onClick = {}, backgroundColor = Zinc700)
+
+                }
+            }
+        }
+
     }
 }

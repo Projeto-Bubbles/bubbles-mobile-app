@@ -42,7 +42,6 @@ import com.projects.bubbles.ui.theme.bubblePurple
 fun JoinBubble(bubbleList: List<Bubble>) {
     Surface(
         modifier = Modifier
-            .fillMaxSize()
             .background(Color.White)
     ) {
         Column(

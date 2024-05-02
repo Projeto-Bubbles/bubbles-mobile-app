@@ -59,3 +59,35 @@ fun SubtitleText(value: String) {
         color = Zinc500
     )
 }
+
+
+@Composable
+fun TitleTextEvent(value: String) {
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 10.dp),
+        style = TextStyle(
+            fontSize = 18.sp,
+            fontStyle = FontStyle.Normal,
+            fontWeight = FontWeight.Bold
+        ),
+        color = Zinc700
+    )
+}
+@Composable
+fun SubtitleTextEvent(value: String) {
+    Text(
+        text = value,
+        modifier = Modifier
+            .fillMaxWidth()
+            .heightIn(min = 6.dp),
+        style = TextStyle(
+            fontSize = 13.sp,
+            fontStyle = FontStyle.Normal
+        ),
+        color = Zinc500
+    )
+}
+

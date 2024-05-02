@@ -53,18 +53,18 @@ fun NavigationBar(currentPage: String) {
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            NavbarIcon(
-                currentPage = if (currentPage == "bubbles") true else false,
-                icon = painterResource(id = R.mipmap.bubbles_section)
-            )
-            NavbarIcon(
-                currentPage = if (currentPage == "feed") true else false,
-                icon = painterResource(id = R.mipmap.feed_section)
-            )
-            NavbarIcon(
-                currentPage = if (currentPage == "events") true else false,
-                icon = painterResource(id = R.mipmap.events_section)
-            )
+//            Navbar(
+//                currentPage = if (currentPage == "bubbles") true else false,
+//                icon = painterResource(id = R.mipmap.bubbles_section)
+//            )
+//            NavbarIcon(
+//                currentPage = if (currentPage == "feed") true else false,
+//                icon = painterResource(id = R.mipmap.feed_section)
+//            )
+//            NavbarIcon(
+//                currentPage = if (currentPage == "events") true else false,
+//                icon = painterResource(id = R.mipmap.events_section)
+//            )
         }
     }
 }
