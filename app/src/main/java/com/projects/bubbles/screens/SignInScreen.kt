@@ -102,10 +102,9 @@ fun SignInScreen(navController: NavController) {
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_password),
                                 icon = painterResource(id = R.drawable.user_duotone),
-                                value = password.value,
+                                 value = password.value,
                                 onValueChange = { password.value = it }
                             )
-
 
                             Spacer(Modifier.height(20.dp))
 

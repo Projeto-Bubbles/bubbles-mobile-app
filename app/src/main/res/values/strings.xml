@@ -13,7 +13,7 @@
 
     <!-- Register info texts -->
     <string name="sign_up_title">Vamos furar a bolha!</string>
-    <string name="sign_up_disclaimer">Já faz parte da Bubbles?</string>
+    <string name="sign_up_disclaimer">Já faz parte da Bubbles? Entrar</string>
     <string name="sign_up_text_button">Entre</string>
     <string name="sign_up_action_button">CADASTRAR-SE</string>
     <string name="sign_up_account_infos">Informações da conta</string>
@@ -25,7 +25,13 @@
     <string name="sign_up_repeat_password">Repetir senha</string>
     <string name="sign_up_button">CADASTRAR-SE</string>
 
-    <!-- Category info texts-->
+    <!-- Select bubbles infos -->
+    <string name="bubble_infos">Selecione suas bolhas</string>
+
+    <!-- Category info texts -->
     <string name="category_choice">Escolha suas bolhas</string>>
     <string name="category_selection">SELECIONAR BOLHAS</string>>
+
+    <!-- Feed Texts -->
+    <string name="response">Responder</string>>
 </resources>
