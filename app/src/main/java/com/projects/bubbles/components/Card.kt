@@ -234,8 +234,8 @@ fun EventCard() {
                             backgroundColorButton = Color(0xFFfde68a)
                         )
                     Spacer(modifier = Modifier.height(15.dp))
-                    TitleTextEvent(value = "Basquete dos Guri")
-                    SubtitleTextEvent(value = "Basqueteen")
+                    TitleTextEvent(value = "Procurando o nemo")
+                    SubtitleTextEvent(value = "Aventureiros")
 
                     Spacer(modifier = Modifier.height(15.dp))
 
@@ -248,7 +248,7 @@ fun EventCard() {
                     }
                     Spacer(modifier = Modifier.height(17.dp))
 
-                    EventButton(content = "MARCAR PRESENÇA", onClick = {}, backgroundColor = Zinc700)
+                    EventButton(content = "MARCAR PRESENÇA", onClick = {}, backgroundColor = Zinc500)
 
                 }
             }

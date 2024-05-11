@@ -35,6 +35,7 @@ import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.NavbarButton
 import com.projects.bubbles.components.Perfil
 import com.projects.bubbles.model.Bubble
+import com.projects.bubbles.screens.EventScreen
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
 import com.projects.bubbles.screens.SelectCategory
@@ -94,7 +95,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                     JoinBubble(lista)
                 }
                 composable("events") {
-                    SelectCategory() // Trocar para a tela de eventos
+                    EventScreen()
                 }
             }
 

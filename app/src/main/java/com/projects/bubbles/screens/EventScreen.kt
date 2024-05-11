@@ -15,13 +15,13 @@ import com.projects.bubbles.ui.theme.Slate100
 
 @Composable
 fun EventScreen() {
-    Surface(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White)
-            .background(color = Slate100)
-
-
+            .background(color = Slate100),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Column(

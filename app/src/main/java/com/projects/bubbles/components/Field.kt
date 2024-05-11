@@ -1,6 +1,7 @@
 package com.projects.bubbles.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -16,6 +17,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
 import com.projects.bubbles.screens.Feed
+import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
@@ -120,7 +124,7 @@ fun PasswordField(
 
 @Composable
 fun ResponseField(onValueChange: (String) -> Unit) {
-    Row (
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(30.dp)
@@ -130,7 +134,7 @@ fun ResponseField(onValueChange: (String) -> Unit) {
             )
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Icon(
             painter = painterResource(id = R.mipmap.response_arrow),
             contentDescription = null,
@@ -146,6 +150,48 @@ fun ResponseField(onValueChange: (String) -> Unit) {
             textStyle = TextStyle.Default.copy(color = Color.Black),
             modifier = Modifier.fillMaxSize(),
         )
+    }
+}
+
+
+@Composable
+fun SearchBubble() {
+    Row(
+        modifier = Modifier
+            .width(350.dp)
+            .height(35.dp)
+            .background(
+                color = Zinc300,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search Icon",
+            modifier = Modifier
+                .size(30.dp)
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        BasicTextField(
+            value = "",
+            onValueChange = {},
+            textStyle = TextStyle.Default.copy(color = Color.Black),
+            modifier = Modifier.fillMaxSize(),
+            decorationBox = { innerTextField ->
+                Box(modifier = Modifier.fillMaxSize()) {
+                    innerTextField()
+                    Text(
+                        text = "Pesquisar bolhas...",
+                        color = Color.Gray,
+                        style = TextStyle.Default,
+                        modifier = Modifier.padding(horizontal = 2.dp)
+                    )
+                }
+            })
     }
 }
 

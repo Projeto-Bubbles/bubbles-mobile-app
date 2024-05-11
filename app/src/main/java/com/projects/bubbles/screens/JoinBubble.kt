@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,6 +30,7 @@ import com.projects.bubbles.components.EventCard
 import com.projects.bubbles.components.HeaderBar
 import com.projects.bubbles.components.NavigationBar
 import com.projects.bubbles.components.ResponseField
+import com.projects.bubbles.components.SearchBubble
 import com.projects.bubbles.components.TextField
 import com.projects.bubbles.components.bubbleCard
 import com.projects.bubbles.model.Bubble
@@ -40,18 +42,22 @@ import com.projects.bubbles.ui.theme.bubblePurple
 
 @Composable
 fun JoinBubble(bubbleList: List<Bubble>) {
-    Surface(
+
+    Column(
         modifier = Modifier
             .background(Color.White)
+            .fillMaxWidth()
+            .fillMaxHeight()
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.background(Color.White)
         ) {
-            HeaderBar()
 
-
+            Spacer(modifier = Modifier.height(20.dp))
+            SearchBubble()
+            Spacer(modifier = Modifier.height(20.dp))
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -72,7 +78,7 @@ fun JoinBubble(bubbleList: List<Bubble>) {
                         onClick = {},
                         backgroundColorButton = corAleatoria(),
                     )
-                    Spacer(modifier = Modifier.width(8.dp)) // Espaçamento entre os elementos
+                    Spacer(modifier = Modifier.width(8.dp))
                 }
                 item {
                     Spacer(modifier = Modifier.weight(1f))
@@ -103,7 +109,6 @@ fun JoinBubble(bubbleList: List<Bubble>) {
             bubbleCard()
 
 
-            NavigationBar("bubbles")
         }
     }
 }
