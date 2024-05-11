@@ -1,5 +1,7 @@
 package com.projects.bubbles.app
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -36,7 +38,9 @@ import com.projects.bubbles.components.Perfil
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
 import com.projects.bubbles.screens.SelectCategory
+import com.projects.bubbles.screens.Test
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
     var currentScreen by remember { mutableStateOf("feed") }
@@ -77,14 +81,15 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                     JoinBubble()
                 }
                 composable("events") {
-                    SelectCategory() // Trocar para a tela de eventos
+                    Test() // Trocar para a tela de eventos
                 }
             }
 
             Spacer(modifier = Modifier.weight(1f))
 
             Row(
-                modifier = Modifier.background(Color.White)
+                modifier = Modifier
+                    .background(Color.White)
                     .fillMaxWidth()
                     .height(65.dp)
                     .padding(8.dp)
@@ -130,6 +135,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun TelaPreview() {

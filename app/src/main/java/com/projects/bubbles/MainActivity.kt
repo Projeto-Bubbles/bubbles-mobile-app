@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.app.BubblesApp
 import com.projects.bubbles.model.Bubble
+import com.projects.bubbles.screens.SelectCategory
 import com.projects.bubbles.ui.theme.BubblesTheme
 import com.projects.bubbles.ui.theme.bubbbleYellow
 import com.projects.bubbles.ui.theme.bubbleBlue
