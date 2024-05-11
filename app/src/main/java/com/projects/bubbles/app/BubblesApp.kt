@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -32,13 +31,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
-import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.NavbarButton
 import com.projects.bubbles.components.Perfil
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
-import com.projects.bubbles.screens.SelectCategory
-import com.projects.bubbles.screens.Test
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -80,9 +76,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                 composable("bubbles") {
                     JoinBubble()
                 }
-                composable("events") {
-                    Test() // Trocar para a tela de eventos
-                }
+
             }
 
             Spacer(modifier = Modifier.weight(1f))

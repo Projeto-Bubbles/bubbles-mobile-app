@@ -9,7 +9,7 @@ object Service {
 
     fun PostService(): IPost {
         val post = Retrofit.Builder()
-            .baseUrl("$BASE_URL/posts/")
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(IPost::class.java)
