@@ -4,7 +4,7 @@ import java.time.LocalDateTime
 
 data class Comment (
     val idComment:Int? = null,
-    val moment: LocalDateTime? = null,
+    val moment: String? = null,
     val contents: String? = null,
     val author: User? = null
 ){}

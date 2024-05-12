@@ -11,9 +11,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PostViewModel : ViewModel() {
-    val posts = MutableLiveData(SnapshotStateList<Post>())
+    val posts = MutableLiveData<MutableList<Post>>()
 
-    val error = MutableLiveData("")
+    val erro = MutableLiveData("")
 
     private val postService = Service.PostService()
 
@@ -25,38 +25,23 @@ class PostViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = postService.getPosts()
+                Log.d("Resposta da API", response.body().toString())
 
                 if (response.isSuccessful) {
-                    posts.value!!.clear()
-                    posts.value!!.addAll(response.body() ?: emptyList())
-                    error("")
+                    val postList = response.body()?.toMutableList() ?: mutableListOf()
+                    posts.postValue(postList)
+
+                    erro.postValue("")
                 } else {
-                    Log.e("API", "Erro ${response.code()}: ${response.message()}")
-                    error.postValue(response.errorBody()?.string())
+
+                    erro.postValue(response.errorBody()?.string())
+                    Log.e("api", "Não deu sucesso! ${erro.value}")
+
                 }
             } catch (e: Exception) {
                 Log.e("api", "Deu ruim rapazz no get! ${e.message}")
-                error.postValue(e.message)
+                erro.postValue(e.message)
             }
         }
     }
-
-//    public fun criar(novoFilme: Filme){
-//        CoroutineScope(Dispatchers.IO).launch {
-//            try {
-//                val post = apiposts.post(novoFilme)
-//
-//                if (post.isSuccessful) {
-//                    getposts()
-//                    error.postValue("")
-//                } else {
-//                    error.postValue(post.errorrBody()?.string())
-//                }
-//            } catch (e: Exception) {
-//                Log.e("api", "Deu ruim rapazz no create! ${e.message}")
-//                error.postValue(e.message)
-//            }
-//        }
-//
-//    }
 }
