@@ -9,14 +9,13 @@ import java.util.concurrent.TimeUnit
 object Service {
     const val BASE_URL = "http://10.0.2.2:8080/"
 
+    val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de conexão
+        .readTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de leitura
+        .writeTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de escrita
+        .build()
 
     fun PostService(): IPost {
-        val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de conexão
-            .readTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de leitura
-            .writeTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de escrita
-            .build()
-
         val post = Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())

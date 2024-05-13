@@ -37,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -119,16 +120,20 @@ fun PasswordField(
 }
 
 @Composable
-fun ResponseField(onValueChange: (String) -> Unit) {
-    Row (
+fun PostResponseField(onPostCreated: (String) -> Unit) {
+    var content = remember { mutableStateOf("") }
+
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(30.dp)
-            .background(Color.White,
-                shape = RoundedCornerShape(8.dp))
+            .background(
+                Color.White,
+                shape = RoundedCornerShape(8.dp)
+            )
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Icon(
             painter = painterResource(id = R.mipmap.response_arrow),
             contentDescription = null,
@@ -139,10 +144,22 @@ fun ResponseField(onValueChange: (String) -> Unit) {
         Spacer(modifier = Modifier.width(8.dp))
 
         BasicTextField(
-            value = "",
-            onValueChange = onValueChange,
+            value = content.value,
+            onValueChange = { content.value = it },
             textStyle = TextStyle.Default.copy(color = Color.Black),
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    onPostCreated(content.value)
+                    content.value = ""
+                }
+            )
         )
     }
 }

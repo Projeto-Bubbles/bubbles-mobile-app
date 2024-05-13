@@ -38,7 +38,7 @@ import com.projects.bubbles.screens.JoinBubble
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
+fun BubblesApp(navController: NavHostController, modifier: Modifier = Modifier) {
     var currentScreen by remember { mutableStateOf("feed") }
     val backgroundImage: Painter = painterResource(id = R.drawable.default_background)
 
@@ -53,82 +53,65 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
             modifier = Modifier.fillMaxSize()
         )
 
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(65.dp)
-                    .padding(end = 32.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Box(
+                modifier = Modifier.weight(1f)
             ) {
-                Perfil()
-            }
-
-            NavHost(
-                modifier = modifier,
-                navController = navConroller,
-                startDestination = "feed"
-            ) {
-                composable("feed") {
-                    Feed()
+                NavHost(
+                    modifier = modifier,
+                    navController = navController,
+                    startDestination = "feed"
+                ) {
+                    composable("feed") {
+                        Feed()
+                    }
+                    composable("bubbles") {
+                        JoinBubble()
+                    }
                 }
-                composable("bubbles") {
-                    JoinBubble()
-                }
-
             }
-
-            Spacer(modifier = Modifier.weight(1f))
 
             Row(
                 modifier = Modifier
                     .background(Color.White)
                     .fillMaxWidth()
                     .height(65.dp)
-                    .padding(8.dp)
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceAround
             ) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    horizontalArrangement = Arrangement.SpaceAround,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    NavbarButton(
-                        icon = painterResource(id = R.drawable.bubbles_navbar),
-                        onClick = {
-                            currentScreen = "bubbles"
-                            navConroller.navigate("bubbles")
-                        },
-                        isSelected = currentScreen == "bubbles"
-                    )
+                NavbarButton(
+                    icon = painterResource(id = R.drawable.bubbles_navbar),
+                    onClick = {
+                        currentScreen = "bubbles"
+                        navController.navigate("bubbles")
+                    },
+                    isSelected = currentScreen == "bubbles"
+                )
 
-                    NavbarButton(
-                        icon = painterResource(id = R.drawable.feed_navbar),
-                        onClick = {
-                            currentScreen = "feed"
-                            navConroller.navigate("feed")
-                        },
-                        isSelected = currentScreen == "feed"
-                    )
+                NavbarButton(
+                    icon = painterResource(id = R.drawable.feed_navbar),
+                    onClick = {
+                        currentScreen = "feed"
+                        navController.navigate("feed")
+                    },
+                    isSelected = currentScreen == "feed"
+                )
 
-                    NavbarButton(
-                        icon = painterResource(id = R.drawable.events_navbar),
-                        onClick = {
-                            currentScreen = "events"
-                            navConroller.navigate("events")
-                        },
-                        isSelected = currentScreen == "events"
-                    )
-                }
-
+                NavbarButton(
+                    icon = painterResource(id = R.drawable.events_navbar),
+                    onClick = {
+                        currentScreen = "events"
+                        navController.navigate("events")
+                    },
+                    isSelected = currentScreen == "events"
+                )
             }
         }
     }
-
-
 }
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable

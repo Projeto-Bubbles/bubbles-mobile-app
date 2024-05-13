@@ -54,7 +54,7 @@ fun EventCard(
 }
 
 @Composable
-fun AcessCard() {
+fun AccessCard() {
     Box(
         modifier = Modifier
             .background(
