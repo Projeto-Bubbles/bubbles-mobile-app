@@ -1,5 +1,7 @@
 package com.projects.bubbles.app
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,7 +33,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
-import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.NavbarButton
 import com.projects.bubbles.components.Perfil
 import com.projects.bubbles.model.Bubble
@@ -43,20 +44,20 @@ import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
 import com.projects.bubbles.ui.theme.bubbleGrey
 import com.projects.bubbles.ui.theme.bubblePurple
+import com.projects.bubbles.ui.theme.bubbleYellow
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
     var currentScreen by remember { mutableStateOf("feed") }
     val backgroundImage: Painter = painterResource(id = R.drawable.default_background)
-
     val lista = listOf(
         Bubble("música", R.mipmap.music, bubbleBlue),
         Bubble("ciência", R.mipmap.science, bubbleGreen),
-        Bubble("tecnologia", R.mipmap.technology, bubblePurple),
-        Bubble("gastronomia", R.mipmap.culinary, bubbleGreen),
-        Bubble("livros", R.mipmap.reading, bubbleGrey)
+        Bubble("tecnologia", R.mipmap.technology, bubbleYellow),
+        Bubble("gastronomia", R.mipmap.culinary, bubbleGrey),
+        Bubble("livros", R.mipmap.reading, bubbleGrey),
     )
-
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -94,6 +95,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
                 composable("bubbles") {
                     JoinBubble(lista)
                 }
+
                 composable("events") {
                     EventScreen()
                 }
@@ -102,7 +104,8 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.weight(1f))
 
             Row(
-                modifier = Modifier.background(Color.White)
+                modifier = Modifier
+                    .background(Color.White)
                     .fillMaxWidth()
                     .height(65.dp)
                     .padding(8.dp)
@@ -148,6 +151,7 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun TelaPreview() {

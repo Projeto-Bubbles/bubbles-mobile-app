@@ -8,13 +8,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,21 +56,26 @@ fun Feed() {
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            LazyColumn(
-                modifier = Modifier.weight(1f)
-            ) {
-                /* items(posts) { post ->
-                     PostBox(
-                        userName = post.userName,
-                        userUsername = post.userUsername,
-                        postTime = post.postTime,
-                        commentContent = post.commentContent
-                    )
-               } */
-            }
+//            PostsList()
         }
     }
 }
+
+//@Composable
+//fun PostsList(viewModel: PostViewModel = PostViewModel()) {
+//    val posts = viewModel.posts.observeAsState().value!!
+//    val erro = viewModel.error.observeAsState().value!!
+//
+//    item {
+//        // Adicione o cabeçalho aqui
+//        Text(text = "Cabeçalho")
+//    }
+//}
+//
+//
+//if (erro.isNotBlank()) {
+//    Text(erro)
+//}
 
 @Preview
 @Composable
