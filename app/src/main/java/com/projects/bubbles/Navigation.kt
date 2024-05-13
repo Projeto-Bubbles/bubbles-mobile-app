@@ -1,5 +1,7 @@
 package com.projects.bubbles
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -9,8 +11,8 @@ import androidx.navigation.navArgument
 import com.projects.bubbles.screens.AccountScreen
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.SelectCategory
-import com.projects.bubbles.screens.SignInScreen
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun Navigation() {
     val navController = rememberNavController()

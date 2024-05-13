@@ -177,6 +177,8 @@ fun CreatePostBox(
                     keyboardActions = KeyboardActions(
                         onDone = {
                             Log.d("FIELD", "RODEI AQUI")
+
+
                             val newPost =
                                 PostRequest(contents = content.value, 1, 1)
                             postViewModel.createPost(newPost)

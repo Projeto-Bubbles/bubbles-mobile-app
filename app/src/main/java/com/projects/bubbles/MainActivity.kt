@@ -11,6 +11,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.projects.bubbles.model.Bubble
 import com.projects.bubbles.screens.SelectBubble
+import com.projects.bubbles.screens.SignUpScreen
 import com.projects.bubbles.ui.theme.BubblesTheme
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
@@ -37,8 +38,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-//                    BubblesApp(rememberNavController())
-                    SelectBubble(bubbleList = lista)
+                    SignUpScreen()
                 }
             }
         }

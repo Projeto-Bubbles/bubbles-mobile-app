@@ -1,5 +1,6 @@
 package com.projects.bubbles.screens
 
+import AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,16 +33,17 @@ import com.projects.bubbles.components.PasswordField
 import com.projects.bubbles.components.SubtitleText
 import com.projects.bubbles.components.TextField
 import com.projects.bubbles.components.TitleText
+import com.projects.bubbles.dto.RegisterRequest
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(    authViewModel: AuthViewModel = AuthViewModel()
+) {
     val context = LocalContext.current
 
-    // Estado para os valores dos campos de entrada
     var nickname = remember { mutableStateOf("") }
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
@@ -114,7 +116,6 @@ fun SignUpScreen() {
                             )
 
 
-                            
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_password),
                                 icon = painterResource(id = R.mipmap.lock),
@@ -134,7 +135,16 @@ fun SignUpScreen() {
 
                             ButtonComponent(
                                 value = stringResource(id = R.string.sign_up_action_button),
-                                onClick = {})
+                                onClick = {
+                                    val registerRequest = RegisterRequest(
+                                        username = "Ruan", // Mock para campos que não têm entrada do usuário
+                                        nickname = nickname.value,
+                                        email = email.value,
+                                        password = password.value,
+                                        cpf = "46292412806" // Mock para campos que não têm entrada do usuário
+                                    )
+                                    authViewModel.register(registerRequest)
+                                })
                         }
                     }
 
