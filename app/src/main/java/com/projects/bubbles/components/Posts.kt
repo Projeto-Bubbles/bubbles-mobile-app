@@ -1,10 +1,15 @@
 package com.projects.bubbles.components
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,9 +19,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.projects.bubbles.R
 import com.projects.bubbles.dto.Comment
 import com.projects.bubbles.dto.Post
 import com.projects.bubbles.dto.PostRequest
@@ -24,6 +33,7 @@ import com.projects.bubbles.viewmodel.PostViewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 
 @Composable
 fun CommentBox(
@@ -83,9 +93,9 @@ fun CommentBox(
 fun CreatePostBox(
     username: String,
     nickname: String,
+    postViewModel: PostViewModel
 ) {
 
-    val postViewModel = PostViewModel()
     val content = remember { mutableStateOf("") }
 
     Surface(
@@ -130,15 +140,52 @@ fun CreatePostBox(
                 color = Color(0xFF423f46)
             )
 
+
             Spacer(modifier = Modifier.height(8.dp))
 
-            PostResponseField(
-                onPostCreated = {
-                    val newPost =
-                        PostRequest(dateTime = LocalDateTime.now(), content = content.value, 1, 1)
-                    postViewModel.createPost(newPost)
-                }
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .background(
+                        Color.White,
+                        shape = RoundedCornerShape(8.dp)
+                    )
+                    .padding(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    painter = painterResource(id = R.mipmap.response_arrow),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(30.dp)
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                BasicTextField(
+                    value = content.value,
+                    onValueChange = { content.value = it },
+                    textStyle = androidx.compose.ui.text.TextStyle.Default.copy(color = Color.Black),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f),
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            Log.d("FIELD", "RODEI AQUI")
+                            val newPost =
+                                PostRequest(contents = content.value, 1, 1)
+                            postViewModel.createPost(newPost)
+
+                            content.value = ""
+                        }
+                    )
+                )
+            }
 
         }
     }

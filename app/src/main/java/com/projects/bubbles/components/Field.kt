@@ -1,5 +1,6 @@
 package com.projects.bubbles.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -45,8 +46,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
+import com.projects.bubbles.dto.PostRequest
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.ui.theme.rounded
+import com.projects.bubbles.viewmodel.PostViewModel
 
 @Composable
 fun TextField(
@@ -112,7 +115,6 @@ fun PasswordField(
                         contentDescription = "Senha invisível"
                     )
                 }
-                iconImage
             }
         },
         visualTransformation = if (passwordVisible.value) VisualTransformation.None else visualTransformation
@@ -120,7 +122,7 @@ fun PasswordField(
 }
 
 @Composable
-fun PostResponseField(onPostCreated: (String) -> Unit) {
+fun PostResponseField(postViewModel: PostViewModel = PostViewModel()) {
     var content = remember { mutableStateOf("") }
 
     Row(
@@ -156,7 +158,11 @@ fun PostResponseField(onPostCreated: (String) -> Unit) {
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
-                    onPostCreated(content.value)
+                    Log.d("FIELD", "RODEI AQUI")
+                    val newPost =
+                        PostRequest(contents = content.value, 1, 1)
+                    postViewModel.createPost(newPost)
+
                     content.value = ""
                 }
             )

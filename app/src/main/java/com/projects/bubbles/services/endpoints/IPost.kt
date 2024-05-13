@@ -19,7 +19,7 @@ interface IPost {
     fun getPostById(@Path("id") id: Int): Call<Post>
 
     @POST("/posts")
-    fun createPost(@Body newPost: PostRequest): Response<PostRequest>
+    suspend fun createPost(@Body newPost: PostRequest): Response<Post>
 
     @PUT("{id}")
     fun updatePost(@Path("id") id: Int, @Body editedPost: Post): Call<Post>
