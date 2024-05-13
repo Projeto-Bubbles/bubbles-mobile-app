@@ -153,7 +153,7 @@ fun ResponseField(onValueChange: (String) -> Unit) {
 fun SearchBubble() {
     Row(
         modifier = Modifier
-            .width(350.dp)
+            .width(255.dp)
             .height(35.dp)
             .background(
                 color = Zinc300,

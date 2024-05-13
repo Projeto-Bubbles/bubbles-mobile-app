@@ -240,7 +240,7 @@ fun EventCard() {
                     ButtonSelectBubble(
                         valueText = "jogos",
                         icon = painterResource(id = R.mipmap.games),
-                        onClick = {},
+                        onClick = null,
                         backgroundColorButton = Color(0xFFfde68a)
                     )
                     Spacer(modifier = Modifier.height(15.dp))

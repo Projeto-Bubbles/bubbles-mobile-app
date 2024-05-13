@@ -14,11 +14,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,10 +38,8 @@ import com.projects.bubbles.model.Bubble
 import com.projects.bubbles.screens.EventScreen
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
-import com.projects.bubbles.screens.SelectCategory
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
-import com.projects.bubbles.ui.theme.bubbleGrey
 import com.projects.bubbles.ui.theme.bubblePurple
 import com.projects.bubbles.ui.theme.bubbleYellow
 
@@ -54,9 +51,12 @@ fun BubblesApp(navConroller: NavHostController, modifier: Modifier = Modifier) {
     val lista = listOf(
         Bubble("música", R.mipmap.music, bubbleBlue),
         Bubble("ciência", R.mipmap.science, bubbleGreen),
-        Bubble("tecnologia", R.mipmap.technology, bubbleYellow),
-        Bubble("gastronomia", R.mipmap.culinary, bubbleGrey),
-        Bubble("livros", R.mipmap.reading, bubbleGrey),
+        Bubble("tecnologia", R.mipmap.technology, bubblePurple),
+        Bubble("gastronomia", R.mipmap.culinary, bubbleYellow),
+        Bubble("livros", R.mipmap.reading, bubbleBlue),
+        Bubble("esportes", R.mipmap.sports, bubbleGreen),
+        Bubble("arte", R.mipmap.art, bubblePurple),
+        Bubble("games", R.mipmap.games, bubbleYellow),
     )
     Box(
         modifier = Modifier.fillMaxSize(),

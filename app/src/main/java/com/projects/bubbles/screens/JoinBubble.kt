@@ -3,8 +3,8 @@ package com.projects.bubbles.screens
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
@@ -18,10 +18,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.projects.bubbles.R
+import com.projects.bubbles.components.AcessButton
 import com.projects.bubbles.components.ButtonSelectBubble
 import com.projects.bubbles.components.SearchBubble
 import com.projects.bubbles.components.bubbleCard
 import com.projects.bubbles.model.Bubble
+import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
 import com.projects.bubbles.ui.theme.bubblePurple
@@ -32,9 +34,8 @@ fun JoinBubble(bubbleList: List<Bubble>) {
 
     Column(
         modifier = Modifier
-            .background(Color.White)
+            .background(Slate100)
             .fillMaxWidth()
-            .fillMaxHeight()
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -43,8 +44,18 @@ fun JoinBubble(bubbleList: List<Bubble>) {
         ) {
 
             Spacer(modifier = Modifier.height(20.dp))
-            SearchBubble()
+
+            Row(modifier = Modifier
+                .width(350.dp),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically){
+                SearchBubble()
+                Spacer(modifier = Modifier.width(10.dp))
+                AcessButton(content = "Criar +", onClick = {}, backgroundColor = Color.DarkGray)
+            }
+
             Spacer(modifier = Modifier.height(20.dp))
+
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,7 +104,6 @@ fun JoinBubble(bubbleList: List<Bubble>) {
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-            bubbleCard(4,"Teste", "Teste Maximum", "teste", painterResource(id = R.mipmap.event_bg_4))
 
 
         }
@@ -108,8 +118,11 @@ fun PreviewJoinBubble() {
         Bubble("música", R.mipmap.music, bubbleBlue),
         Bubble("ciência", R.mipmap.science, bubbleGreen),
         Bubble("tecnologia", R.mipmap.technology, bubblePurple),
-        Bubble("gastronomia", R.mipmap.culinary, bubbleGreen),
-        Bubble("livros", R.mipmap.reading, bubbleYellow)
+        Bubble("gastronomia", R.mipmap.culinary, bubbleYellow),
+        Bubble("livros", R.mipmap.reading, bubbleBlue),
+        Bubble("esportes", R.mipmap.sports, bubbleGreen),
+        Bubble("arte", R.mipmap.art, bubblePurple),
+        Bubble("games", R.mipmap.games, bubbleYellow),
     )
     JoinBubble(lista)
 }
