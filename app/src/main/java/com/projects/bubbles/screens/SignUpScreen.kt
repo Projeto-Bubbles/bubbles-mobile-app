@@ -30,7 +30,7 @@ import com.projects.bubbles.components.ButtonComponent
 import com.projects.bubbles.components.NormalText
 import com.projects.bubbles.components.PasswordField
 import com.projects.bubbles.components.SubtitleText
-import com.projects.bubbles.components.TextFieldT
+import com.projects.bubbles.components.TextField
 import com.projects.bubbles.components.TitleText
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
@@ -99,14 +99,14 @@ fun SignUpScreen() {
 
                             Spacer(Modifier.height(20.dp))
 
-                            TextFieldT(
+                            TextField(
                                 label = stringResource(id = R.string.sign_up_nickname),
                                 icon = painterResource(id = R.drawable.user_duotone),
                                 value = nickname.value,
                                 onValueChange = {nickname.value = it}
                             )
 
-                            TextFieldT(
+                            TextField(
                                 label = stringResource(id = R.string.sign_up_email),
                                 icon = painterResource(id = R.mipmap.email),
                                 value = email.value,

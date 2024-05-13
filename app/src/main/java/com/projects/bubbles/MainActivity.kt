@@ -9,9 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.rememberNavController
-import com.projects.bubbles.app.BubblesApp
 import com.projects.bubbles.model.Bubble
+import com.projects.bubbles.screens.SelectBubble
 import com.projects.bubbles.ui.theme.BubblesTheme
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
@@ -27,10 +26,10 @@ class MainActivity : ComponentActivity() {
                 Bubble("música", R.mipmap.music, bubbleBlue),
                 Bubble("ciência", R.mipmap.science, bubbleGreen),
                 Bubble("tecnologia", R.mipmap.technology, bubblePurple),
-                Bubble("gastronomia", R.mipmap.culinary, bubbleYellow),
+                Bubble("arte", R.mipmap.art, bubblePurple),
                 Bubble("livros", R.mipmap.reading, bubbleBlue),
                 Bubble("esportes", R.mipmap.sports, bubbleGreen),
-                Bubble("arte", R.mipmap.art, bubblePurple),
+                Bubble("gastronomia", R.mipmap.culinary, bubbleYellow),
                 Bubble("games", R.mipmap.games, bubbleYellow),
             )
             BubblesTheme {
@@ -38,7 +37,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    BubblesApp(rememberNavController())
+//                    BubblesApp(rememberNavController())
+                    SelectBubble(bubbleList = lista)
                 }
             }
         }

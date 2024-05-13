@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.projects.bubbles.R
 import com.projects.bubbles.components.CreatePostBox
+import com.projects.bubbles.components.DeleteButton
 import com.projects.bubbles.components.EventStoryCard
 import com.projects.bubbles.components.PostBox
 import com.projects.bubbles.viewmodel.PostViewModel
@@ -35,7 +36,7 @@ import com.projects.bubbles.viewmodel.PostViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Feed() {
+fun Feed(postViewModel: PostViewModel = PostViewModel()) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -59,11 +60,20 @@ fun Feed() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
+
+            DeleteButton {
+                val postIdToDelete = 1
+                    postViewModel.deletePostById(postIdToDelete)
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
 //            AccessCard()
 
             CreatePostBox(
                 username = "Ruan",
                 nickname = "helloWorldRuan",
+                postViewModel = PostViewModel()
             )
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -78,9 +88,16 @@ fun PostList(viewModel: PostViewModel = PostViewModel()) {
     val posts = viewModel.posts.observeAsState().value
     val erro = viewModel.erro.observeAsState().value
     val loading = viewModel.loading.observeAsState().value
+    val postCreated = viewModel.postCreated.observeAsState().value
+
 
     if (!erro.isNullOrEmpty()) {
         Text(erro)
+    }
+
+    if (postCreated == true) {
+        viewModel.postCreated.value = false // Reseta o valor para evitar recarregamentos repetidos
+        viewModel.getPosts() // Recarrega a lista de posts
     }
 
     // Exibe o indicador de carregamento se o estado de loading for verdadeiro

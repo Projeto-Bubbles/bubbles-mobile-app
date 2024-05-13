@@ -1,5 +1,6 @@
 package com.projects.bubbles.components
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -37,11 +38,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import com.projects.bubbles.R
+import com.projects.bubbles.dto.PostRequest
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.rounded
+import com.projects.bubbles.viewmodel.PostViewModel
 
 @Composable
-fun TextFieldT(
+fun TextField(
     label: String,
     icon: Painter,
     modifier: Modifier = Modifier,
@@ -56,8 +59,6 @@ fun TextFieldT(
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
-        visualTransformation = VisualTransformation.None,
-        maxLines = 1,
         leadingIcon = {
             Icon(painter = icon, contentDescription = label)
         })
@@ -106,7 +107,6 @@ fun PasswordField(
                         contentDescription = "Senha invisível"
                     )
                 }
-                iconImage
             }
         },
         visualTransformation = if (passwordVisible.value) VisualTransformation.None else visualTransformation
@@ -114,7 +114,7 @@ fun PasswordField(
 }
 
 @Composable
-fun PostResponseField(onPostCreated: (String) -> Unit) {
+fun PostResponseField(postViewModel: PostViewModel = PostViewModel()) {
     var content = remember { mutableStateOf("") }
 
     Row(
@@ -150,7 +150,11 @@ fun PostResponseField(onPostCreated: (String) -> Unit) {
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
-                    onPostCreated(content.value)
+                    Log.d("FIELD", "RODEI AQUI")
+                    val newPost =
+                        PostRequest(contents = content.value, 1, 1)
+                    postViewModel.createPost(newPost)
+
                     content.value = ""
                 }
             )
