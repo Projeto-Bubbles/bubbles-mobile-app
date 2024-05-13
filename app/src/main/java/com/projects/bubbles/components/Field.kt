@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -47,10 +48,7 @@ fun TextFieldT(
     shape: Shape = rounded.small,
     value: String,
     onValueChange: (String) -> Unit,
-    keyboardOptions: KeyboardOptions = KeyboardOptions(
-        imeAction = ImeAction.Done,
-        keyboardType = androidx.compose.ui.text.input.KeyboardType.Text
-    )
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default
 ) {
     OutlinedTextField(modifier = modifier.fillMaxWidth(),
         shape = shape,
@@ -64,8 +62,6 @@ fun TextFieldT(
             Icon(painter = icon, contentDescription = label)
         })
 }
-
-
 
 @Composable
 fun PasswordField(
@@ -118,7 +114,9 @@ fun PasswordField(
 }
 
 @Composable
-fun ResponseField(onValueChange: (String) -> Unit) {
+fun PostResponseField(onPostCreated: (String) -> Unit) {
+    var content = remember { mutableStateOf("") }
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -140,10 +138,22 @@ fun ResponseField(onValueChange: (String) -> Unit) {
         Spacer(modifier = Modifier.width(8.dp))
 
         BasicTextField(
-            value = "",
-            onValueChange = onValueChange,
+            value = content.value,
+            onValueChange = { content.value = it },
             textStyle = TextStyle.Default.copy(color = Color.Black),
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    onPostCreated(content.value)
+                    content.value = ""
+                }
+            )
         )
     }
 }

@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
 data class Post(
-    var idPost:Int? = null,
-    var moment:String? = null,
-    var contents:String? = null,
-    var author: User? = null,
-    var bubble: Bubble? = null,
+    var idPost:Int,
+    var moment:String,
+    var contents:String,
+    var author: User,
+    var bubble: Bubble,
     @SerializedName("comments")
     val comments: List<Comment> = listOf(Comment())
 ){}

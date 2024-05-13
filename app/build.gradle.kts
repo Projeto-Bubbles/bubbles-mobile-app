@@ -50,6 +50,9 @@ android {
 }
 
 dependencies {
+//    implementation ("com.github.marlonlom:timeago:4.0.3")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.7")
+    implementation("androidx.core:core-ktx:1.13.1")
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
     implementation ("androidx.compose.runtime:runtime-livedata:1.6.7")
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
@@ -74,4 +77,7 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("io.coil-kt:coil-compose:2.5.0")
 }

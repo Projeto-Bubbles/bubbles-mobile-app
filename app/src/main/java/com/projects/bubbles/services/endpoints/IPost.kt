@@ -1,6 +1,7 @@
 package com.projects.bubbles.services.endpoints
 
 import com.projects.bubbles.dto.Post
+import com.projects.bubbles.dto.PostRequest
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -17,8 +18,8 @@ interface IPost {
     @GET("{id}")
     fun getPostById(@Path("id") id: Int): Call<Post>
 
-    @POST("")
-    fun createPost(@Body newPost: Post): Call<Post>
+    @POST("/posts")
+    fun createPost(@Body newPost: PostRequest): Response<PostRequest>
 
     @PUT("{id}")
     fun updatePost(@Path("id") id: Int, @Body editedPost: Post): Call<Post>

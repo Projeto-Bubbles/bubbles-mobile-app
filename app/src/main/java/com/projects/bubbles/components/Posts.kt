@@ -1,23 +1,35 @@
 package com.projects.bubbles.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.projects.bubbles.dto.Comment
+import com.projects.bubbles.dto.Post
+import com.projects.bubbles.dto.PostRequest
+import com.projects.bubbles.viewmodel.PostViewModel
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Composable
 fun CommentBox(
-    userName: String,
-    userUsername: String,
-    postTime: String,
+    username: String,
+    nickname: String,
+    dateTime: String,
     commentContent: String
 ) {
     Surface(
@@ -40,14 +52,14 @@ fun CommentBox(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = userName,
+                        text = username,
                         fontSize = 10.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF423f46)
                     )
                     Spacer(modifier = Modifier.width(15.dp))
                     Text(
-                        text = "@$userUsername • $postTime",
+                        text = "@$nickname • $dateTime",
                         fontSize = 10.sp,
                         color = Color(0xFF423f46)
                     )
@@ -65,12 +77,80 @@ fun CommentBox(
     }
 }
 
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun CreatePostBox(
+    username: String,
+    nickname: String,
+) {
+
+    val postViewModel = PostViewModel()
+    val content = remember { mutableStateOf("") }
+
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        color = Color(0xFFe4e4e4)
+    ) {
+        Column(
+            modifier = Modifier.padding(12.dp)
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Perfil()
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                Text(
+                    text = username,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF423f46)
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+
+
+                Text(
+                    text = "@$nickname",
+                    fontSize = 10.sp,
+                    color = Color(0xFF423f46)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "Venha interagir com a bolha!",
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 16.sp,
+                color = Color(0xFF423f46)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            PostResponseField(
+                onPostCreated = {
+                    val newPost =
+                        PostRequest(dateTime = LocalDateTime.now(), content = content.value, 1, 1)
+                    postViewModel.createPost(newPost)
+                }
+            )
+
+        }
+    }
+}
+
 @Composable
 fun PostBox(
-    userName: String,
-    userUsername: String,
-    postTime: String,
-    commentContent: String
+    username: String,
+    nickname: String,
+    dateTime: String? = null,
+    content: String,
+    commentContent: List<Comment>? = emptyList()
 ) {
     Surface(
         modifier = Modifier
@@ -88,44 +168,43 @@ fun PostBox(
 
                 Spacer(modifier = Modifier.width(8.dp))
 
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = userName,
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF423f46)
-                    )
-                    Spacer(modifier = Modifier.width(15.dp))
-                    Text(
-                        text = "@$userUsername • $postTime",
-                        fontSize = 10.sp,
-                        color = Color(0xFF423f46)
-                    )
-                }
+                Text(
+                    text = username,
+                    fontSize = 10.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF423f46)
+                )
+                Spacer(modifier = Modifier.width(15.dp))
+
+
+                Text(
+                    text = "@$nickname • $dateTime",
+                    fontSize = 10.sp,
+                    color = Color(0xFF423f46)
+                )
             }
 
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = commentContent,
-                fontSize = 12.sp,
+                text = content,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 16.sp,
                 color = Color(0xFF423f46)
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
-
-            CommentBox(
-                userName = "Paulo Alvares",
-                userUsername = "paulinhoAl",
-                postTime = "2 hours ago",
-                commentContent = "Lorem ipsum dolor sit amet consectetur. In dolor porttitor malesuada sit et. Amet enim iaculis gravida nulla egestas ultrices phasellus consequat. Eget mauris in lacus risus porttitor."
-            )
+//            Spacer(modifier = Modifier.height(8.dp))
+//
+//            CommentBox(
+//                username = "Paulo Alvares",
+//                nickname = "paulinhoAl",
+//                dateTime = "2 hours ago",
+//                commentContent = "Lorem ipsum dolor sit amet consectetur. In dolor porttitor malesuada sit et. Amet enim iaculis gravida nulla egestas ultrices phasellus consequat. Eget mauris in lacus risus porttitor."
+//            )
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            ResponseField {}
         }
     }
 }

@@ -23,7 +23,6 @@ import com.projects.bubbles.components.ButtonSelectBubble
 import com.projects.bubbles.components.SearchBubble
 import com.projects.bubbles.components.bubbleCard
 import com.projects.bubbles.model.Bubble
-import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
 import com.projects.bubbles.ui.theme.bubblePurple
@@ -34,8 +33,9 @@ fun JoinBubble(bubbleList: List<Bubble>) {
 
     Column(
         modifier = Modifier
-            .background(Slate100)
+            .background(Color.White)
             .fillMaxWidth()
+            .height(500.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -104,7 +104,6 @@ fun JoinBubble(bubbleList: List<Bubble>) {
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-
 
         }
     }
