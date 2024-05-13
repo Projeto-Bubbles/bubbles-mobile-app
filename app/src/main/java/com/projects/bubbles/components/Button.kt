@@ -55,7 +55,8 @@ fun ButtonComponent(value: String, onClick: () -> Unit) {
             .fillMaxWidth()
             .heightIn(45.dp),
         contentPadding = PaddingValues(5.dp),
-        colors = ButtonDefaults.buttonColors(Zinc700)
+        colors = ButtonDefaults.buttonColors(Zinc700),
+        shape = RoundedCornerShape(8.dp)
     ) {
         Text(
             text = value,
@@ -230,7 +231,7 @@ fun NavbarButton(icon: Painter, onClick: () -> Unit, isSelected: Boolean) {
 
     TextButton(
         modifier = Modifier
-            .size(65.dp)
+            .height(90.dp)
             .clip(CircleShape)
             .background(backgroundColor),
         onClick = onClick

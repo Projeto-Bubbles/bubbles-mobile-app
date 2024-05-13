@@ -30,7 +30,7 @@ import com.projects.bubbles.components.ButtonComponent
 import com.projects.bubbles.components.NormalText
 import com.projects.bubbles.components.PasswordField
 import com.projects.bubbles.components.SubtitleText
-import com.projects.bubbles.components.TextField
+import com.projects.bubbles.components.TextFieldT
 import com.projects.bubbles.components.TitleText
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
@@ -93,35 +93,38 @@ fun SignUpScreen() {
                             .background(Zinc350)
                             .padding(32.dp)
                     ) {
-                        Column {
+                        Column(modifier = Modifier
+                            .height(380.dp)) {
                             SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
 
                             Spacer(Modifier.height(20.dp))
 
-                            TextField(
+                            TextFieldT(
                                 label = stringResource(id = R.string.sign_up_nickname),
                                 icon = painterResource(id = R.drawable.user_duotone),
                                 value = nickname.value,
-                                onValueChange = { nickname.value = it }
+                                onValueChange = {nickname.value = it}
                             )
 
-                            TextField(
+                            TextFieldT(
                                 label = stringResource(id = R.string.sign_up_email),
-                                icon = painterResource(id = R.drawable.user_duotone),
+                                icon = painterResource(id = R.mipmap.email),
                                 value = email.value,
-                                onValueChange = { email.value = it }
+                                onValueChange = {email.value = it}
                             )
 
+
+                            
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_password),
-                                icon = painterResource(id = R.drawable.user_duotone),
+                                icon = painterResource(id = R.mipmap.lock),
                                 value = password.value,
                                 onValueChange = { password.value = it }
                             )
 
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_repeat_password),
-                                icon = painterResource(id = R.drawable.user_duotone),
+                                icon = painterResource(id = R.mipmap.lock),
                                 value = repeatPassword.value,
                                 onValueChange = { repeatPassword.value = it }
                             )

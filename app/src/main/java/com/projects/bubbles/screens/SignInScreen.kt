@@ -32,7 +32,7 @@ import com.projects.bubbles.components.BubbleLogo
 import com.projects.bubbles.components.ButtonComponent
 import com.projects.bubbles.components.NormalText
 import com.projects.bubbles.components.PasswordField
-import com.projects.bubbles.components.TextField
+import com.projects.bubbles.components.TextFieldT
 import com.projects.bubbles.components.TitleText
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
@@ -92,7 +92,7 @@ fun SignInScreen(navController: NavController) {
                             .padding(32.dp)
                     ) {
                         Column {
-                            TextField(
+                            TextFieldT(
                                 label = stringResource(id = R.string.sign_up_email),
                                 icon = painterResource(id = R.drawable.user_duotone),
                                 value = email.value,

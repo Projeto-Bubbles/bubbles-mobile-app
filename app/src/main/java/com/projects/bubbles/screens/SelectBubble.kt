@@ -118,7 +118,7 @@ fun SelectBubble(bubbleList: List<Bubble>) {
                                     }
                                     Spacer(Modifier.height(20.dp))
 
-                                    ButtonComponent(value = stringResource(id = R.string.sign_up_action_button),
+                                    ButtonComponent(value = ("Continue -->"),
                                         onClick = {})
 
 
