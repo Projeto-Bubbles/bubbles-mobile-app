@@ -35,7 +35,7 @@ fun JoinBubble(bubbleList: List<Bubble>) {
         modifier = Modifier
             .background(Color.White)
             .fillMaxWidth()
-            .height(500.dp)
+            .height(400.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -94,17 +94,16 @@ fun JoinBubble(bubbleList: List<Bubble>) {
                     Spacer(modifier = Modifier.height(20.dp))
                 }
                 item {
-                    bubbleCard(1, "Jogos Vorazes", "Vamos juntos ?", "jogos", painterResource(id = R.mipmap.event_bg))
+                    bubbleCard("Jogos Vorazes", "Vamos juntos ?", "jogos", painterResource(id = R.mipmap.event_bg), painterResource(id = R.mipmap.games), bubbleYellow)
                 }
                 item {
-                    bubbleCard(2,"Dia de jogo", "Todo dia resultados de todos os campeonatos mundiais de futebol", "esportes", painterResource(id = R.mipmap.event_bg_2))
+                    bubbleCard("Dia de jogo", "Todo dia resultados de todos os campeonatos mundiais de futebol", "esportes", painterResource(id = R.mipmap.event_bg_2),painterResource(id = R.mipmap.sports), bubbleGreen)
                 }
                 item {
-                    bubbleCard(3,"Hora do chá", "Todo tipo de comida para alegrar suas tardes", "gastronomia", painterResource(id = R.mipmap.event_bg_3))
+                    bubbleCard("Hora do chá", "Todo tipo de comida para alegrar suas tardes", "gastronomia", painterResource(id = R.mipmap.event_bg_3), painterResource(id = R.mipmap.culinary), bubblePurple)
                 }
             }
             Spacer(modifier = Modifier.height(20.dp))
-
         }
     }
 }

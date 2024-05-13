@@ -33,7 +33,6 @@ import com.projects.bubbles.R
 import com.projects.bubbles.ui.theme.Slate800
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc500
-import com.projects.bubbles.ui.theme.bubbleYellow
 
 @Composable
 fun EventStoryCard(
@@ -98,7 +97,7 @@ fun AccessCard() {
 }
 
 @Composable
-fun bubbleCard(id: Int, title: String, descricao: String, categoria: String, imagem: Painter) {
+fun bubbleCard(title: String, descricao: String, categoria: String, imagem: Painter, icon: Painter, cor: Color) {
     Box(
         modifier = Modifier
             .size(235.dp)
@@ -115,9 +114,9 @@ fun bubbleCard(id: Int, title: String, descricao: String, categoria: String, ima
             ) {
                 ButtonSelectBubble(
                     valueText = categoria,
-                    icon = painterResource(id = R.mipmap.games),
+                    icon = icon,
                     onClick = null,
-                    backgroundColorButton = bubbleYellow,
+                    backgroundColorButton = cor,
                 )
 
                 Row {
@@ -132,6 +131,7 @@ fun bubbleCard(id: Int, title: String, descricao: String, categoria: String, ima
                     Text(
                         text = "22K",
                         fontSize = 12.sp,
+                        color = Color.Black,
                         modifier = Modifier.align(Alignment.CenterVertically)
                     )
                 }
@@ -148,6 +148,7 @@ fun bubbleCard(id: Int, title: String, descricao: String, categoria: String, ima
                 Text(
                     text = title,
                     fontSize = 20.sp,
+                    color = Color.Black,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(10.dp))
@@ -156,7 +157,8 @@ fun bubbleCard(id: Int, title: String, descricao: String, categoria: String, ima
                     style = TextStyle(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Light,
-                        lineHeight = 16.sp
+                        lineHeight = 16.sp,
+                        color = Color.Black
                     )
                 )
             }
@@ -199,7 +201,7 @@ fun bubbleCard(id: Int, title: String, descricao: String, categoria: String, ima
 
 
 @Composable
-fun EventCard() {
+fun EventCard(bolha: String, titulo: String, descricao: String, endereco: String, data: String, imagem: Painter, icon: Painter, cor : Color) {
     Box(
         modifier = Modifier
             .width(320.dp)
@@ -215,7 +217,7 @@ fun EventCard() {
                 )
                 {
                     Image(
-                        painter = painterResource(id = R.mipmap.event_bg_2),
+                        painter = imagem,
                         contentDescription = "basquete",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -238,31 +240,40 @@ fun EventCard() {
                 ) {
 
                     ButtonSelectBubble(
-                        valueText = "jogos",
-                        icon = painterResource(id = R.mipmap.games),
+                        valueText = bolha,
+                        icon = icon,
                         onClick = null,
-                        backgroundColorButton = Color(0xFFfde68a)
+                        backgroundColorButton = cor
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    TitleTextEvent(value = "Procurando o nemo")
-                    SubtitleTextEvent(value = "Aventureiros")
+                    Column (modifier = Modifier
+                        .height(120.dp)
+                        ){
 
-                    Spacer(modifier = Modifier.height(15.dp))
+                        TitleTextEvent(titulo)
+                        SubtitleTextEvent(descricao)
 
-                    LocalEvent(texto = "Rua dos bobos, 15 - SP")
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Row {
-                        DataEvent(texto = "05/12/2023")
-                        Spacer(modifier = Modifier.width(10.dp))
-                        HorarioEvent(texto = "09h30")
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        LocalEvent(endereco)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Row {
+                            DataEvent(data)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            HorarioEvent(texto = "09h30")
+                        }
+                        Spacer(modifier = Modifier.height(17.dp))
+
                     }
-                    Spacer(modifier = Modifier.height(17.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
 
                     EventButton(
                         content = "MARCAR PRESENÇA",
                         onClick = {},
                         backgroundColor = Zinc500
                     )
+
+
 
                 }
             }

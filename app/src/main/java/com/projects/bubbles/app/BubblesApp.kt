@@ -104,6 +104,7 @@ fun BubblesApp(navController: NavHostController, modifier: Modifier = Modifier) 
 
             Spacer(modifier = Modifier.weight(1f))
 
+
             Row(
                 modifier = Modifier
                     .background(Color.White)
