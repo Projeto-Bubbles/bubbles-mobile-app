@@ -1,6 +1,8 @@
 package com.projects.bubbles.screens
 
+import AuthViewModel
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -19,6 +21,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +31,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.components.CreatePostBox
 import com.projects.bubbles.components.DeleteButton
@@ -36,7 +43,13 @@ import com.projects.bubbles.viewmodel.PostViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Feed(postViewModel: PostViewModel) {
+fun Feed(postViewModel: PostViewModel, authViewModel: AuthViewModel = viewModel(), context: Context) {
+    val userState = authViewModel.userState.collectAsState().value
+
+    LaunchedEffect(Unit) {
+        authViewModel.loadUserFromDataStore(context)
+    }
+
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,7 +60,8 @@ fun Feed(postViewModel: PostViewModel) {
                 .fillMaxWidth()
                 .padding(start = 28.dp, end = 28.dp)
         ) {
-
+            Text(text = "Olá ${userState?.username}, seu id é: ${userState?.idUser}")
+            
             Spacer(modifier = Modifier.height(70.dp))
 
             Row(
@@ -62,8 +76,6 @@ fun Feed(postViewModel: PostViewModel) {
             }
 
             Spacer(modifier = Modifier.height(16.dp))
-
-//            AccessCard()
 
             CreatePostBox(
                 username = "Ruan",
@@ -91,11 +103,10 @@ fun PostList(viewModel: PostViewModel) {
     }
 
     if (postCreated == true) {
-        viewModel.postCreated.value = false // Reseta o valor para evitar recarregamentos repetidos
-        viewModel.getPosts() // Recarrega a lista de posts
+        viewModel.postCreated.value = false
+        viewModel.getPosts()
     }
 
-    // Exibe o indicador de carregamento se o estado de loading for verdadeiro
     if (loading == true) {
         Box(
             modifier = Modifier
@@ -125,9 +136,3 @@ fun PostList(viewModel: PostViewModel) {
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-fun PreviewFeed() {
-    Feed(PostViewModel())
-}

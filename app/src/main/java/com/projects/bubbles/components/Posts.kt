@@ -231,6 +231,8 @@ fun PostBox(
                     fontSize = 10.sp,
                     color = Color(0xFF423f46)
                 )
+
+
             }
 
             Spacer(modifier = Modifier.height(8.dp))

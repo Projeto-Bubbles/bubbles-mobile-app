@@ -1,5 +1,6 @@
 package com.projects.bubbles
 
+import AuthViewModel
 import SignInScreen
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
@@ -52,7 +54,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
 //                    SignUpScreen()
-                    Tela(navController = rememberNavController(), )
+                    Tela(navController = rememberNavController())
 //                    BubblesApp(navController = rememberNavController())
                 }
             }
@@ -62,15 +64,21 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun Tela(navController: NavHostController) {
+        val context = LocalContext.current
+        val authViewModel: AuthViewModel = viewModel()
+
         NavHost(
             navController = navController,
             startDestination = "login"
         ) {
             composable("login") {
-                SignInScreen(navController)
+                SignInScreen(navController, authViewModel, context) // Passa o contexto
             }
             composable("bubbles") {
-                BubblesApp(navController)
+                BubblesApp(
+                    navController,
+                    authViewModel = authViewModel
+                )
             }
         }
     }

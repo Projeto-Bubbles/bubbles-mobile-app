@@ -1,5 +1,6 @@
 package com.projects.bubbles.app
 
+import AuthViewModel
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,10 +51,13 @@ import com.projects.bubbles.viewmodel.PostViewModel
 @Composable
 fun BubblesApp(
     navController: NavHostController,
-    modifier: Modifier = Modifier,
-    novoNavHostController: NavHostController = rememberNavController()
-) {
+    novoNavHostController: NavHostController = rememberNavController(),
+    authViewModel: AuthViewModel = viewModel(),
+
+    ) {
     var currentScreen by remember { mutableStateOf("feed") }
+    var context = LocalContext.current
+
     val lista = listOf(
         Bubble("música", R.mipmap.music, bubbleBlue),
         Bubble("ciência", R.mipmap.science, bubbleGreen),
@@ -77,14 +82,13 @@ fun BubblesApp(
         )
 
         Column(modifier = Modifier.fillMaxSize()) {
-            // Conteúdo da tela
             NavHost(
                 modifier = Modifier.weight(1f),
                 navController = novoNavHostController,
                 startDestination = "feed"
             ) {
                 composable("feed") {
-                    Feed(postViewModel = viewModel())
+                    Feed(postViewModel = viewModel(), authViewModel, context)
                 }
                 composable("bubbles") {
                     JoinBubble(lista)
@@ -134,6 +138,7 @@ fun BubblesApp(
         }
     }
 }
+
 @RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable

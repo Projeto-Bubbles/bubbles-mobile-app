@@ -5,10 +5,11 @@ import java.lang.reflect.Member
 
 
 data class User(
-    val id: Int? = null,
+    val idUser: Int? = null,
     val username: String,
     val nickname: String,
     val email: String,
     val cpf: String? = null,
     val password: String? = null,
+    val id: Int? = null,
 ) {}

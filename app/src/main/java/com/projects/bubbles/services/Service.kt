@@ -8,7 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Service {
-    const val BASE_URL = "http://34.195.120.16/api/ "
+//    const val BASE_URL = "http://34.195.120.16/api/"
+    const val BASE_URL = "http://10.0.2.2:8080/api/"
 
     val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(15, TimeUnit.SECONDS) // Configura o tempo de espera de conexão

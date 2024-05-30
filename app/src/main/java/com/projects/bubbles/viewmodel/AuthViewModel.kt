@@ -1,14 +1,21 @@
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.projects.bubbles.dto.LoginRequest
 import com.projects.bubbles.dto.LoginResponse
 import com.projects.bubbles.dto.RegisterRequest
 import com.projects.bubbles.dto.RegisterResponse
+import com.projects.bubbles.dto.User
 import com.projects.bubbles.services.Service
+import com.projects.bubbles.utils.DataStoreManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -23,9 +30,16 @@ class AuthViewModel : ViewModel() {
     val registerResult: MutableLiveData<RegisterResponse> = MutableLiveData()
     val erro: MutableLiveData<String> = MutableLiveData()
 
+    private val _userState = MutableStateFlow<User?>(null)
+    val userState: StateFlow<User?> = _userState.asStateFlow()
+
     private val authService = Service.AuthService()
 
-    fun login(email: String, password: String, navController: NavHostController): Boolean {
+    fun login(
+        email: String,
+        password: String,
+        context: Context
+    ): Boolean {
         var success = false
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -35,7 +49,7 @@ class AuthViewModel : ViewModel() {
                 success = response.isSuccessful
                 if (success) {
                     handleLoginResponse(response)
-
+                    getUserByEmail(email, context)
                 }
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Error during login: ${e.message}")
@@ -79,4 +93,35 @@ class AuthViewModel : ViewModel() {
             erro.postValue("Erro ao registrar: ${response.message()}")
         }
     }
+
+    private fun getUserByEmail(email: String, context: Context) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val userResponse = authService.getByEmail(email)
+                if (userResponse.isSuccessful) {
+                    val user = userResponse.body()
+                    _userState.value = user
+                    DataStoreManager.saveUser(context, user!!)
+                    Log.d("AuthViewModel", "Response: " + userResponse.body())
+                } else {
+                    val errorBody = userResponse.errorBody()?.string()
+                    Log.e("AuthViewModel", "Error getting user by email: $errorBody")
+                    erro.postValue("Erro ao obter dados do usuário: $errorBody")
+                }
+            } catch (e: Exception) {
+                Log.e("AuthViewModel", "Error EXCEPTION getting user by email: ${e.message}")
+                erro.postValue("Erro ao obter dados do usuário: ${e.message}")
+            }
+        }
+    }
+
+    fun loadUserFromDataStore(context: Context) {
+        viewModelScope.launch {
+            DataStoreManager.getUser(context).collect { user ->
+                _userState.value = user
+            }
+        }
+    }
 }
+
+
