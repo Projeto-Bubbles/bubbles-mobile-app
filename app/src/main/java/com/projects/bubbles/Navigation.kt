@@ -3,6 +3,7 @@ package com.projects.bubbles
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,7 +19,7 @@ fun Navigation() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.Feed.route) {
         composable(route = Screen.Feed.route) {
-            Feed()
+            Feed(postViewModel = viewModel())
         }
 
         composable(

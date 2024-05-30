@@ -180,7 +180,7 @@ fun CreatePostBox(
 
 
                             val newPost =
-                                PostRequest(contents = content.value, 1, 1)
+                                PostRequest(contents = content.value, 1, 2)
                             postViewModel.createPost(newPost)
 
                             content.value = ""

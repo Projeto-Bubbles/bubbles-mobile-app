@@ -36,7 +36,7 @@ import com.projects.bubbles.viewmodel.PostViewModel
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Feed(postViewModel: PostViewModel = PostViewModel()) {
+fun Feed(postViewModel: PostViewModel) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -47,6 +47,9 @@ fun Feed(postViewModel: PostViewModel = PostViewModel()) {
                 .fillMaxWidth()
                 .padding(start = 28.dp, end = 28.dp)
         ) {
+
+            Spacer(modifier = Modifier.height(70.dp))
+
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -60,31 +63,23 @@ fun Feed(postViewModel: PostViewModel = PostViewModel()) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-
-            DeleteButton {
-                val postIdToDelete = 1
-                    postViewModel.deletePostById(postIdToDelete)
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
 //            AccessCard()
 
             CreatePostBox(
                 username = "Ruan",
                 nickname = "helloWorldRuan",
-                postViewModel = PostViewModel()
+                postViewModel = postViewModel
             )
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            PostList()
+            PostList(postViewModel)
         }
     }
 }
 
 @Composable
-fun PostList(viewModel: PostViewModel = PostViewModel()) {
+fun PostList(viewModel: PostViewModel) {
     val posts = viewModel.posts.observeAsState().value
     val erro = viewModel.erro.observeAsState().value
     val loading = viewModel.loading.observeAsState().value
@@ -134,5 +129,5 @@ fun PostList(viewModel: PostViewModel = PostViewModel()) {
 @Preview
 @Composable
 fun PreviewFeed() {
-    Feed()
+    Feed(PostViewModel())
 }

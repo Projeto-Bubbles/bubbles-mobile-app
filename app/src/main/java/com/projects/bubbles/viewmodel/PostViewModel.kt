@@ -62,7 +62,7 @@ class PostViewModel : ViewModel() {
                         postCreated.postValue(true) // Sinaliza que um novo post foi criado
                     } else {
                         erro.postValue(response.errorBody()?.string())
-                        Log.e("api", "Não deu sucesso ao criar o post! ${erro.value}")
+                        Log.e("api", "Não deu sucesso ao criar o post! ${response}")
                     }
                     loading.postValue(false) // Define o estado de loading como falso ao finalizar a criação do post
                 }

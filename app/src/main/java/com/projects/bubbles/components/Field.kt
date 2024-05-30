@@ -179,8 +179,9 @@ fun SearchBubble() {
         Icon(
             imageVector = Icons.Default.Search,
             contentDescription = "Search Icon",
+            tint = Color.Black,
             modifier = Modifier
-                .size(30.dp)
+                .size(30.dp),
         )
 
         Spacer(modifier = Modifier.width(8.dp))

@@ -1,6 +1,7 @@
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
 import com.projects.bubbles.dto.LoginRequest
 import com.projects.bubbles.dto.LoginResponse
 import com.projects.bubbles.dto.RegisterRequest
@@ -24,7 +25,7 @@ class AuthViewModel : ViewModel() {
 
     private val authService = Service.AuthService()
 
-    fun login(email: String, password: String): Boolean {
+    fun login(email: String, password: String, navController: NavHostController): Boolean {
         var success = false
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -34,6 +35,7 @@ class AuthViewModel : ViewModel() {
                 success = response.isSuccessful
                 if (success) {
                     handleLoginResponse(response)
+
                 }
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Error during login: ${e.message}")
@@ -60,6 +62,7 @@ class AuthViewModel : ViewModel() {
     private fun handleLoginResponse(response: Response<LoginResponse>) {
         if (response.isSuccessful) {
             loginResult.postValue(response.body())
+            erro.postValue("")
             Log.d("AuthViewModel", "Login successful")
         } else {
             Log.e("AuthViewModel", "Error during login: ${response.message()}")

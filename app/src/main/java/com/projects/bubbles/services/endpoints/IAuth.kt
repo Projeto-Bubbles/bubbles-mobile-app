@@ -9,10 +9,10 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface IAuth {
-    @POST("/auth/login")
+    @POST("auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<LoginResponse>
 
-    @POST("/users")
+    @POST("users")
     suspend fun register(@Body registerRequest: RegisterRequest): Response<RegisterResponse>
 
 }

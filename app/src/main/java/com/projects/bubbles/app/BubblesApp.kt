@@ -27,6 +27,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -42,10 +43,15 @@ import com.projects.bubbles.ui.theme.bubbleBlue
 import com.projects.bubbles.ui.theme.bubbleGreen
 import com.projects.bubbles.ui.theme.bubblePurple
 import com.projects.bubbles.ui.theme.bubbleYellow
+import com.projects.bubbles.viewmodel.PostViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun BubblesApp(navController: NavHostController, modifier: Modifier = Modifier) {
+fun BubblesApp(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+    novoNavHostController: NavHostController = rememberNavController()
+) {
     var currentScreen by remember { mutableStateOf("feed") }
     val lista = listOf(
         Bubble("música", R.mipmap.music, bubbleBlue),
@@ -70,40 +76,25 @@ fun BubblesApp(navController: NavHostController, modifier: Modifier = Modifier) 
             modifier = Modifier.fillMaxSize()
         )
 
-        Column (modifier = Modifier.fillMaxSize()){
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .height(60.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Spacer(modifier = Modifier.width(10.dp))
-
-
-                Perfil()
-            }
-
+        Column(modifier = Modifier.fillMaxSize()) {
+            // Conteúdo da tela
             NavHost(
-                modifier = modifier,
-                navController = navController,
+                modifier = Modifier.weight(1f),
+                navController = novoNavHostController,
                 startDestination = "feed"
             ) {
                 composable("feed") {
-                    Feed()
+                    Feed(postViewModel = viewModel())
                 }
                 composable("bubbles") {
                     JoinBubble(lista)
                 }
-
                 composable("events") {
                     EventScreen()
                 }
             }
 
-            Spacer(modifier = Modifier.weight(1f))
-
+            // Barra de navegação fixa na parte inferior
             Row(
                 modifier = Modifier
                     .background(Color.White)

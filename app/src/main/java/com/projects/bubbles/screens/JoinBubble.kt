@@ -30,12 +30,13 @@ import com.projects.bubbles.ui.theme.bubbleYellow
 
 @Composable
 fun JoinBubble(bubbleList: List<Bubble>) {
+    Spacer(modifier = Modifier.height(70.dp))
 
     Column(
         modifier = Modifier
             .background(Color.White)
             .fillMaxWidth()
-            .height(500.dp)
+            .height(400.dp)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -45,10 +46,12 @@ fun JoinBubble(bubbleList: List<Bubble>) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Row(modifier = Modifier
-                .width(350.dp),
+            Row(
+                modifier = Modifier
+                    .width(350.dp),
                 horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically){
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 SearchBubble()
                 Spacer(modifier = Modifier.width(10.dp))
                 AcessButton(content = "Criar +", onClick = {}, backgroundColor = Color.DarkGray)
@@ -83,7 +86,7 @@ fun JoinBubble(bubbleList: List<Bubble>) {
                 }
             }
 
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(50.dp))
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
@@ -94,17 +97,79 @@ fun JoinBubble(bubbleList: List<Bubble>) {
                     Spacer(modifier = Modifier.height(20.dp))
                 }
                 item {
-                    bubbleCard(1, "Jogos Vorazes", "Vamos juntos ?", "jogos", painterResource(id = R.mipmap.event_bg))
+                    bubbleCard(
+                        "Jogos Vorazes",
+                        "Vamos juntos ?",
+                        "jogos",
+                        painterResource(id = R.mipmap.event_bg),
+                        painterResource(id = R.mipmap.games),
+                        bubbleYellow
+                    )
                 }
                 item {
-                    bubbleCard(2,"Dia de jogo", "Todo dia resultados de todos os campeonatos mundiais de futebol", "esportes", painterResource(id = R.mipmap.event_bg_2))
+                    bubbleCard(
+                        "Dia de jogo",
+                        "Todo dia resultados de todos os campeonatos mundiais de futebol",
+                        "esportes",
+                        painterResource(id = R.mipmap.event_bg_2),
+                        painterResource(id = R.mipmap.sports),
+                        bubbleGreen
+                    )
                 }
                 item {
-                    bubbleCard(3,"Hora do chá", "Todo tipo de comida para alegrar suas tardes", "gastronomia", painterResource(id = R.mipmap.event_bg_3))
+                    bubbleCard(
+                        "Hora do chá",
+                        "Todo tipo de comida para alegrar suas tardes",
+                        "gastronomia",
+                        painterResource(id = R.mipmap.event_bg_3),
+                        painterResource(id = R.mipmap.culinary),
+                        bubblePurple
+                    )
                 }
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(70.dp))
+            LazyRow(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(20.dp)
+            ) {
 
+                item {
+                    Spacer(modifier = Modifier.height(20.dp))
+                }
+                item {
+                    bubbleCard(
+                        "Coffee Time",
+                        "The new way to programming Java",
+                        "tecnologia",
+                        painterResource(id = R.mipmap.event_bg_3),
+                        painterResource(id = R.mipmap.culinary),
+                        bubbleBlue
+                    )
+                }
+
+                item {
+                    bubbleCard(
+                        "Salto de Vara com Jaiminho",
+                        "Ai Paulinho",
+                        "esportes",
+                        painterResource(id = R.mipmap.event_bg),
+                        painterResource(id = R.mipmap.games),
+                        bubbleYellow
+                    )
+                }
+                item {
+                    bubbleCard(
+                        "RP do paulinho",
+                        "Todo dia resultados de todos os campeonatos mundiais de futebol",
+                        "jogos",
+                        painterResource(id = R.mipmap.event_bg_2),
+                        painterResource(id = R.mipmap.sports),
+                        bubbleGreen
+                    )
+                }
+
+            }
+            Spacer(modifier = Modifier.height(20.dp))
         }
     }
 }

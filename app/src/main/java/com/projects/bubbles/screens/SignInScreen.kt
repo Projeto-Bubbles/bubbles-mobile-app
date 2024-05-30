@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
 import com.projects.bubbles.Screen
@@ -28,13 +29,17 @@ import com.projects.bubbles.ui.theme.rounded
 
 @Composable
 fun SignInScreen(
-    navController: NavController,
+    navController: NavHostController,
     authViewModel: AuthViewModel = AuthViewModel(),
-    onLoginSuccess: () -> Unit
 ) {
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
     val loginResult = authViewModel.loginResult.observeAsState()
+    val erro = authViewModel.erro.observeAsState()
+
+    if (loginResult.value !=null && loginResult.value!!.token.isNotBlank()) {
+        navController.navigate("bubbles")
+    }
 
     Surface(
         modifier = Modifier
@@ -101,9 +106,8 @@ fun SignInScreen(
                             ButtonComponent(
                                 value = stringResource(id = R.string.sign_in_action_button),
                                 onClick = {
-                                    if (authViewModel.login(email.value, password.value)) {
-                                        onLoginSuccess.invoke()
-                                    }
+                                    authViewModel.login(email.value, password.value, navController)
+
                                 }
                             )
                         }
@@ -117,5 +121,5 @@ fun SignInScreen(
 @Preview
 @Composable
 fun PreviewSignInScreen() {
-    SignInScreen(navController = rememberNavController()) {}
+    SignInScreen(navController = rememberNavController())
 }

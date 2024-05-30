@@ -338,8 +338,9 @@ fun EventButton(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(start = 10.dp, end = 10.dp),
+            .fillMaxWidth()
+            .height(25.dp),
+        contentPadding = PaddingValues(start = 20.dp, end = 20.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor)
     ) {
         Text(
