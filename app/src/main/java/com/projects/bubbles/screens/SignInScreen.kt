@@ -1,17 +1,8 @@
-package com.projects.bubbles.screens
-
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -23,28 +14,32 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.R
 import com.projects.bubbles.Screen
-import com.projects.bubbles.components.ArrowRight
-import com.projects.bubbles.components.BubbleLogo
-import com.projects.bubbles.components.ButtonComponent
-import com.projects.bubbles.components.NormalText
-import com.projects.bubbles.components.PasswordField
-import com.projects.bubbles.components.TextField
-import com.projects.bubbles.components.TitleText
+import com.projects.bubbles.components.*
+import com.projects.bubbles.dto.LoginResponse
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SignInScreen(navController: NavController) {
-    val context = LocalContext.current
-
+fun SignInScreen(
+    navController: NavHostController,
+    authViewModel: AuthViewModel = AuthViewModel(),
+) {
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
+    val loginResult = authViewModel.loginResult.observeAsState()
+    val erro = authViewModel.erro.observeAsState()
+
+    if (loginResult.value !=null && loginResult.value!!.token.isNotBlank()) {
+        navController.navigate("bubbles")
+    }
 
     Surface(
         modifier = Modifier
@@ -102,7 +97,7 @@ fun SignInScreen(navController: NavController) {
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_password),
                                 icon = painterResource(id = R.drawable.user_duotone),
-                                 value = password.value,
+                                value = password.value,
                                 onValueChange = { password.value = it }
                             )
 
@@ -110,12 +105,14 @@ fun SignInScreen(navController: NavController) {
 
                             ButtonComponent(
                                 value = stringResource(id = R.string.sign_in_action_button),
-                                onClick = { navController.navigate(Screen.Account.withArgs(email.value)) })
+                                onClick = {
+                                    authViewModel.login(email.value, password.value, navController)
+
+                                }
+                            )
                         }
                     }
-
                 }
-
             }
         }
     }

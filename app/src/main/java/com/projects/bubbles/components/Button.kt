@@ -25,6 +25,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -44,8 +45,8 @@ import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
-import com.projects.bubbles.ui.theme.Zinc100
 import com.projects.bubbles.ui.theme.Zinc700
+import com.projects.bubbles.ui.theme.bubblePurple
 
 @Composable
 fun ButtonComponent(value: String, onClick: () -> Unit) {
@@ -55,7 +56,8 @@ fun ButtonComponent(value: String, onClick: () -> Unit) {
             .fillMaxWidth()
             .heightIn(45.dp),
         contentPadding = PaddingValues(5.dp),
-        colors = ButtonDefaults.buttonColors(Zinc700)
+        colors = ButtonDefaults.buttonColors(Zinc700),
+        shape = RoundedCornerShape(8.dp)
     ) {
         Text(
             text = value,
@@ -172,20 +174,28 @@ fun AcessButton(
 fun ButtonSelectBubble(
     valueText: String,
     icon: Painter,
-    onClick: () -> Unit,
+    onClick: (() -> Unit)? = null,
     backgroundColorButton: Color,
     modifier: Modifier = Modifier
 ) {
     val clicked = remember { mutableStateOf(false) }
+
     Box(
         modifier = modifier
             .wrapContentSize()
             .clip(shape = RoundedCornerShape(6.dp))
             .height(28.dp)
             .background(color = if (clicked.value) backgroundColorButton else Color.LightGray)
-            .clickable {
-                clicked.value = !clicked.value
-                onClick()
+            .let {
+                if (onClick != null) {
+                    it.clickable {
+                        clicked.value = !clicked.value
+                        onClick()
+                    }
+                } else {
+                    it
+                        .background(backgroundColorButton)
+                }
             }
     ) {
         Row(
@@ -222,7 +232,7 @@ fun NavbarButton(icon: Painter, onClick: () -> Unit, isSelected: Boolean) {
 
     TextButton(
         modifier = Modifier
-            .size(65.dp)
+            .height(90.dp)
             .clip(CircleShape)
             .background(backgroundColor),
         onClick = onClick
@@ -238,7 +248,7 @@ fun NavbarButton(icon: Painter, onClick: () -> Unit, isSelected: Boolean) {
 
 
 @Composable
-fun LocalEvent(texto:String){
+fun LocalEvent(texto: String) {
     Box(
         modifier = Modifier
             .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
@@ -265,7 +275,7 @@ fun LocalEvent(texto:String){
 }
 
 @Composable
-fun DataEvent(texto:String){
+fun DataEvent(texto: String) {
     Box(
         modifier = Modifier
             .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
@@ -292,7 +302,7 @@ fun DataEvent(texto:String){
 }
 
 @Composable
-fun HorarioEvent(texto:String){
+fun HorarioEvent(texto: String) {
     Box(
         modifier = Modifier
             .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
@@ -328,8 +338,9 @@ fun EventButton(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .fillMaxWidth(),
-        contentPadding = PaddingValues(start = 10.dp, end = 10.dp),
+            .fillMaxWidth()
+            .height(25.dp),
+        contentPadding = PaddingValues(start = 20.dp, end = 20.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor)
     ) {
         Text(
@@ -337,6 +348,75 @@ fun EventButton(
             fontSize = 10.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White
+        )
+    }
+}
+
+@Composable
+fun JoinButton(onClick: () -> Unit) {
+
+    Box(
+        modifier = Modifier
+            .wrapContentSize()
+            .clip(
+                shape = RoundedCornerShape(
+                    topStart = 120.dp,
+                    topEnd = 0.dp,
+                    bottomStart = 120.dp,
+                    bottomEnd = 0.dp
+                )
+            )
+            .height(25.dp)
+            .width(95.dp)
+            .background(bubblePurple)
+            .clickable { onClick() }
+    ) {
+
+        Row(
+            modifier = Modifier,
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Icon(
+                painter = painterResource(id = R.mipmap.join),
+                contentDescription = "Localização",
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+                    .fillMaxHeight()
+                    .width(13.dp),
+                tint = Color.Black
+            )
+
+            Spacer(modifier = Modifier.width(7.dp))
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterVertically),
+                textAlign = TextAlign.Center,
+                text = "ENTRAR",
+                fontSize = 15.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Zinc700,
+
+            )
+        }
+    }
+}
+
+
+@Composable
+fun DeleteButton(onClick: () -> Unit) {
+    IconButton(
+        onClick = onClick,
+        modifier = Modifier
+            .size(30.dp)
+            .padding(4.dp),
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.feed_navbar),
+            contentDescription = "Delete",
+            tint = Color.Red // Cor do ícone de lixeira
         )
     }
 }

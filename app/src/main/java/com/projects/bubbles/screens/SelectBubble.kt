@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,7 +40,6 @@ import com.projects.bubbles.ui.theme.bubbleGrey
 import com.projects.bubbles.ui.theme.bubblePurple
 import com.projects.bubbles.ui.theme.bubbleYellow
 import com.projects.bubbles.ui.theme.rounded
-import kotlin.random.Random
 
 @Composable
 fun SelectBubble(bubbleList: List<Bubble>) {
@@ -94,35 +93,44 @@ fun SelectBubble(bubbleList: List<Bubble>) {
                             Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .clip(rounded.small)
+                                    .background(Zinc350)
                                     .padding(12.dp)
                             ) {
-
                                 Column {
                                     SubtitleText(value = stringResource(id = R.string.bubble_infos))
 
                                     Spacer(Modifier.height(20.dp))
-                                    Row(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .background(color = Color.Gray),
-                                        horizontalArrangement = Arrangement.spacedBy(12.dp),
-                                        verticalAlignment = Alignment.CenterVertically
+
+                                    LazyColumn(
+                                        modifier = Modifier.fillMaxWidth()
                                     ) {
-                                        Column(modifier = Modifier) {
-                                            bubbleList.forEach {
-                                                ButtonSelectBubble(
-                                                    valueText = it.nome,
-                                                    icon = painterResource(id = it.icon),
-                                                    onClick = {},
-                                                    backgroundColorButton = corAleatoria(),
-                                                )
+                                        items(bubbleList.chunked(3)) { rowItems ->
+                                            Row(
+                                                modifier = Modifier
+                                                    .fillMaxWidth(),
+                                                horizontalArrangement = Arrangement.spacedBy(-10.dp),
+                                                verticalAlignment = Alignment.CenterVertically
+                                            ) {
+                                                rowItems.forEach { bubble ->
+                                                    ButtonSelectBubble(
+                                                        valueText = bubble.nome,
+                                                        icon = painterResource(id = bubble.icon),
+                                                        onClick = {},
+                                                        backgroundColorButton = bubble.cor,
+                                                        modifier = Modifier.weight(1f)
+                                                    )
+                                                }
                                             }
+                                            Spacer(modifier = Modifier.height(10.dp))
                                         }
                                     }
                                     Spacer(Modifier.height(20.dp))
 
-                                    ButtonComponent(value = stringResource(id = R.string.sign_up_action_button),
+                                    ButtonComponent(value = ("Continue -->"),
                                         onClick = {})
+                                }
+
 
 
                                 }
@@ -134,13 +142,8 @@ fun SelectBubble(bubbleList: List<Bubble>) {
             }
         }
     }
-}
-val cores = listOf(bubbleYellow, bubblePurple, bubbleGreen, bubbleBlue)
 
-fun corAleatoria(): Color {
-    val randomIndex = Random.nextInt(cores.size)
-    return cores[randomIndex]
-}
+val cores = listOf(bubbleYellow, bubblePurple, bubbleGreen, bubbleBlue)
 
 @Preview
 @Composable

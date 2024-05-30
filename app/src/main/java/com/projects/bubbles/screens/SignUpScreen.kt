@@ -1,5 +1,6 @@
 package com.projects.bubbles.screens
 
+import AuthViewModel
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,16 +33,17 @@ import com.projects.bubbles.components.PasswordField
 import com.projects.bubbles.components.SubtitleText
 import com.projects.bubbles.components.TextField
 import com.projects.bubbles.components.TitleText
+import com.projects.bubbles.dto.RegisterRequest
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(    authViewModel: AuthViewModel = AuthViewModel()
+) {
     val context = LocalContext.current
 
-    // Estado para os valores dos campos de entrada
     var nickname = remember { mutableStateOf("") }
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
@@ -93,7 +95,8 @@ fun SignUpScreen() {
                             .background(Zinc350)
                             .padding(32.dp)
                     ) {
-                        Column {
+                        Column(modifier = Modifier
+                            .height(380.dp)) {
                             SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
 
                             Spacer(Modifier.height(20.dp))
@@ -102,26 +105,27 @@ fun SignUpScreen() {
                                 label = stringResource(id = R.string.sign_up_nickname),
                                 icon = painterResource(id = R.drawable.user_duotone),
                                 value = nickname.value,
-                                onValueChange = { nickname.value = it }
+                                onValueChange = {nickname.value = it}
                             )
 
                             TextField(
                                 label = stringResource(id = R.string.sign_up_email),
-                                icon = painterResource(id = R.drawable.user_duotone),
+                                icon = painterResource(id = R.mipmap.email),
                                 value = email.value,
-                                onValueChange = { email.value = it }
+                                onValueChange = {email.value = it}
                             )
+
 
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_password),
-                                icon = painterResource(id = R.drawable.user_duotone),
+                                icon = painterResource(id = R.mipmap.lock),
                                 value = password.value,
                                 onValueChange = { password.value = it }
                             )
 
                             PasswordField(
                                 label = stringResource(id = R.string.sign_up_repeat_password),
-                                icon = painterResource(id = R.drawable.user_duotone),
+                                icon = painterResource(id = R.mipmap.lock),
                                 value = repeatPassword.value,
                                 onValueChange = { repeatPassword.value = it }
                             )
@@ -131,7 +135,16 @@ fun SignUpScreen() {
 
                             ButtonComponent(
                                 value = stringResource(id = R.string.sign_up_action_button),
-                                onClick = {})
+                                onClick = {
+                                    val registerRequest = RegisterRequest(
+                                        username = "Ruan", // Mock para campos que não têm entrada do usuário
+                                        nickname = nickname.value,
+                                        email = email.value,
+                                        password = password.value,
+                                        cpf = "46292412806" // Mock para campos que não têm entrada do usuário
+                                    )
+                                    authViewModel.register(registerRequest)
+                                })
                         }
                     }
 

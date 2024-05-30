@@ -21,6 +21,6 @@ val BlueButton = Color(0x0FFB1C5E1)
 
 val bubbleYellow = Color(249, 235, 188)
 val bubblePurple = Color(230, 186, 255)
-val bubbleGreen = Color(193, 218, 255)
+val bubbleGreen = Color(161, 240, 165, 237)
 val bubbleGrey = Color(228,228,238)
 val bubbleBlue = Color(178, 184, 255)

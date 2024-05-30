@@ -1,14 +1,13 @@
 package com.projects.bubbles.components
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -16,13 +15,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,21 +30,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.layout.onPlaced
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.Placeholder
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.unit.dp
 import com.projects.bubbles.R
-import com.projects.bubbles.screens.Feed
+import com.projects.bubbles.dto.PostRequest
+import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.rounded
+import com.projects.bubbles.viewmodel.PostViewModel
 
 @Composable
 fun TextField(
@@ -111,7 +107,6 @@ fun PasswordField(
                         contentDescription = "Senha invisível"
                     )
                 }
-                iconImage
             }
         },
         visualTransformation = if (passwordVisible.value) VisualTransformation.None else visualTransformation
@@ -119,8 +114,10 @@ fun PasswordField(
 }
 
 @Composable
-fun ResponseField(onValueChange: (String) -> Unit) {
-    Row (
+fun PostResponseField(postViewModel: PostViewModel = PostViewModel()) {
+    var content = remember { mutableStateOf("") }
+
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .height(30.dp)
@@ -130,7 +127,7 @@ fun ResponseField(onValueChange: (String) -> Unit) {
             )
             .padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
-    ){
+    ) {
         Icon(
             painter = painterResource(id = R.mipmap.response_arrow),
             contentDescription = null,
@@ -141,11 +138,70 @@ fun ResponseField(onValueChange: (String) -> Unit) {
         Spacer(modifier = Modifier.width(8.dp))
 
         BasicTextField(
+            value = content.value,
+            onValueChange = { content.value = it },
+            textStyle = TextStyle.Default.copy(color = Color.Black),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Text,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = {
+                    Log.d("FIELD", "RODEI AQUI")
+                    val newPost =
+                        PostRequest(contents = content.value, 1, 1)
+                    postViewModel.createPost(newPost)
+
+                    content.value = ""
+                }
+            )
+        )
+    }
+}
+
+
+@Composable
+fun SearchBubble() {
+    Row(
+        modifier = Modifier
+            .width(255.dp)
+            .height(35.dp)
+            .background(
+                color = Zinc300,
+                shape = RoundedCornerShape(8.dp)
+            )
+            .padding(8.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            imageVector = Icons.Default.Search,
+            contentDescription = "Search Icon",
+            tint = Color.Black,
+            modifier = Modifier
+                .size(30.dp),
+        )
+
+        Spacer(modifier = Modifier.width(8.dp))
+
+        BasicTextField(
             value = "",
-            onValueChange = onValueChange,
+            onValueChange = {},
             textStyle = TextStyle.Default.copy(color = Color.Black),
             modifier = Modifier.fillMaxSize(),
-        )
+            decorationBox = { innerTextField ->
+                Box(modifier = Modifier.fillMaxSize()) {
+                    innerTextField()
+                    Text(
+                        text = "Pesquisar bolhas...",
+                        color = Color.Gray,
+                        style = TextStyle.Default,
+                        modifier = Modifier.padding(horizontal = 2.dp)
+                    )
+                }
+            })
     }
 }
 

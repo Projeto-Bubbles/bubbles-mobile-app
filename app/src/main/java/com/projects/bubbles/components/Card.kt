@@ -30,13 +30,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
-import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
-import com.projects.bubbles.ui.theme.Zinc100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc500
-import com.projects.bubbles.ui.theme.Zinc700
-import com.projects.bubbles.ui.theme.bubbleBlue
 
 @Composable
 fun EventStoryCard(
@@ -60,7 +56,7 @@ fun EventStoryCard(
 }
 
 @Composable
-fun AcessCard() {
+fun AccessCard() {
     Box(
         modifier = Modifier
             .background(
@@ -101,7 +97,7 @@ fun AcessCard() {
 }
 
 @Composable
-fun bubbleCard() {
+fun bubbleCard(title: String, descricao: String, categoria: String, imagem: Painter, icon: Painter, cor: Color) {
     Box(
         modifier = Modifier
             .size(235.dp)
@@ -117,10 +113,10 @@ fun bubbleCard() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ButtonSelectBubble(
-                    valueText = "jogos",
-                    icon = painterResource(id = R.mipmap.games),
-                    onClick = {},
-                    backgroundColorButton = Color(0xFFfde68a)
+                    valueText = categoria,
+                    icon = icon,
+                    onClick = null,
+                    backgroundColorButton = cor,
                 )
 
                 Row {
@@ -135,6 +131,7 @@ fun bubbleCard() {
                     Text(
                         text = "22K",
                         fontSize = 12.sp,
+                        color = Color.Black,
                         modifier = Modifier.align(Alignment.CenterVertically)
                     )
                 }
@@ -144,45 +141,59 @@ fun bubbleCard() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .height(90.dp)
                     .padding(horizontal = 15.dp)
             ) {
 
                 Text(
-                    text = "Title",
+                    text = title,
                     fontSize = 20.sp,
+                    color = Color.Black,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = "Lorem ipsum dolor sit amet consectetur." +
-                            " At sagittis mattis cursus leo habitant adipiscing" +
-                            ". Malesuada non amet sit laoreet. Volutpat et magna.",
+                    text = descricao,
                     style = TextStyle(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Light,
-                        lineHeight = 16.sp
+                        lineHeight = 16.sp,
+                        color = Color.Black
                     )
                 )
             }
 
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Box(
+            Column(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        color = Color.Transparent,
-                        shape = RoundedCornerShape(30.dp)
-                    )
+                    .fillMaxWidth()
             ) {
-                Image(
-                    painter = painterResource(id = R.mipmap.basquete),
-                    contentDescription = "basquete",
+                Spacer(modifier = Modifier.height(10.dp))
+
+                Box(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(16.dp)),
-                    contentScale = ContentScale.Crop
-                )
+                        .fillMaxSize()
+                        .background(
+                            color = Color.Transparent,
+                            shape = RoundedCornerShape(30.dp)
+                        )
+                ) {
+                    Image(
+                        painter = imagem,
+                        contentDescription = "basquete",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp)),
+                        contentScale = ContentScale.Crop
+                    )
+                    Row(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        JoinButton(onClick = { })
+                    }
+                }
             }
         }
     }
@@ -190,7 +201,7 @@ fun bubbleCard() {
 
 
 @Composable
-fun EventCard() {
+fun EventCard(bolha: String, titulo: String, descricao: String, endereco: String, data: String, imagem: Painter, icon: Painter, cor : Color) {
     Box(
         modifier = Modifier
             .width(320.dp)
@@ -203,10 +214,10 @@ fun EventCard() {
                     modifier = Modifier
                         .fillMaxHeight()
                         .width(120.dp)
-                        )
+                )
                 {
                     Image(
-                        painter = painterResource(id = R.mipmap.event_bg_2),
+                        painter = imagem,
                         contentDescription = "basquete",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -222,33 +233,47 @@ fun EventCard() {
                         contentScale = ContentScale.Crop
                     )
                 }
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(20.dp)
-                    ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+                ) {
 
-                        ButtonSelectBubble(
-                            valueText = "jogos",
-                            icon = painterResource(id = R.mipmap.games),
-                            onClick = {},
-                            backgroundColorButton = Color(0xFFfde68a)
-                        )
+                    ButtonSelectBubble(
+                        valueText = bolha,
+                        icon = icon,
+                        onClick = null,
+                        backgroundColorButton = cor
+                    )
                     Spacer(modifier = Modifier.height(15.dp))
-                    TitleTextEvent(value = "Basquete dos Guri")
-                    SubtitleTextEvent(value = "Basqueteen")
+                    Column (modifier = Modifier
+                        .height(120.dp)
+                        ){
 
-                    Spacer(modifier = Modifier.height(15.dp))
+                        TitleTextEvent(titulo)
+                        SubtitleTextEvent(descricao)
 
-                    LocalEvent(texto = "Rua dos bobos, 15 - SP")
-                    Spacer(modifier = Modifier.height(10.dp))
-                    Row{
-                        DataEvent(texto = "05/12/2023")
-                        Spacer(modifier = Modifier.width(10.dp))
-                        HorarioEvent(texto = "09h30")
+                        Spacer(modifier = Modifier.height(15.dp))
+
+                        LocalEvent(endereco)
+                        Spacer(modifier = Modifier.height(10.dp))
+                        Row {
+                            DataEvent(data)
+                            Spacer(modifier = Modifier.width(10.dp))
+                            HorarioEvent(texto = "09h30")
+                        }
+                        Spacer(modifier = Modifier.height(17.dp))
+
                     }
-                    Spacer(modifier = Modifier.height(17.dp))
+                    Spacer(modifier = Modifier.height(5.dp))
 
-                    EventButton(content = "MARCAR PRESENÇA", onClick = {}, backgroundColor = Zinc700)
+                    EventButton(
+                        content = "MARCAR PRESENÇA",
+                        onClick = {},
+                        backgroundColor = Zinc500
+                    )
+
+
 
                 }
             }
