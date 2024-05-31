@@ -8,6 +8,7 @@ import com.projects.bubbles.dto.PostRequest
 import com.projects.bubbles.services.Service
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -25,25 +26,28 @@ class PostViewModel : ViewModel() {
     }
 
     fun getPosts() {
-        loading.value = true // Define o estado de loading como verdadeiro ao iniciar o carregamento
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                loading.postValue(true)
                 val response = postService.getPosts()
                 Log.d("Resposta da API", response.body().toString())
 
-                if (response.isSuccessful) {
-                    val postList = response.body()?.toMutableList() ?: mutableListOf()
-                    posts.postValue(postList)
-                    erro.postValue("")
-                } else {
-                    erro.postValue(response.errorBody()?.string())
-                    Log.e("api", "Não deu sucesso! ${erro.value}")
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        posts.postValue(response.body()?.toMutableList() ?: mutableListOf())
+                        erro.postValue("")
+                    } else {
+                        erro.postValue(response.errorBody()?.string())
+                        Log.e("api", "Não deu sucesso! ${erro.value}")
+                    }
+                    loading.value = false
                 }
             } catch (e: Exception) {
                 Log.e("api", "Deu ruim rapazz no get! ${e.message}")
-                erro.postValue(e.message)
-            } finally {
-                loading.postValue(false) // Define o estado de loading como falso ao finalizar o carregamento
+                withContext(Dispatchers.Main) {
+                    erro.value = e.message
+                    loading.value = false
+                }
             }
         }
     }
@@ -76,32 +80,50 @@ class PostViewModel : ViewModel() {
         }
     }
 
-    fun deletePostById(postId: Int) {
-        loading.value = true // Define o estado de loading como verdadeiro ao iniciar a exclusão do post
+    fun deletePost(postId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                loading.postValue(true)
                 val response = postService.deletePost(postId)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        // Aqui você pode implementar qualquer ação após a exclusão bem-sucedida, como atualizar a lista de posts
-                        // No exemplo abaixo, estou apenas imprimindo uma mensagem de log
-                        Log.d("api", "Post excluído com sucesso!")
+                        getPosts()
+                        Log.d("PostViewModel", "Post deleted successfully")
                     } else {
-                        erro.postValue(response.errorBody()?.string())
-                        Log.e("api", "Não foi possível excluir o post! ${erro.value}")
+                        val errorBody = response.errorBody()?.string()
+                        Log.e("PostViewModel", "Error deleting post: $errorBody")
+                        erro.postValue("Erro ao excluir post: $errorBody")
                     }
-                    loading.postValue(false) // Define o estado de loading como falso ao finalizar a exclusão do post
                 }
             } catch (e: Exception) {
-                withContext(Dispatchers.Main) {
-                    Log.e("api", "Ocorreu um erro ao excluir o post! ${e.message}")
-                    erro.postValue(e.message)
-                    loading.postValue(false) // Define o estado de loading como falso ao finalizar a exclusão do post
-                }
+                Log.e("PostViewModel", "Error deleting post: ${e.message}")
+                erro.postValue("Erro ao excluir post: ${e.message}")
+            } finally {
+                delay(5000)
+                loading.postValue(false)
             }
         }
     }
 
-
+    fun updatePost(postId: Int, newContent: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                loading.value = true
+                val updatedPost = Post(idPost = postId, contents = newContent)
+                val response = postService.updatePost(postId, updatedPost)
+                if (response.isExecuted) {
+                    getPosts()
+                } else {
+                    Log.e("PostViewModel", "Error updating post: ${response}")
+                    erro.postValue("Erro ao atualizar post: ${response}")
+                }
+            } catch (e: Exception) {
+                Log.e("PostViewModel", "Error updating post: ${e.message}")
+                erro.postValue("Erro ao atualizar post: ${e.message}")
+            } finally {
+                loading.value = false
+            }
+        }
+    }
 
 }

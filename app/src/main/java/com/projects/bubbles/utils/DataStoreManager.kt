@@ -19,7 +19,6 @@ object DataStoreManager {
             preferences[USER_ID_KEY] = user.id?.toString() ?: ""
             preferences[USERNAME_KEY] = user.username ?: ""
             preferences[EMAIL_KEY] = user.email ?: ""
-            preferences[CPF_KEY] = user.cpf ?: ""
             preferences[NICKNAME_KEY] = user.nickname ?: ""
         }
     }
@@ -29,15 +28,13 @@ object DataStoreManager {
             val id = preferences[USER_ID_KEY]?.toIntOrNull()
             val username = preferences[USERNAME_KEY] ?: ""
             val email = preferences[EMAIL_KEY] ?: ""
-            val cpf = preferences[CPF_KEY] ?: ""
             val nickname = preferences[NICKNAME_KEY] ?: ""
-            User(id, username, email, cpf, nickname)
+            User(id, username, nickname, email)
         }
     }
 
     private val USER_ID_KEY = stringPreferencesKey("user_id")
     private val USERNAME_KEY = stringPreferencesKey("username")
     private val EMAIL_KEY = stringPreferencesKey("email")
-    private val CPF_KEY = stringPreferencesKey("cpf")
     private val NICKNAME_KEY = stringPreferencesKey("nickname")
 }

@@ -38,12 +38,17 @@ import com.projects.bubbles.components.CreatePostBox
 import com.projects.bubbles.components.DeleteButton
 import com.projects.bubbles.components.EventStoryCard
 import com.projects.bubbles.components.PostBox
+import com.projects.bubbles.dto.User
 import com.projects.bubbles.viewmodel.PostViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Feed(postViewModel: PostViewModel, authViewModel: AuthViewModel = viewModel(), context: Context) {
+fun Feed(
+    postViewModel: PostViewModel,
+    authViewModel: AuthViewModel = viewModel(),
+    context: Context
+) {
     val userState = authViewModel.userState.collectAsState().value
 
     LaunchedEffect(Unit) {
@@ -60,8 +65,7 @@ fun Feed(postViewModel: PostViewModel, authViewModel: AuthViewModel = viewModel(
                 .fillMaxWidth()
                 .padding(start = 28.dp, end = 28.dp)
         ) {
-            Text(text = "Olá ${userState?.username}, seu id é: ${userState?.idUser}")
-            
+
             Spacer(modifier = Modifier.height(70.dp))
 
             Row(
@@ -77,21 +81,23 @@ fun Feed(postViewModel: PostViewModel, authViewModel: AuthViewModel = viewModel(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            CreatePostBox(
-                username = "Ruan",
-                nickname = "helloWorldRuan",
-                postViewModel = postViewModel
-            )
+            userState?.let { user ->
+                CreatePostBox(
+                    username = user.username,
+                    nickname = user.nickname,
+                    postViewModel = postViewModel
+                )
+                Spacer(modifier = Modifier.height(32.dp))
 
-            Spacer(modifier = Modifier.height(32.dp))
+                PostList(postViewModel, User(user.idUser, user.username, user.nickname, user.email))
+            }
 
-            PostList(postViewModel)
         }
     }
 }
 
 @Composable
-fun PostList(viewModel: PostViewModel) {
+fun PostList(viewModel: PostViewModel, userState: User) {
     val posts = viewModel.posts.observeAsState().value
     val erro = viewModel.erro.observeAsState().value
     val loading = viewModel.loading.observeAsState().value
@@ -121,18 +127,21 @@ fun PostList(viewModel: PostViewModel) {
         LazyColumn {
             items(items = postList) { post ->
                 PostBox(
-                    username = post.author.username,
-                    nickname = post.author.nickname,
+                    username = post.author?.username!!,
+                    nickname = post.author?.nickname!!,
                     dateTime = post.moment,
                     content = post.contents,
-                    commentContent = post.comments
+                    viewModel,
+                    post = post,
+                    onEditClick = { updatedPost ->
+                        viewModel.updatePost(updatedPost.idPost, updatedPost.contents)
+                    },
+                    userState = userState
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
-
-
     }
 }
 

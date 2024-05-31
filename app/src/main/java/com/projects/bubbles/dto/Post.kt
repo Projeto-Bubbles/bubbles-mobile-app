@@ -5,10 +5,10 @@ import java.time.LocalDateTime
 
 data class Post(
     var idPost:Int,
-    var moment:String,
+    var moment:String? = null,
     var contents:String,
-    var author: User,
-    var bubble: Bubble,
+    var author: User? = null,
+    var bubble: Bubble? = null,
     @SerializedName("comments")
-    val comments: List<Comment> = listOf(Comment())
+    val comments: List<Comment>? = listOf(Comment())
 ){}

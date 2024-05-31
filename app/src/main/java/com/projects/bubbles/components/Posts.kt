@@ -1,6 +1,7 @@
 package com.projects.bubbles.components
 
 import android.os.Build
+import android.provider.CalendarContract.Colors
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -9,15 +10,26 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.twotone.Delete
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,10 +37,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.dto.Comment
 import com.projects.bubbles.dto.Post
 import com.projects.bubbles.dto.PostRequest
+import com.projects.bubbles.dto.User
 import com.projects.bubbles.viewmodel.PostViewModel
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -199,8 +213,14 @@ fun PostBox(
     nickname: String,
     dateTime: String? = null,
     content: String,
-    commentContent: List<Comment>? = emptyList()
+    postViewModel: PostViewModel,
+    post: Post,
+    onEditClick: (Post) -> Unit,
+    userState: User
 ) {
+    var showEditDialog = remember { mutableStateOf(false) }
+    var editedContent = remember { mutableStateOf(content) }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -211,7 +231,8 @@ fun PostBox(
             modifier = Modifier.padding(12.dp)
         ) {
             Row(
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Perfil()
 
@@ -223,8 +244,8 @@ fun PostBox(
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF423f46)
                 )
-                Spacer(modifier = Modifier.width(15.dp))
 
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
                     text = "@$nickname • $dateTime",
@@ -232,18 +253,45 @@ fun PostBox(
                     color = Color(0xFF423f46)
                 )
 
+                if (post.author?.idUser == userState.idUser) {
+                    Button(
+                        onClick = { postViewModel.deletePost(post.idPost) },
+                        modifier = Modifier
+                            .size(16.dp)
+                            .clip(RoundedCornerShape(2.dp)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
+                    ) {
+                        Icon(
+                            Icons.Filled.Delete,
+                            contentDescription = "Deletar post",
+                            tint = Color.White
+                        )
+                    }
 
+                    Button(
+                        onClick = { showEditDialog.value },
+                        modifier = Modifier
+                            .size(16.dp)
+                            .clip(RoundedCornerShape(2.dp)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
+                    ) {
+                        Icon(
+                            Icons.Filled.Edit,
+                            contentDescription = "Editar post",
+                            tint = Color.White
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = content,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                lineHeight = 16.sp,
-                color = Color(0xFF423f46)
-            )
+                Text(
+                    text = content,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 16.sp,
+                    color = Color(0xFF423f46)
+                )
 
 //            Spacer(modifier = Modifier.height(8.dp))
 //
@@ -254,8 +302,50 @@ fun PostBox(
 //                commentContent = "Lorem ipsum dolor sit amet consectetur. In dolor porttitor malesuada sit et. Amet enim iaculis gravida nulla egestas ultrices phasellus consequat. Eget mauris in lacus risus porttitor."
 //            )
 
-            Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
+
+                if (showEditDialog.value) {
+                    EditPostDialog(
+                        initialContent = content,
+                        onDismiss = { showEditDialog.value = false },
+                        onConfirm = { newContent ->
+                            postViewModel.updatePost(post.idPost, newContent)
+                            showEditDialog.value = false
+                        }
+                    )
+                }
+            }
         }
     }
+
+@Composable
+fun EditPostDialog(
+    initialContent: String,
+    onDismiss: () -> Unit,
+    onConfirm: (String) -> Unit
+) {
+    val editedContent = remember { mutableStateOf("") }
+
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text("Editar Post") },
+        text = {
+            OutlinedTextField(
+                value = editedContent.value,
+                onValueChange = { editedContent.value = it },
+                label = { Text(text = "Novo Conteúdo") }
+            )
+        },
+        confirmButton = {
+            Button(onClick = { onConfirm(editedContent.value) }) {
+                Text("Salvar")
+            }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text("Cancelar")
+            }
+        }
+    )
 }
