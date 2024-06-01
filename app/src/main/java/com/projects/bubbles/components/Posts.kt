@@ -255,7 +255,7 @@ fun PostBox(
 
                 if (post.author?.idUser == userState.idUser) {
                     Button(
-                        onClick = { postViewModel.deletePost(post.idPost) },
+                        onClick = { postViewModel.deletePost(post.idPost!!) },
                         modifier = Modifier
                             .size(16.dp)
                             .clip(RoundedCornerShape(2.dp)),
@@ -310,7 +310,7 @@ fun PostBox(
                         initialContent = content,
                         onDismiss = { showEditDialog.value = false },
                         onConfirm = { newContent ->
-                            postViewModel.updatePost(post.idPost, newContent)
+                            postViewModel.updatePost(post.idPost!!, newContent)
                             showEditDialog.value = false
                         }
                     )

@@ -33,7 +33,7 @@ class AuthViewModel : ViewModel() {
     private val _userState = MutableStateFlow<User?>(null)
     val userState: StateFlow<User?> = _userState.asStateFlow()
 
-    private val authService = Service.AuthService()
+    private val authService = Service.AuthService
 
     fun login(
         email: String,

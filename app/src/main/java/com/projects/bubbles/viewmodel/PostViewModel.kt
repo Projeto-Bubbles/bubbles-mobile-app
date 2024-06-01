@@ -19,7 +19,7 @@ class PostViewModel : ViewModel() {
     val postCreated = MutableLiveData<Boolean>()
 
 
-    private val postService = Service.PostService()
+    private val postService = Service.PostService
 
     init {
         getPosts()
@@ -109,7 +109,7 @@ class PostViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 loading.value = true
-                val updatedPost = Post(idPost = postId, contents = newContent)
+                val updatedPost = Post(contents = newContent)
                 val response = postService.updatePost(postId, updatedPost)
                 if (response.isExecuted) {
                     getPosts()

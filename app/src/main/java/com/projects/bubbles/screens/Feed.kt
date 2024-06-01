@@ -134,7 +134,7 @@ fun PostList(viewModel: PostViewModel, userState: User) {
                     viewModel,
                     post = post,
                     onEditClick = { updatedPost ->
-                        viewModel.updatePost(updatedPost.idPost, updatedPost.contents)
+                        viewModel.updatePost(updatedPost.idPost!!, updatedPost.contents)
                     },
                     userState = userState
                 )

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 
 data class Post(
-    var idPost:Int,
+    var idPost:Int? = null,
     var moment:String? = null,
     var contents:String,
     var author: User? = null,
