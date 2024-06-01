@@ -89,8 +89,6 @@ fun GridBubbles(bubbles: List<BubbleResponseDTO>) {
                         description = bubble.explanation ?: "",
                         category = bubble.category?.name ?: "",
                         image = painterResource(id = R.mipmap.forro),
-                        icon = painterResource(id = R.mipmap.culinary),
-                        color = Color.Red
                     )
                 }
             }

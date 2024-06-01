@@ -1,5 +1,6 @@
 package com.projects.bubbles.dto
 
+import com.projects.bubbles.dto.enums.Category
 import java.time.LocalDate
 
 data class BubbleResponseDTO(
@@ -24,8 +25,3 @@ data class UserInfoDTO(
     val nickname: String?,
     val email: String?
 )
-
-// Definição do enum Category (substitua pelos valores reais da sua API)
-enum class Category {
-    MUSICA, CIENCIA, TECNOLOGIA, GASTRONOMIA, LIVROS, ESPORTES, ARTE, GAMES
-}
