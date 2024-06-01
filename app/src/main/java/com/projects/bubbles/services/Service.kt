@@ -2,6 +2,7 @@ package com.projects.bubbles.services
 
 import com.projects.bubbles.services.endpoints.IAuth
 import com.projects.bubbles.services.endpoints.IBubble
+import com.projects.bubbles.services.endpoints.IEvent
 import com.projects.bubbles.services.endpoints.IPost
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -30,4 +31,5 @@ object Service {
     val PostService: IPost by lazy { retrofitBuilder.build().create(IPost::class.java) }
     val AuthService: IAuth by lazy { retrofitBuilder.build().create(IAuth::class.java) }
     val BubbleService: IBubble by lazy { retrofitBuilder.build().create(IBubble::class.java) }
+    val EventService: IEvent by lazy { retrofitBuilder.build().create(IEvent::class.java) }
 }
