@@ -21,7 +21,6 @@ class BubbleViewModel : ViewModel() {
         getBubbles()
     }
 
-
     fun getBubbles() {
         CoroutineScope(Dispatchers.IO).launch {
             try {

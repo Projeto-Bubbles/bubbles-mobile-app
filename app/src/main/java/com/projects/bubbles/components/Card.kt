@@ -97,7 +97,7 @@ fun AccessCard() {
 }
 
 @Composable
-fun bubbleCard(title: String, descricao: String, categoria: String, imagem: Painter, icon: Painter, cor: Color) {
+fun BubbleCard(title: String, description: String, category: String, image: Painter, icon: Painter, color: Color) {
     Box(
         modifier = Modifier
             .size(235.dp)
@@ -113,10 +113,10 @@ fun bubbleCard(title: String, descricao: String, categoria: String, imagem: Pain
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 ButtonSelectBubble(
-                    valueText = categoria,
+                    valueText = category,
                     icon = icon,
                     onClick = null,
-                    backgroundColorButton = cor,
+                    backgroundColorButton = color,
                 )
 
                 Row {
@@ -153,7 +153,7 @@ fun bubbleCard(title: String, descricao: String, categoria: String, imagem: Pain
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Text(
-                    text = descricao,
+                    text = description,
                     style = TextStyle(
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Light,
@@ -178,7 +178,7 @@ fun bubbleCard(title: String, descricao: String, categoria: String, imagem: Pain
                         )
                 ) {
                     Image(
-                        painter = imagem,
+                        painter = image,
                         contentDescription = "basquete",
                         modifier = Modifier
                             .fillMaxWidth()
