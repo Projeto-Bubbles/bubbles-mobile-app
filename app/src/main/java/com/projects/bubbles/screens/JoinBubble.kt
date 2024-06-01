@@ -2,6 +2,7 @@ package com.projects.bubbles.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -51,28 +52,30 @@ fun JoinBubble(bubbleViewModel: BubbleViewModel = viewModel()) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(20.dp)
             ) {
-                LazyRow(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    items(bubbles) { bubble ->
-                        BubbleCard(
-                            title = bubble.title ?: "",
-                            description = bubble.explanation ?: "",
-                            category = bubble.category?.name ?: "",
-                            image = painterResource(id = R.drawable.default_background),
-                            icon = painterResource(id = R.mipmap.ic_launcher),
-                            color = Color.Red
-                        )
+                items(bubbles.chunked(6)) { rowBubbles ->
+                    LazyRow(
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp),
+                        horizontalArrangement = Arrangement.spacedBy(20.dp)
+                    ) {
+                        items(rowBubbles) { bubble ->
+                            BubbleCard(
+                                title = bubble.title ?: "",
+                                description = bubble.explanation ?: "",
+                                category = bubble.category?.name ?: "",
+                                image = painterResource(id = R.mipmap.forro),
+                                icon = painterResource(id = R.mipmap.culinary),
+                                color = Color.Red
+                            )
+                        }
                     }
                 }
             }
+
         }
     }
 }

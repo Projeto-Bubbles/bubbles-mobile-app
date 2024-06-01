@@ -40,7 +40,7 @@ fun SignInScreen(
     val loginResult = authViewModel.loginResult.observeAsState()
     val erro = authViewModel.erro.observeAsState()
 
-    if (email.value.isNotBlank()) {
+    if (loginResult.value !=null && loginResult.value!!.token.isNotBlank()) {
         navController.navigate("bubbles")
     }
 

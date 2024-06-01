@@ -97,7 +97,14 @@ fun AccessCard() {
 }
 
 @Composable
-fun BubbleCard(title: String, description: String, category: String, image: Painter, icon: Painter, color: Color) {
+fun BubbleCard(
+    title: String,
+    description: String,
+    category: String,
+    image: Painter,
+    icon: Painter,
+    color: Color
+) {
     Box(
         modifier = Modifier
             .size(235.dp)
@@ -201,7 +208,16 @@ fun BubbleCard(title: String, description: String, category: String, image: Pain
 
 
 @Composable
-fun EventCard(bolha: String, titulo: String, descricao: String, endereco: String, data: String, imagem: Painter, icon: Painter, cor : Color) {
+fun EventCard(
+    bolha: String,
+    titulo: String,
+    descricao: String,
+    endereco: String,
+    data: String,
+    imagem: Painter,
+    icon: Painter,
+    cor: Color
+) {
     Box(
         modifier = Modifier
             .width(320.dp)
@@ -246,9 +262,10 @@ fun EventCard(bolha: String, titulo: String, descricao: String, endereco: String
                         backgroundColorButton = cor
                     )
                     Spacer(modifier = Modifier.height(15.dp))
-                    Column (modifier = Modifier
-                        .height(120.dp)
-                        ){
+                    Column(
+                        modifier = Modifier
+                            .height(120.dp)
+                    ) {
 
                         TitleTextEvent(titulo)
                         SubtitleTextEvent(descricao)
@@ -272,7 +289,6 @@ fun EventCard(bolha: String, titulo: String, descricao: String, endereco: String
                         onClick = {},
                         backgroundColor = Zinc500
                     )
-
 
 
                 }

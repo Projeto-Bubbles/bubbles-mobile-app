@@ -6,7 +6,7 @@ data class BubbleResponseDTO(
     val idBubble: Int?,
     val title: String?,
     val explanation: String?,
-    val creationDate: LocalDate?,
+    val creationDate: String,
     val category: Category?,
     val creator: UserInfoDTO?
 )

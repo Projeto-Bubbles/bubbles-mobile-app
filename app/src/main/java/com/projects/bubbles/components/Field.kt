@@ -205,16 +205,3 @@ fun SearchBubble() {
     }
 }
 
-//@Composable
-//fun SearchBubble(){
-//    OutlinedTextField(modifier = modifier.fillMaxWidth(),
-//        label = { Text(text = "Pesquisar bolhas...") },
-//        value = "",
-//        onValueChange = onValueChange,
-//        keyboardOptions = keyboardOptions,
-//        Icon(
-//            imageVector = Icons.Default.Search,
-//            contentDescription = "Search Icon",
-//            tint = Color.Gray
-//        )
-

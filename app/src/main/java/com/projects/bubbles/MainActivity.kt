@@ -48,11 +48,11 @@ class MainActivity : ComponentActivity() {
         val context = LocalContext.current
         val authViewModel: AuthViewModel = viewModel()
         val viewModelStoreOwner = LocalViewModelStoreOwner.current
-        val internalNavController = rememberNavController() // Mova para fora do NavHost
+        val internalNavController = rememberNavController()
 
         NavHost(
             navController = navController,
-            startDestination = "login"
+            startDestination = "bubbles"
         ) {
             composable("login") {
                 SignInScreen(navController, authViewModel, context)
