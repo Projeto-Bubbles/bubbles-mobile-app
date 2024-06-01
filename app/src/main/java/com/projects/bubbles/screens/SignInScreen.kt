@@ -1,3 +1,4 @@
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Surface
@@ -31,9 +32,11 @@ import com.projects.bubbles.ui.theme.rounded
 fun SignInScreen(
     navController: NavHostController,
     authViewModel: AuthViewModel = AuthViewModel(),
+    context: Context
 ) {
-    var email = remember { mutableStateOf("") }
-    var password = remember { mutableStateOf("") }
+
+    val email = remember { mutableStateOf("") }
+    val password = remember { mutableStateOf("") }
     val loginResult = authViewModel.loginResult.observeAsState()
     val erro = authViewModel.erro.observeAsState()
 
@@ -106,7 +109,7 @@ fun SignInScreen(
                             ButtonComponent(
                                 value = stringResource(id = R.string.sign_in_action_button),
                                 onClick = {
-                                    authViewModel.login(email.value, password.value, navController)
+                                    authViewModel.login("gerimundo@gmail.com", "123456", context)
 
                                 }
                             )
@@ -118,8 +121,3 @@ fun SignInScreen(
     }
 }
 
-@Preview
-@Composable
-fun PreviewSignInScreen() {
-    SignInScreen(navController = rememberNavController())
-}

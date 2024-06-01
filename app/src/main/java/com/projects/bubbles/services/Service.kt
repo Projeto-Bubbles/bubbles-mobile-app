@@ -1,6 +1,8 @@
 package com.projects.bubbles.services
 
 import com.projects.bubbles.services.endpoints.IAuth
+import com.projects.bubbles.services.endpoints.IBubble
+import com.projects.bubbles.services.endpoints.IEvent
 import com.projects.bubbles.services.endpoints.IPost
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -8,34 +10,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Service {
-    const val BASE_URL = "http://34.195.120.16/api/ "
 
-    val okHttpClient = OkHttpClient.Builder()
-        .connectTimeout(15, TimeUnit.SECONDS) // Configura o tempo de espera de conexão
-        .readTimeout(15, TimeUnit.SECONDS) // Configura o tempo de espera de leitura
-        .writeTimeout(15, TimeUnit.SECONDS) // Configura o tempo de espera de escrita
-        .build()
+    private const val BASE_URL = "http://10.0.2.2:8080/api/"
 
-    fun PostService(): IPost {
-        val post = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient) // Define o cliente OkHttpClient com as configurações de tempo de espera
+    private val okHttpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .build()
-            .create(IPost::class.java)
-
-        return post
     }
 
-    fun AuthService(): IAuth {
-        val auth = Retrofit.Builder()
+    private val retrofitBuilder: Retrofit.Builder by lazy {
+        Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient) // Define o cliente OkHttpClient com as configurações de tempo de espera
-            .build()
-            .create(IAuth::class.java)
-
-        return auth
+            .client(okHttpClient)
     }
 
+    val PostService: IPost by lazy { retrofitBuilder.build().create(IPost::class.java) }
+    val AuthService: IAuth by lazy { retrofitBuilder.build().create(IAuth::class.java) }
+    val BubbleService: IBubble by lazy { retrofitBuilder.build().create(IBubble::class.java) }
+    val EventService: IEvent by lazy { retrofitBuilder.build().create(IEvent::class.java) }
 }

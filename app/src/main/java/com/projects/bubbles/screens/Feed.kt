@@ -1,6 +1,8 @@
 package com.projects.bubbles.screens
 
+import AuthViewModel
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -19,6 +21,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,17 +31,30 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.components.CreatePostBox
 import com.projects.bubbles.components.DeleteButton
 import com.projects.bubbles.components.EventStoryCard
 import com.projects.bubbles.components.PostBox
+import com.projects.bubbles.dto.User
 import com.projects.bubbles.viewmodel.PostViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun Feed(postViewModel: PostViewModel) {
+fun Feed(
+    postViewModel: PostViewModel,
+    authViewModel: AuthViewModel = viewModel(),
+    context: Context
+) {
+    val userState = authViewModel.userState.collectAsState().value
+
+    LaunchedEffect(Unit) {
+        authViewModel.loadUserFromDataStore(context)
+    }
+
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -63,23 +81,23 @@ fun Feed(postViewModel: PostViewModel) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-//            AccessCard()
+            userState?.let { user ->
+                CreatePostBox(
+                    username = user.username,
+                    nickname = user.nickname,
+                    postViewModel = postViewModel
+                )
+                Spacer(modifier = Modifier.height(32.dp))
 
-            CreatePostBox(
-                username = "Ruan",
-                nickname = "helloWorldRuan",
-                postViewModel = postViewModel
-            )
+                PostList(postViewModel, User(user.idUser, user.username, user.nickname, user.email))
+            }
 
-            Spacer(modifier = Modifier.height(32.dp))
-
-            PostList(postViewModel)
         }
     }
 }
 
 @Composable
-fun PostList(viewModel: PostViewModel) {
+fun PostList(viewModel: PostViewModel, userState: User) {
     val posts = viewModel.posts.observeAsState().value
     val erro = viewModel.erro.observeAsState().value
     val loading = viewModel.loading.observeAsState().value
@@ -91,11 +109,10 @@ fun PostList(viewModel: PostViewModel) {
     }
 
     if (postCreated == true) {
-        viewModel.postCreated.value = false // Reseta o valor para evitar recarregamentos repetidos
-        viewModel.getPosts() // Recarrega a lista de posts
+        viewModel.postCreated.value = false
+        viewModel.getPosts()
     }
 
-    // Exibe o indicador de carregamento se o estado de loading for verdadeiro
     if (loading == true) {
         Box(
             modifier = Modifier
@@ -110,24 +127,21 @@ fun PostList(viewModel: PostViewModel) {
         LazyColumn {
             items(items = postList) { post ->
                 PostBox(
-                    username = post.author.username,
-                    nickname = post.author.nickname,
+                    username = post.author?.username!!,
+                    nickname = post.author?.nickname!!,
                     dateTime = post.moment,
                     content = post.contents,
-                    commentContent = post.comments
+                    viewModel,
+                    post = post,
+                    onEditClick = { updatedPost ->
+                        viewModel.updatePost(updatedPost.idPost!!, updatedPost.contents)
+                    },
+                    userState = userState
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
-
-
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Preview
-@Composable
-fun PreviewFeed() {
-    Feed(PostViewModel())
-}

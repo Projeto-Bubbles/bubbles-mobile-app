@@ -21,9 +21,9 @@ interface IPost {
     @POST("posts")
     suspend fun createPost(@Body newPost: PostRequest): Response<Post>
 
-    @PUT("{id}")
-    fun updatePost(@Path("id") id: Int, @Body editedPost: Post): Call<Post>
+    @PUT("posts/{id}")
+    suspend fun updatePost(@Path("id") id: Int, @Body editedPost: Post): Call<Post>
 
-    @DELETE("{id}")
+    @DELETE("posts/{id}")
     suspend fun deletePost(@Path("id") id: Int): Response<Void>
 }
