@@ -1,7 +1,6 @@
 package com.projects.bubbles.components
 
 import android.os.Build
-import android.provider.CalendarContract.Colors
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
@@ -10,26 +9,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.twotone.Delete
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,17 +28,16 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import com.projects.bubbles.R
-import com.projects.bubbles.dto.Comment
 import com.projects.bubbles.dto.Post
 import com.projects.bubbles.dto.PostRequest
 import com.projects.bubbles.dto.User
+import com.projects.bubbles.ui.theme.Red300
+import com.projects.bubbles.ui.theme.Slate400
+import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.viewmodel.PostViewModel
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.time.format.TextStyle
 
 @Composable
 fun CommentBox(
@@ -264,33 +254,32 @@ fun PostBox(
                     color = Color(0xFF423f46)
                 )
 
-                if (post.author?.idUser == userState.idUser) {
-                    Button(
-                        onClick = { postViewModel.deletePost(post.idPost!!) },
-                        modifier = Modifier
-                            .size(16.dp)
-                            .clip(RoundedCornerShape(2.dp)),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Red)
-                    ) {
-                        Icon(
-                            Icons.Filled.Delete,
-                            contentDescription = "Deletar post",
-                            tint = Color.White
-                        )
-                    }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    if (post.author?.idUser == userState.idUser) {
+                        Button(
+                            onClick = { postViewModel.deletePost(post.idPost!!) },
+                            colors = ButtonDefaults.buttonColors(containerColor = Red300)
+                        ) {
+                            Icon(
+                                painterResource(id = R.drawable.icon_delete),
+                                contentDescription = "Deletar post",
+                            )
+                        }
 
-                    Button(
-                        onClick = { showEditDialog.value },
-                        modifier = Modifier
-                            .size(16.dp)
-                            .clip(RoundedCornerShape(2.dp)),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.Blue)
-                    ) {
-                        Icon(
-                            Icons.Filled.Edit,
-                            contentDescription = "Editar post",
-                            tint = Color.White
-                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Button(
+                            onClick = { showEditDialog.value },
+                            colors = ButtonDefaults.buttonColors(containerColor = Zinc350)
+                        ) {
+                            Icon(
+                                painterResource(id = R.drawable.icon_edit),
+                                contentDescription = "Editar post",
+                            )
+                        }
                     }
                 }
 
