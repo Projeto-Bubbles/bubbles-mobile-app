@@ -99,7 +99,7 @@ class PostViewModel : ViewModel() {
                 Log.e("PostViewModel", "Error deleting post: ${e.message}")
                 erro.postValue("Erro ao excluir post: ${e.message}")
             } finally {
-                delay(5000)
+                delay(6000)
                 loading.postValue(false)
             }
         }
@@ -108,22 +108,30 @@ class PostViewModel : ViewModel() {
     fun updatePost(postId: Int, newContent: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                loading.value = true
+                loading.postValue(true)
                 val updatedPost = Post(contents = newContent)
                 val response = postService.updatePost(postId, updatedPost)
-                if (response.isExecuted) {
+                if (response.isSuccessful) {
                     getPosts()
+                    Log.d("PostViewModel", "Post updated successfully: " + response)
                 } else {
-                    Log.e("PostViewModel", "Error updating post: ${response}")
-                    erro.postValue("Erro ao atualizar post: ${response}")
+                    val errorBody = response.errorBody()?.string()
+                    Log.e("PostViewModel", "Error updating post: $errorBody")
+                    withContext(Dispatchers.Main) {
+                        erro.postValue("Erro ao atualizar post: $errorBody")
+                    }
                 }
             } catch (e: Exception) {
                 Log.e("PostViewModel", "Error updating post: ${e.message}")
-                erro.postValue("Erro ao atualizar post: ${e.message}")
+                withContext(Dispatchers.Main) {
+                    erro.postValue("Erro ao atualizar post: ${e.message}")
+                }
             } finally {
-                loading.value = false
+                withContext(Dispatchers.Main) {
+                    delay(6000)
+                    loading.postValue(false)
+                }
             }
         }
     }
-
 }

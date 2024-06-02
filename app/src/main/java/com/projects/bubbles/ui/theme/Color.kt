@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 val Slate800 = Color(99, 99, 99)
 val Slate950 = Color(0x0FF020617)
 val Slate900 = Color(0x0FF0F172A)
+val Slate400 = Color(0x0FF94A3B8)
 val Slate100 = Color(0x0FFF1F5F9)
 
 val Zinc700 = Color(0x0FF423F46)
@@ -24,5 +25,6 @@ val Lime200 = Color(0xFFD9F99D)
 val Orange200 = Color(0xFFFED7AA)
 val Teal200 = Color(0xFF99F6E4)
 val Violet300 = Color(0xFFC4B5FD)
+val Red300 = Color(0xFFFCA5A5)
 
 
