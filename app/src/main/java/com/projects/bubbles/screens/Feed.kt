@@ -96,6 +96,7 @@ fun Feed(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun PostList(viewModel: PostViewModel, userState: User) {
     val posts = viewModel.posts.observeAsState().value

@@ -207,6 +207,7 @@ fun CreatePostBox(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun PostBox(
     username: String,
@@ -220,6 +221,16 @@ fun PostBox(
 ) {
     var showEditDialog = remember { mutableStateOf(false) }
     var editedContent = remember { mutableStateOf(content) }
+
+
+    val localDateTime = if (dateTime != null) {
+        LocalDateTime.parse(dateTime)
+    } else {
+        null
+    }
+
+    val hours = localDateTime?.format(DateTimeFormatter.ofPattern("HH")) ?: ""
+    val date = localDateTime?.format(DateTimeFormatter.ofPattern("dd/MM")) ?: ""
 
     Surface(
         modifier = Modifier
@@ -248,7 +259,7 @@ fun PostBox(
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    text = "@$nickname • $dateTime",
+                    text = "@$nickname • ${hours}h • $date",
                     fontSize = 10.sp,
                     color = Color(0xFF423f46)
                 )
@@ -285,13 +296,13 @@ fun PostBox(
 
                 Spacer(modifier = Modifier.height(8.dp))
             }
-                Text(
-                    text = content,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    lineHeight = 16.sp,
-                    color = Color(0xFF423f46)
-                )
+            Text(
+                text = content,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 16.sp,
+                color = Color(0xFF423f46)
+            )
 
 //            Spacer(modifier = Modifier.height(8.dp))
 //
@@ -302,22 +313,22 @@ fun PostBox(
 //                commentContent = "Lorem ipsum dolor sit amet consectetur. In dolor porttitor malesuada sit et. Amet enim iaculis gravida nulla egestas ultrices phasellus consequat. Eget mauris in lacus risus porttitor."
 //            )
 
-                Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
 
-                if (showEditDialog.value) {
-                    EditPostDialog(
-                        initialContent = content,
-                        onDismiss = { showEditDialog.value = false },
-                        onConfirm = { newContent ->
-                            postViewModel.updatePost(post.idPost!!, newContent)
-                            showEditDialog.value = false
-                        }
-                    )
-                }
+            if (showEditDialog.value) {
+                EditPostDialog(
+                    initialContent = content,
+                    onDismiss = { showEditDialog.value = false },
+                    onConfirm = { newContent ->
+                        postViewModel.updatePost(post.idPost!!, newContent)
+                        showEditDialog.value = false
+                    }
+                )
             }
         }
     }
+}
 
 @Composable
 fun EditPostDialog(
