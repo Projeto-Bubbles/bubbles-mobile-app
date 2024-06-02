@@ -212,7 +212,6 @@ fun PostBox(
     var showEditDialog = remember { mutableStateOf(false) }
     var editedContent = remember { mutableStateOf(content) }
 
-
     val localDateTime = if (dateTime != null) {
         LocalDateTime.parse(dateTime)
     } else {
@@ -272,7 +271,7 @@ fun PostBox(
                         Spacer(modifier = Modifier.width(4.dp))
 
                         Button(
-                            onClick = { showEditDialog.value },
+                            onClick = { showEditDialog.value = true },
                             colors = ButtonDefaults.buttonColors(containerColor = Zinc350)
                         ) {
                             Icon(
@@ -332,7 +331,7 @@ fun EditPostDialog(
         title = { Text("Editar Post") },
         text = {
             OutlinedTextField(
-                value = editedContent.value,
+                value =  editedContent.value ?: initialContent,
                 onValueChange = { editedContent.value = it },
                 label = { Text(text = "Novo Conteúdo") }
             )
