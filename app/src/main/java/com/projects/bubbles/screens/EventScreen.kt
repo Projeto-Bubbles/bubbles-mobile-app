@@ -1,5 +1,7 @@
 package com.projects.bubbles.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -19,6 +21,7 @@ import com.projects.bubbles.components.EventCard
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.viewmodel.EventViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EventScreen(viewModel: EventViewModel = viewModel()) {
     val events by viewModel.eventList.observeAsState(emptyList())
@@ -42,7 +45,7 @@ fun EventScreen(viewModel: EventViewModel = viewModel()) {
             ) {
                 items(events.size) { index ->
                     val event = events[index]
-                    EventCard(event, painterResource(id = R.mipmap.event_bg_2))
+                    EventCard(event, painterResource(id = R.mipmap.event_bg_2), onJoinClick = {})
                 }
             }
         }
