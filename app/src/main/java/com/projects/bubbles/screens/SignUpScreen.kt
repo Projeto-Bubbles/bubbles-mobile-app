@@ -1,6 +1,7 @@
 package com.projects.bubbles.screens
 
 import AuthViewModel
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.projects.bubbles.R
 import com.projects.bubbles.components.ArrowRight
 import com.projects.bubbles.components.BubbleLogo
@@ -40,14 +43,21 @@ import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
 
 @Composable
-fun SignUpScreen(    authViewModel: AuthViewModel = AuthViewModel()
+fun SignUpScreen(
+    navController: NavHostController,
+    authViewModel: AuthViewModel = AuthViewModel(),
+    context: Context
 ) {
-    val context = LocalContext.current
-
     var nickname = remember { mutableStateOf("") }
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
     var repeatPassword = remember { mutableStateOf("") }
+
+    val registerResult = authViewModel.registerResult.observeAsState()
+
+    if (registerResult.value != null) {
+        navController.navigate("login")
+    }
 
     Surface(
         modifier = Modifier
@@ -75,13 +85,11 @@ fun SignUpScreen(    authViewModel: AuthViewModel = AuthViewModel()
                     .fillMaxWidth()
                     .clip(rounded.small)
                     .background(Zinc300)
-            )
-            {
+            ) {
                 Column {
 
                     Column(
-                        Modifier.padding(32.dp),
-                        verticalArrangement = Arrangement.Center
+                        Modifier.padding(32.dp), verticalArrangement = Arrangement.Center
                     ) {
                         ArrowRight()
                         TitleText(value = stringResource(id = R.string.sign_up_title))
@@ -95,46 +103,38 @@ fun SignUpScreen(    authViewModel: AuthViewModel = AuthViewModel()
                             .background(Zinc350)
                             .padding(32.dp)
                     ) {
-                        Column(modifier = Modifier
-                            .height(380.dp)) {
+                        Column(
+                            modifier = Modifier.height(380.dp)
+                        ) {
                             SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
 
                             Spacer(Modifier.height(20.dp))
 
-                            TextField(
-                                label = stringResource(id = R.string.sign_up_nickname),
+                            TextField(label = stringResource(id = R.string.sign_up_nickname),
                                 icon = painterResource(id = R.drawable.user_duotone),
                                 value = nickname.value,
-                                onValueChange = {nickname.value = it}
-                            )
+                                onValueChange = { nickname.value = it })
 
-                            TextField(
-                                label = stringResource(id = R.string.sign_up_email),
+                            TextField(label = stringResource(id = R.string.sign_up_email),
                                 icon = painterResource(id = R.mipmap.email),
                                 value = email.value,
-                                onValueChange = {email.value = it}
-                            )
+                                onValueChange = { email.value = it })
 
 
-                            PasswordField(
-                                label = stringResource(id = R.string.sign_up_password),
+                            PasswordField(label = stringResource(id = R.string.sign_up_password),
                                 icon = painterResource(id = R.mipmap.lock),
                                 value = password.value,
-                                onValueChange = { password.value = it }
-                            )
+                                onValueChange = { password.value = it })
 
-                            PasswordField(
-                                label = stringResource(id = R.string.sign_up_repeat_password),
+                            PasswordField(label = stringResource(id = R.string.sign_up_repeat_password),
                                 icon = painterResource(id = R.mipmap.lock),
                                 value = repeatPassword.value,
-                                onValueChange = { repeatPassword.value = it }
-                            )
+                                onValueChange = { repeatPassword.value = it })
 
 
                             Spacer(Modifier.height(20.dp))
 
-                            ButtonComponent(
-                                value = stringResource(id = R.string.sign_up_action_button),
+                            ButtonComponent(value = stringResource(id = R.string.sign_up_action_button),
                                 onClick = {
                                     val registerRequest = RegisterRequest(
                                         username = "Ruan", // Mock para campos que não têm entrada do usuário
@@ -153,11 +153,4 @@ fun SignUpScreen(    authViewModel: AuthViewModel = AuthViewModel()
             }
         }
     }
-
-}
-
-@Preview
-@Composable
-fun PreviewSignUpScreen() {
-    SignUpScreen()
 }
