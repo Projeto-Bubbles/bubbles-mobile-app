@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.app.BubblesApp
+import com.projects.bubbles.screens.SignUpScreen
 import com.projects.bubbles.ui.theme.BubblesTheme
 
 
@@ -52,10 +53,13 @@ class MainActivity : ComponentActivity() {
 
         NavHost(
             navController = navController,
-            startDestination = "bubbles"
+            startDestination = "register"
         ) {
             composable("login") {
                 SignInScreen(navController, authViewModel, context)
+            }
+            composable("register") {
+                SignUpScreen(navController, authViewModel, context)
             }
             composable("bubbles") {
                 BubblesApp(

@@ -20,6 +20,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.components.*
 import com.projects.bubbles.dto.BubbleResponseDTO
+import com.projects.bubbles.dto.getCategories
 import com.projects.bubbles.viewmodel.BubbleViewModel
 
 @Composable
@@ -27,7 +28,16 @@ fun JoinBubble(bubbleViewModel: BubbleViewModel = viewModel()) {
     val allBubbles by bubbleViewModel.bubbleList.observeAsState(emptyList())
 
     var searchText by remember { mutableStateOf("") }
-    val filteredBubbles = allBubbles.filter { it.title?.startsWith(searchText, ignoreCase = true) ?: false }
+    val categories = getCategories()
+
+    val filteredBubbles = allBubbles.filter { bubble ->
+        val categoryMatch = categories.any { categoryData ->
+            categoryData.title.startsWith(searchText, ignoreCase = true) &&
+                    bubble.category == categoryData.category
+        }
+
+        categoryMatch || bubble.title?.startsWith(searchText, ignoreCase = true) ?: false
+    }
 
     Spacer(modifier = Modifier.height(70.dp))
 
