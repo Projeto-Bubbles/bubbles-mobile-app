@@ -7,6 +7,7 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
@@ -21,9 +22,9 @@ interface IPost {
     @POST("posts")
     suspend fun createPost(@Body newPost: PostRequest): Response<Post>
 
-    @PUT("{id}")
-    fun updatePost(@Path("id") id: Int, @Body editedPost: Post): Call<Post>
+    @PATCH("posts/{id}")
+    suspend fun updatePost(@Path("id") id: Int, @Body editedPost: Post): Response<Post>
 
-    @DELETE("{id}")
+    @DELETE("posts/{id}")
     suspend fun deletePost(@Path("id") id: Int): Response<Void>
 }

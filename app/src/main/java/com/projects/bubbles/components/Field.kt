@@ -23,8 +23,10 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -164,7 +166,9 @@ fun PostResponseField(postViewModel: PostViewModel = PostViewModel()) {
 
 
 @Composable
-fun SearchBubble() {
+fun SearchBubble(onValueChange: (String) -> Unit) {
+    var searchedBubble by remember { mutableStateOf("") }
+
     Row(
         modifier = Modifier
             .width(255.dp)
@@ -187,34 +191,27 @@ fun SearchBubble() {
         Spacer(modifier = Modifier.width(8.dp))
 
         BasicTextField(
-            value = "",
-            onValueChange = {},
+            value = searchedBubble,
+            onValueChange = {
+                searchedBubble = it
+                onValueChange(it)
+            },
             textStyle = TextStyle.Default.copy(color = Color.Black),
             modifier = Modifier.fillMaxSize(),
             decorationBox = { innerTextField ->
                 Box(modifier = Modifier.fillMaxSize()) {
+                    if (searchedBubble.isEmpty()) {
+                        Text(
+                            text = "Pesquisar bolhas...",
+                            color = Color.Gray,
+                            style = TextStyle.Default,
+                            modifier = Modifier.padding(horizontal = 2.dp)
+                        )
+                    }
                     innerTextField()
-                    Text(
-                        text = "Pesquisar bolhas...",
-                        color = Color.Gray,
-                        style = TextStyle.Default,
-                        modifier = Modifier.padding(horizontal = 2.dp)
-                    )
                 }
-            })
+            }
+        )
     }
 }
-
-//@Composable
-//fun SearchBubble(){
-//    OutlinedTextField(modifier = modifier.fillMaxWidth(),
-//        label = { Text(text = "Pesquisar bolhas...") },
-//        value = "",
-//        onValueChange = onValueChange,
-//        keyboardOptions = keyboardOptions,
-//        Icon(
-//            imageVector = Icons.Default.Search,
-//            contentDescription = "Search Icon",
-//            tint = Color.Gray
-//        )
 

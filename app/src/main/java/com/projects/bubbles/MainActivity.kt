@@ -1,5 +1,6 @@
 package com.projects.bubbles
 
+import AuthViewModel
 import SignInScreen
 import android.os.Build
 import android.os.Bundle
@@ -12,47 +13,30 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.projects.bubbles.app.BubblesApp
-import com.projects.bubbles.model.Bubble
-import com.projects.bubbles.screens.EventScreen
-import com.projects.bubbles.screens.Feed
-import com.projects.bubbles.screens.JoinBubble
-import com.projects.bubbles.screens.SelectBubble
 import com.projects.bubbles.screens.SignUpScreen
 import com.projects.bubbles.ui.theme.BubblesTheme
-import com.projects.bubbles.ui.theme.bubbleBlue
-import com.projects.bubbles.ui.theme.bubbleGreen
-import com.projects.bubbles.ui.theme.bubblePurple
-import com.projects.bubbles.ui.theme.bubbleYellow
+
 
 class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val lista = listOf(
-                Bubble("música", R.mipmap.music, bubbleBlue),
-                Bubble("ciência", R.mipmap.science, bubbleGreen),
-                Bubble("tecnologia", R.mipmap.technology, bubblePurple),
-                Bubble("arte", R.mipmap.art, bubblePurple),
-                Bubble("livros", R.mipmap.reading, bubbleBlue),
-                Bubble("esportes", R.mipmap.sports, bubbleGreen),
-                Bubble("gastronomia", R.mipmap.culinary, bubbleYellow),
-                Bubble("games", R.mipmap.games, bubbleYellow),
-            )
             BubblesTheme {
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
 //                    SignUpScreen()
-                    Tela(navController = rememberNavController(), )
+                    Tela(navController = rememberNavController())
 //                    BubblesApp(navController = rememberNavController())
                 }
             }
@@ -62,15 +46,28 @@ class MainActivity : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     @Composable
     fun Tela(navController: NavHostController) {
+        val context = LocalContext.current
+        val authViewModel: AuthViewModel = viewModel()
+        val viewModelStoreOwner = LocalViewModelStoreOwner.current
+        val internalNavController = rememberNavController()
+
         NavHost(
             navController = navController,
-            startDestination = "login"
+            startDestination = "bubbles"
         ) {
             composable("login") {
-                SignInScreen(navController)
+                SignInScreen(navController, authViewModel, context)
+            }
+            composable("register") {
+                SignUpScreen(navController, authViewModel)
             }
             composable("bubbles") {
-                BubblesApp(navController)
+                BubblesApp(
+                    navController = navController,
+                    internalNavController = internalNavController,
+                    authViewModel = authViewModel,
+                    viewModelStoreOwner = viewModelStoreOwner!! // Corrija o erro de nulidade
+                )
             }
         }
     }
