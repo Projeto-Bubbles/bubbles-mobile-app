@@ -15,7 +15,7 @@ import kotlinx.coroutines.withContext
 class PostViewModel : ViewModel() {
     val posts = MutableLiveData<MutableList<Post>>()
     val erro = MutableLiveData<String>()
-    val loading = MutableLiveData<Boolean>()
+    val isLoading = MutableLiveData<Boolean>()
     val postCreated = MutableLiveData<Boolean>()
 
 
@@ -28,7 +28,7 @@ class PostViewModel : ViewModel() {
     fun getPosts() {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                loading.postValue(true)
+                isLoading.postValue(true)
                 val response = postService.getPosts()
                 Log.d("Resposta da API", response.body().toString())
 
@@ -40,13 +40,13 @@ class PostViewModel : ViewModel() {
                         erro.postValue(response.errorBody()?.string())
                         Log.e("api", "Não deu sucesso! ${erro.value}")
                     }
-                    loading.value = false
+                    isLoading.value = false
                 }
             } catch (e: Exception) {
                 Log.e("api", "Deu ruim rapazz no get! ${e.message}")
                 withContext(Dispatchers.Main) {
                     erro.value = e.message
-                    loading.value = false
+                    isLoading.value = false
                 }
             }
         }
@@ -55,7 +55,7 @@ class PostViewModel : ViewModel() {
     fun createPost(post: PostRequest) {
         Log.d("api", "ESTOU QUASE FAZENDO O POST")
 
-        loading.value =
+        isLoading.value =
             true // Define o estado de loading como verdadeiro ao iniciar a criação do post
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -68,13 +68,13 @@ class PostViewModel : ViewModel() {
                         erro.postValue(response.errorBody()?.string())
                         Log.e("api", "Não deu sucesso ao criar o post! ${response}")
                     }
-                    loading.postValue(false) // Define o estado de loading como falso ao finalizar a criação do post
+                    isLoading.postValue(false) // Define o estado de loading como falso ao finalizar a criação do post
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Log.e("api", "Deu ruim rapazz ao criar o post! ${e.message}")
                     erro.postValue(e.message)
-                    loading.postValue(false) // Define o estado de loading como falso ao finalizar a criação do post
+                    isLoading.postValue(false) // Define o estado de loading como falso ao finalizar a criação do post
                 }
             }
         }
@@ -83,7 +83,7 @@ class PostViewModel : ViewModel() {
     fun deletePost(postId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                loading.postValue(true)
+                isLoading.postValue(true)
                 val response = postService.deletePost(postId)
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
@@ -100,7 +100,7 @@ class PostViewModel : ViewModel() {
                 erro.postValue("Erro ao excluir post: ${e.message}")
             } finally {
                 delay(6000)
-                loading.postValue(false)
+                isLoading.postValue(false)
             }
         }
     }
@@ -108,7 +108,7 @@ class PostViewModel : ViewModel() {
     fun updatePost(postId: Int, newContent: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                loading.postValue(true)
+                isLoading.postValue(true)
                 val updatedPost = Post(contents = newContent)
                 val response = postService.updatePost(postId, updatedPost)
                 if (response.isSuccessful) {
@@ -129,7 +129,7 @@ class PostViewModel : ViewModel() {
             } finally {
                 withContext(Dispatchers.Main) {
                     delay(6000)
-                    loading.postValue(false)
+                    isLoading.postValue(false)
                 }
             }
         }

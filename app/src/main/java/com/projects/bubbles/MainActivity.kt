@@ -53,17 +53,17 @@ class MainActivity : ComponentActivity() {
 
         NavHost(
             navController = navController,
-            startDestination = "register"
+            startDestination = "bubbles"
         ) {
             composable("login") {
                 SignInScreen(navController, authViewModel, context)
             }
             composable("register") {
-                SignUpScreen(navController, authViewModel, context)
+                SignUpScreen(navController, authViewModel)
             }
             composable("bubbles") {
                 BubblesApp(
-                    navController = navController, // Passe o navController externo
+                    navController = navController,
                     internalNavController = internalNavController,
                     authViewModel = authViewModel,
                     viewModelStoreOwner = viewModelStoreOwner!! // Corrija o erro de nulidade

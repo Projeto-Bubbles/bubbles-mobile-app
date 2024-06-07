@@ -41,115 +41,121 @@ import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Zinc300
 import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
+import com.projects.bubbles.utils.Loading
 
 @Composable
 fun SignUpScreen(
     navController: NavHostController,
     authViewModel: AuthViewModel = AuthViewModel(),
-    context: Context
 ) {
     var nickname = remember { mutableStateOf("") }
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
     var repeatPassword = remember { mutableStateOf("") }
 
-    val registerResult = authViewModel.registerResult.observeAsState()
+    val registerResult = authViewModel.registerResult.observeAsState().value
+    val isLoading = authViewModel.isLoading.observeAsState().value
 
-    if (registerResult.value != null) {
+    if (registerResult != null) {
         navController.navigate("login")
     }
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-            .background(color = Slate100)
-    ) {
-
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+    Box(Modifier.fillMaxWidth()) {
+        Surface(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .background(color = Slate100)
         ) {
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .height(200.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                BubbleLogo()
-            }
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    BubbleLogo()
+                }
 
-            Box(
-                Modifier
-                    .fillMaxWidth()
-                    .clip(rounded.small)
-                    .background(Zinc300)
-            ) {
-                Column {
+                Box(
+                    Modifier
+                        .fillMaxWidth()
+                        .clip(rounded.small)
+                        .background(Zinc300)
+                ) {
+                    Column {
 
-                    Column(
-                        Modifier.padding(32.dp), verticalArrangement = Arrangement.Center
-                    ) {
-                        ArrowRight()
-                        TitleText(value = stringResource(id = R.string.sign_up_title))
-                        NormalText(value = stringResource(id = R.string.sign_up_disclaimer))
-                    }
-
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .clip(rounded.small)
-                            .background(Zinc350)
-                            .padding(32.dp)
-                    ) {
                         Column(
-                            modifier = Modifier.height(380.dp)
+                            Modifier.padding(32.dp), verticalArrangement = Arrangement.Center
                         ) {
-                            SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
-
-                            Spacer(Modifier.height(20.dp))
-
-                            TextField(label = stringResource(id = R.string.sign_up_nickname),
-                                icon = painterResource(id = R.drawable.user_duotone),
-                                value = nickname.value,
-                                onValueChange = { nickname.value = it })
-
-                            TextField(label = stringResource(id = R.string.sign_up_email),
-                                icon = painterResource(id = R.mipmap.email),
-                                value = email.value,
-                                onValueChange = { email.value = it })
-
-
-                            PasswordField(label = stringResource(id = R.string.sign_up_password),
-                                icon = painterResource(id = R.mipmap.lock),
-                                value = password.value,
-                                onValueChange = { password.value = it })
-
-                            PasswordField(label = stringResource(id = R.string.sign_up_repeat_password),
-                                icon = painterResource(id = R.mipmap.lock),
-                                value = repeatPassword.value,
-                                onValueChange = { repeatPassword.value = it })
-
-
-                            Spacer(Modifier.height(20.dp))
-
-                            ButtonComponent(value = stringResource(id = R.string.sign_up_action_button),
-                                onClick = {
-                                    val registerRequest = RegisterRequest(
-                                        username = "Ruan", // Mock para campos que não têm entrada do usuário
-                                        nickname = nickname.value,
-                                        email = email.value,
-                                        password = password.value,
-                                        cpf = "46292412806" // Mock para campos que não têm entrada do usuário
-                                    )
-                                    authViewModel.register(registerRequest)
-                                })
+                            ArrowRight()
+                            TitleText(value = stringResource(id = R.string.sign_up_title))
+                            NormalText(value = stringResource(id = R.string.sign_up_disclaimer))
                         }
+
+                        Box(
+                            Modifier
+                                .fillMaxWidth()
+                                .clip(rounded.small)
+                                .background(Zinc350)
+                                .padding(32.dp)
+                        ) {
+                            Column(
+                                modifier = Modifier.height(380.dp)
+                            ) {
+                                SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
+
+                                Spacer(Modifier.height(20.dp))
+
+                                TextField(label = stringResource(id = R.string.sign_up_nickname),
+                                    icon = painterResource(id = R.drawable.user_duotone),
+                                    value = nickname.value,
+                                    onValueChange = { nickname.value = it })
+
+                                TextField(label = stringResource(id = R.string.sign_up_email),
+                                    icon = painterResource(id = R.mipmap.email),
+                                    value = email.value,
+                                    onValueChange = { email.value = it })
+
+
+                                PasswordField(label = stringResource(id = R.string.sign_up_password),
+                                    icon = painterResource(id = R.mipmap.lock),
+                                    value = password.value,
+                                    onValueChange = { password.value = it })
+
+                                PasswordField(label = stringResource(id = R.string.sign_up_repeat_password),
+                                    icon = painterResource(id = R.mipmap.lock),
+                                    value = repeatPassword.value,
+                                    onValueChange = { repeatPassword.value = it })
+
+
+                                Spacer(Modifier.height(20.dp))
+
+                                ButtonComponent(value = stringResource(id = R.string.sign_up_action_button),
+                                    onClick = {
+                                        val registerRequest = RegisterRequest(
+                                            username = "Ruan", // Mock para campos que não têm entrada do usuário
+                                            nickname = nickname.value,
+                                            email = email.value,
+                                            password = password.value,
+                                            cpf = "46292412806" // Mock para campos que não têm entrada do usuário
+                                        )
+                                        authViewModel.register(registerRequest)
+                                    })
+                            }
+                        }
+
                     }
 
                 }
+            }
 
+            if (isLoading == true) {
+                Loading()
             }
         }
     }
