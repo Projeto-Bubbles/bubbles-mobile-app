@@ -71,7 +71,9 @@ fun CommentBox(
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF423f46)
                     )
+
                     Spacer(modifier = Modifier.width(15.dp))
+
                     Text(
                         text = "@$nickname • $dateTime",
                         fontSize = 10.sp,
@@ -91,7 +93,6 @@ fun CommentBox(
     }
 }
 
-
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreatePostBox(
@@ -99,7 +100,6 @@ fun CreatePostBox(
     nickname: String,
     postViewModel: PostViewModel
 ) {
-
     val content = remember { mutableStateOf("") }
 
     Surface(
@@ -124,7 +124,8 @@ fun CreatePostBox(
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF423f46)
                 )
-                Spacer(modifier = Modifier.width(15.dp))
+
+                Spacer(modifier = Modifier.width(8.dp))
 
 
                 Text(
@@ -143,7 +144,6 @@ fun CreatePostBox(
                 lineHeight = 16.sp,
                 color = Color(0xFF423f46)
             )
-
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -180,9 +180,6 @@ fun CreatePostBox(
                     ),
                     keyboardActions = KeyboardActions(
                         onDone = {
-                            Log.d("FIELD", "RODEI AQUI")
-
-
                             val newPost =
                                 PostRequest(contents = content.value, 1, 2)
                             postViewModel.createPost(newPost)
@@ -210,7 +207,6 @@ fun PostBox(
     userState: User
 ) {
     var showEditDialog = remember { mutableStateOf(false) }
-    var editedContent = remember { mutableStateOf(content) }
 
     val localDateTime = if (dateTime != null) {
         LocalDateTime.parse(dateTime)

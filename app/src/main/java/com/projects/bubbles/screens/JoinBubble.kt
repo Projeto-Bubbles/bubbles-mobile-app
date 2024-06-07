@@ -68,36 +68,51 @@ fun JoinBubble(bubbleViewModel: BubbleViewModel = viewModel()) {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            GridBubbles(bubbles = filteredBubbles ?: allBubbles)
+            GridBubbles(bubbles = filteredBubbles ?: allBubbles, bubbleViewModel)
         }
     }
 }
 
 @Composable
-fun GridBubbles(bubbles: List<BubbleResponseDTO>) {
+fun GridBubbles(bubbles: List<BubbleResponseDTO>, viewModel: BubbleViewModel) {
     val chunkedBubbles = bubbles.chunked(6)
+    val isLoading = viewModel.isLoading.observeAsState().value
 
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        items(chunkedBubbles) { rowBubbles ->
-            LazyRow(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 10.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp)
-            ) {
-                items(rowBubbles) { bubble ->
-                    BubbleCard(
-                        title = bubble.title ?: "",
-                        description = bubble.explanation ?: "",
-                        category = bubble.category?.name ?: "",
-                        image = painterResource(id = R.mipmap.forro),
-                    )
+        if (isLoading == true) {
+            items(3) {
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    items(4) {
+                        BubbleCardSkeleton()
+                    }
+                }
+            }
+        } else {
+            items(chunkedBubbles) { rowBubbles ->
+                LazyRow(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+                    items(rowBubbles) { bubble ->
+                        BubbleCard(
+                            title = bubble.title ?: "",
+                            description = bubble.explanation ?: "",
+                            category = bubble.category?.name ?: "",
+                            image = painterResource(id = R.mipmap.forro),
+                        )
+                    }
                 }
             }
         }
     }
 }
-

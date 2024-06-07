@@ -16,12 +16,14 @@ class BubbleViewModel : ViewModel() {
 
     val bubbleList = MutableLiveData<List<BubbleResponseDTO>>()
     val erro = MutableLiveData<String>()
+    val isLoading = MutableLiveData(false)
 
     init {
         getBubbles()
     }
 
     fun getBubbles() {
+        isLoading.value = true
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = bubbleService.getAllBubbles()
@@ -35,6 +37,8 @@ class BubbleViewModel : ViewModel() {
                         erro.value = errorMessage
                         Log.e("BubbleViewModel", errorMessage)
                     }
+
+                    isLoading.value = false
                 }
             } catch (e: Exception) {
                 val errorMessage = "Erro ao buscar bolhas: ${e.message}"
@@ -47,6 +51,8 @@ class BubbleViewModel : ViewModel() {
     }
 
     fun createBubble(bubbleRequest: BubbleRequestDTO) {
+        isLoading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = bubbleService.createNewBubble(bubbleRequest)
@@ -60,6 +66,8 @@ class BubbleViewModel : ViewModel() {
                     }
                     Log.e("BubbleViewModel", errorMessage)
                 }
+
+                isLoading.value = false
             } catch (e: Exception) {
                 val errorMessage = "Erro ao criar bolha: ${e.message}"
                 withContext(Dispatchers.Main) {
@@ -71,6 +79,8 @@ class BubbleViewModel : ViewModel() {
     }
 
     fun updateBubble(bubbleId: Int, updatedBubble: BubbleResponseDTO) {
+        isLoading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = bubbleService.updateBubbleById(bubbleId, updatedBubble)
@@ -83,6 +93,8 @@ class BubbleViewModel : ViewModel() {
                         erro.value = errorMessage
                     }
                     Log.e("BubbleViewModel", errorMessage)
+
+                    isLoading.value = false
                 }
             } catch (e: Exception) {
                 val errorMessage = "Erro ao atualizar bolha: ${e.message}"
@@ -95,6 +107,8 @@ class BubbleViewModel : ViewModel() {
     }
 
     fun deleteBubble(bubbleId: Int) {
+        isLoading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = bubbleService.deleteBubbleById(bubbleId)
@@ -108,6 +122,8 @@ class BubbleViewModel : ViewModel() {
                     }
                     Log.e("BubbleViewModel", errorMessage)
                 }
+
+                isLoading.value = false
             } catch (e: Exception) {
                 val errorMessage = "Erro ao excluir bolha: ${e.message}"
                 withContext(Dispatchers.Main) {

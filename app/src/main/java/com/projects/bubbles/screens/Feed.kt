@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +30,7 @@ import com.projects.bubbles.R
 import com.projects.bubbles.components.CreatePostBox
 import com.projects.bubbles.components.EventStoryCard
 import com.projects.bubbles.components.PostBox
+import com.projects.bubbles.components.PostBoxSkeleton
 import com.projects.bubbles.dto.User
 import com.projects.bubbles.utils.Loading
 import com.projects.bubbles.utils.ShimmerEffect
@@ -58,7 +58,7 @@ fun Feed(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 28.dp, end = 28.dp)
+                .padding(horizontal = 28.dp)
         ) {
 
             Spacer(modifier = Modifier.height(70.dp))
@@ -74,7 +74,7 @@ fun Feed(
                 EventStoryCard(image = painterResource(id = R.mipmap.event_bg_4))
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(20.dp))
 
             userState?.let { user ->
                 CreatePostBox(
@@ -82,9 +82,8 @@ fun Feed(
                     nickname = user.nickname,
                     postViewModel = postViewModel
                 )
-                Spacer(modifier = Modifier.height(32.dp))
 
-
+                Spacer(modifier = Modifier.height(20.dp))
 
                 PostList(postViewModel, User(user.idUser, user.username, user.nickname, user.email))
             }
@@ -111,32 +110,36 @@ fun PostList(viewModel: PostViewModel, userState: User) {
     }
 
     if (isLoading == true) {
-        Row(modifier = Modifier
-            .fillMaxSize()
-            .padding(8.dp)
-            .background(brush = ShimmerEffect())){}
-    }
-
-    posts?.let { postList ->
-        LazyColumn {
-            items(items = postList) { post ->
-                PostBox(
-                    username = post.author?.username!!,
-                    nickname = post.author?.nickname!!,
-                    dateTime = post.moment,
-                    content = post.contents,
-                    viewModel,
-                    post = post,
-                    onEditClick = { updatedPost ->
-                        viewModel.updatePost(updatedPost.idPost!!, updatedPost.contents)
-                    },
-                    userState = userState
-                )
+        LazyColumn() {
+            items(5) {
+                PostBoxSkeleton()
 
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
+    } else {
+        posts?.let { postList ->
+            LazyColumn {
+                items(items = postList) { post ->
+                    PostBox(
+                        username = post.author?.username!!,
+                        nickname = post.author?.nickname!!,
+                        dateTime = post.moment,
+                        content = post.contents,
+                        viewModel,
+                        post = post,
+                        onEditClick = { updatedPost ->
+                            viewModel.updatePost(updatedPost.idPost!!, updatedPost.contents)
+                        },
+                        userState = userState
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+            }
+        }
     }
+
 }
 
 
