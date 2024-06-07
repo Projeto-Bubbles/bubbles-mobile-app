@@ -64,7 +64,6 @@ fun BubbleCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
 
-
                 BubbleTag(categoryData = categoryData!!, fixed = true, onClick = {})
 
                 Row {
@@ -75,7 +74,9 @@ fun BubbleCard(
                         contentDescription = null,
                         tint = Slate800
                     )
+
                     Spacer(modifier = Modifier.width(5.dp))
+
                     Text(
                         text = "22K",
                         fontSize = 12.sp,
@@ -99,7 +100,9 @@ fun BubbleCard(
                     color = Color.Black,
                     fontWeight = FontWeight.Bold
                 )
+
                 Spacer(modifier = Modifier.height(10.dp))
+
                 Text(
                     text = description,
                     style = TextStyle(
@@ -133,6 +136,7 @@ fun BubbleCard(
                             .clip(RoundedCornerShape(16.dp)),
                         contentScale = ContentScale.Crop
                     )
+
                     Row(
                         modifier = Modifier
                             .align(Alignment.CenterEnd)

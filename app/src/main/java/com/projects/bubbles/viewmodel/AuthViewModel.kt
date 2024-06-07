@@ -30,6 +30,8 @@ class AuthViewModel : ViewModel() {
     val registerResult: MutableLiveData<RegisterResponse> = MutableLiveData()
     val erro: MutableLiveData<String> = MutableLiveData()
 
+    val isLoading = MutableLiveData<Boolean>(false)
+
     private val _userState = MutableStateFlow<User?>(null)
     val userState: StateFlow<User?> = _userState.asStateFlow()
 
@@ -40,6 +42,8 @@ class AuthViewModel : ViewModel() {
         password: String,
         context: Context
     ): Boolean {
+        isLoading.value = true
+
         var success = false
         CoroutineScope(Dispatchers.IO).launch {
             try {
@@ -54,12 +58,16 @@ class AuthViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Error during login: ${e.message}")
                 erro.postValue("Erro ao efetuar login: ${e.message}")
+            } finally {
+                isLoading.postValue(false)
             }
         }
         return success
     }
 
     fun register(data: RegisterRequest) {
+        isLoading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 Log.d("AuthViewModel", "Attempting registration...")
@@ -69,6 +77,8 @@ class AuthViewModel : ViewModel() {
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Error during registration: ${e.message}")
                 erro.postValue("Erro ao registrar: ${e.message}")
+            }finally {
+                isLoading.postValue(false)
             }
         }
     }
@@ -77,7 +87,7 @@ class AuthViewModel : ViewModel() {
         if (response.isSuccessful) {
             loginResult.postValue(response.body())
             erro.postValue("")
-            Log.d("AuthViewModel", "Login successful")
+            Log.d("AuthViewModel", "Login successful " + response.body())
         } else {
             Log.e("AuthViewModel", "Error during login: ${response.message()}")
             erro.postValue("Erro ao efetuar login: ${response.message()}")

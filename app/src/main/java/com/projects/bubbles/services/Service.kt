@@ -11,7 +11,8 @@ import java.util.concurrent.TimeUnit
 
 object Service {
 
-    private const val BASE_URL = "https://bubbles.ddns.net/api/"
+//    private const val BASE_URL = "https://bubbles.ddns.net/api/"
+    private const val BASE_URL = "http://10.0.2.2:8080/api/"
 
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()

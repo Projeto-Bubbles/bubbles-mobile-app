@@ -18,6 +18,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.components.EventCard
+import com.projects.bubbles.components.EventCardSkeleton
+import com.projects.bubbles.dto.EventResponseDTO
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.viewmodel.EventViewModel
 
@@ -34,27 +36,29 @@ fun EventScreen(viewModel: EventViewModel = viewModel()) {
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (isLoading!!) {
-            CircularProgressIndicator()
+        EventsGrid(events = events, isLoading = isLoading ?: true)
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.O)
+@Composable
+fun EventsGrid(events: List<EventResponseDTO>, isLoading: Boolean) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = 300.dp),
+        contentPadding = PaddingValues(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        if (isLoading) {
+            items(5) {
+                EventCardSkeleton()
+            }
         } else {
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 300.dp),
-                contentPadding = PaddingValues(16.dp),
-                horizontalArrangement = Arrangement.spacedBy(16.dp),
-                verticalArrangement = Arrangement.spacedBy(16.dp)
-            ) {
-                items(events.size) { index ->
-                    val event = events[index]
-                    EventCard(event, painterResource(id = R.mipmap.event_bg_2), onJoinClick = {})
-                }
+            items(events.size) { index ->
+                val event = events[index]
+                EventCard(event, painterResource(id = R.mipmap.event_bg_2), onJoinClick = {})
             }
         }
     }
 }
 
-
-@Preview
-@Composable
-fun PreviewEventScreen() {
-    EventScreen()
-}
