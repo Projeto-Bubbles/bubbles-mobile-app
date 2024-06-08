@@ -2,6 +2,8 @@ package com.projects.bubbles.screens
 
 import AuthViewModel
 import android.content.Context
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +33,7 @@ import com.projects.bubbles.utils.DataStoreManager
 import com.projects.bubbles.viewmodel.BubbleViewModel
 import kotlinx.coroutines.flow.Flow
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun JoinBubble(
     bubbleViewModel: BubbleViewModel = viewModel(),

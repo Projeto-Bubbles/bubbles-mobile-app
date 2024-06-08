@@ -1,19 +1,28 @@
 package com.projects.bubbles.viewmodel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresExtension
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.projects.bubbles.dto.BubbleRequestDTO
 import com.projects.bubbles.dto.BubbleResponseDTO
 import com.projects.bubbles.services.Service
-import kotlinx.coroutines.CoroutineScope
+import com.projects.bubbles.utils.HttpException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 class BubbleViewModel : ViewModel() {
     private val bubbleService = Service.BubbleService
+    private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        val errorMessage = throwable.message ?: "Erro desconhecido"
+        erro.postValue(errorMessage)
+        Log.e("BubbleViewModel", errorMessage, throwable)
+    }
 
     val bubbleList = MutableLiveData<List<BubbleResponseDTO>>()
     val erro = MutableLiveData<String>()
@@ -23,118 +32,72 @@ class BubbleViewModel : ViewModel() {
         getBubbles()
     }
 
-    fun getBubbles() {
+    fun getBubbles() = viewModelScope.launch(coroutineExceptionHandler) {
         isLoading.value = true
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = bubbleService.getAllBubbles()
-                withContext(Dispatchers.Main) {
-                    if (response.isSuccessful) {
-                        bubbleList.value = response.body() ?: emptyList()
-                        Log.d("BubbleViewModel", "Get bubbles successful: ${response.body()}")
-                    } else {
-                        val errorMessage =
-                            "Erro ao buscar bolhas: ${response.errorBody()?.string()}"
-                        erro.value = errorMessage
-                        Log.e("BubbleViewModel", errorMessage)
-                    }
 
-                    isLoading.value = false
-                }
-            } catch (e: Exception) {
-                val errorMessage = "Erro ao buscar bolhas: ${e.message}"
-                withContext(Dispatchers.Main) {
-                    erro.value = errorMessage
-                }
-                Log.e("BubbleViewModel", errorMessage)
+        val response = withContext(Dispatchers.IO) {
+            bubbleService.getAllBubbles()
+        }
+
+        withContext(Dispatchers.Main) {
+            if (response.isSuccessful) {
+                bubbleList.value = response.body() ?: emptyList()
+                Log.d("BubbleViewModel", "Get bubbles successful: ${response.body()}")
+            } else {
+                throw HttpException(response)
             }
+
+            isLoading.value = false
         }
     }
 
-    fun createBubble(bubbleRequest: BubbleRequestDTO) {
+    fun createBubble(bubbleRequest: BubbleRequestDTO) = viewModelScope.launch(coroutineExceptionHandler) {
         isLoading.value = true
 
-        viewModelScope.launch {
-            try {
-                val response = withContext(Dispatchers.IO) { // Executa a chamada de rede em background
-                    bubbleService.createNewBubble(bubbleRequest)
-                }
+        withContext(Dispatchers.IO) {
+            val response = bubbleService.createNewBubble(bubbleRequest)
 
-                if (response.isSuccessful) {
-                    // Atualiza na Main Thread após a chamada de rede
-                    withContext(Dispatchers.Main) {
-                        bubbleList.value = bubbleService.getAllBubbles().body() ?: emptyList() // Recarrega a lista de bubbles
-                        Log.d("BubbleViewModel", "Create bubble successful: ${response.body()}")
-                    }
-                } else {
-                    val errorMessage = "Erro ao criar bolha: ${response.errorBody()?.string()}"
-                    erro.postValue(errorMessage)
-                    Log.e("BubbleViewModel", errorMessage)
-                }
-            } catch (e: Exception) {
-                val errorMessage = "Erro FATAL bolha: ${e}"
-                erro.postValue(errorMessage)
-                Log.e("BubbleViewModel", errorMessage)
-            } finally {
-                isLoading.postValue(false)
+            if (response.isSuccessful) {
+                getBubbles()
+                Log.d("BubbleViewModel", "Create bubble successful: ${response.body()}")
+            } else {
+                throw HttpException(response)
             }
         }
+
+        isLoading.value = false
     }
 
-    fun updateBubble(bubbleId: Int, updatedBubble: BubbleResponseDTO) {
+    fun updateBubble(bubbleId: Int, updatedBubble: BubbleResponseDTO) = viewModelScope.launch(coroutineExceptionHandler) {
         isLoading.value = true
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = bubbleService.updateBubbleById(bubbleId, updatedBubble)
-                if (response.isSuccessful) {
-                    getBubbles()
-                    Log.d("BubbleViewModel", "Update bubble successful: ${response.body()}")
-                } else {
-                    val errorMessage = "Erro ao atualizar bolha: ${response.errorBody()?.string()}"
-                    withContext(Dispatchers.Main) {
-                        erro.value = errorMessage
-                    }
-                    Log.e("BubbleViewModel", errorMessage)
+        withContext(Dispatchers.IO) {
+            val response = bubbleService.updateBubbleById(bubbleId, updatedBubble)
 
-                }
-            } catch (e: Exception) {
-                val errorMessage = "Erro ao atualizar bolha: ${e.message}"
-                withContext(Dispatchers.Main) {
-                    erro.value = errorMessage
-                }
-                Log.e("BubbleViewModel", errorMessage)
-            } finally {
-                isLoading.postValue(false)
+            if (response.isSuccessful) {
+                getBubbles()
+                Log.d("BubbleViewModel", "Update bubble successful: ${response.body()}")
+            } else {
+                throw HttpException(response)
             }
         }
+
+        isLoading.value = false
     }
 
-    fun deleteBubble(bubbleId: Int) {
+    fun deleteBubble(bubbleId: Int) = viewModelScope.launch(coroutineExceptionHandler) {
         isLoading.value = true
 
-        CoroutineScope(Dispatchers.IO).launch {
-            try {
-                val response = bubbleService.deleteBubbleById(bubbleId)
-                if (response.isSuccessful) {
-                    getBubbles()
-                    Log.d("BubbleViewModel", "Delete bubble successful")
-                } else {
-                    val errorMessage = "Erro ao excluir bolha: ${response.errorBody()?.string()}"
-                    withContext(Dispatchers.Main) {
-                        erro.value = errorMessage
-                    }
-                    Log.e("BubbleViewModel", errorMessage)
-                }
-
-                isLoading.postValue(false)
-            } catch (e: Exception) {
-                val errorMessage = "Erro ao excluir bolha: ${e.message}"
-                withContext(Dispatchers.Main) {
-                    erro.value = errorMessage
-                }
-                Log.e("BubbleViewModel", errorMessage)
+        withContext(Dispatchers.IO) {
+            val response = bubbleService.deleteBubbleById(bubbleId)
+            if (response.isSuccessful) {
+                getBubbles()
+                Log.d("BubbleViewModel", "Delete bubble successful")
+            } else {
+                throw HttpException(response)
             }
         }
+
+        isLoading.value = false
     }
 }
