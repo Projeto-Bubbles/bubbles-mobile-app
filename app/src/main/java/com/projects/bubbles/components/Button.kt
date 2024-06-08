@@ -35,9 +35,11 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
+import com.projects.bubbles.ui.theme.Blue200
 import com.projects.bubbles.ui.theme.Red300
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
@@ -146,22 +148,28 @@ fun ButtonSelectCategory(value: String, onClick: () -> Unit) {
 }
 
 @Composable
-fun AcessButton(
-    content: String,
+fun CreateButton(
     onClick: () -> Unit,
-    backgroundColor: Color
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
-            .height(25.dp),
+        modifier = Modifier.height(32.dp),
+        shape = rounded.small,
         contentPadding = PaddingValues(start = 10.dp, end = 10.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor)
+        colors = ButtonDefaults.buttonColors(Slate800)
     ) {
+        Icon(
+            modifier = Modifier.size(12.dp),
+            painter = painterResource(id = R.drawable.icon_create),
+            contentDescription = "Botão de criar"
+        )
+        
+        Spacer(modifier = Modifier.width(4.dp))
+
         Text(
-            text = content,
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Bold,
+            text = "Criar",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
             color = Color.White
         )
     }
@@ -274,4 +282,10 @@ fun EditButton(
             tint = Slate800
         )
     }
+}
+
+@Preview
+@Composable
+fun Preview(){
+    CreateButton(onClick = {})
 }

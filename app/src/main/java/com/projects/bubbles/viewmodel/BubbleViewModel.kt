@@ -3,6 +3,7 @@ package com.projects.bubbles.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.projects.bubbles.dto.BubbleRequestDTO
 import com.projects.bubbles.dto.BubbleResponseDTO
 import com.projects.bubbles.services.Service
@@ -53,27 +54,29 @@ class BubbleViewModel : ViewModel() {
     fun createBubble(bubbleRequest: BubbleRequestDTO) {
         isLoading.value = true
 
-        CoroutineScope(Dispatchers.IO).launch {
+        viewModelScope.launch {
             try {
-                val response = bubbleService.createNewBubble(bubbleRequest)
-                if (response.isSuccessful) {
-                    getBubbles()
-                    Log.d("BubbleViewModel", "Create bubble successful: ${response.body()}")
-                } else {
-                    val errorMessage = "Erro ao criar bolha: ${response.errorBody()?.string()}"
-                    withContext(Dispatchers.Main) {
-                        erro.value = errorMessage
-                    }
-                    Log.e("BubbleViewModel", errorMessage)
+                val response = withContext(Dispatchers.IO) { // Executa a chamada de rede em background
+                    bubbleService.createNewBubble(bubbleRequest)
                 }
 
-                isLoading.value = false
-            } catch (e: Exception) {
-                val errorMessage = "Erro ao criar bolha: ${e.message}"
-                withContext(Dispatchers.Main) {
-                    erro.value = errorMessage
+                if (response.isSuccessful) {
+                    // Atualiza na Main Thread após a chamada de rede
+                    withContext(Dispatchers.Main) {
+                        bubbleList.value = bubbleService.getAllBubbles().body() ?: emptyList() // Recarrega a lista de bubbles
+                        Log.d("BubbleViewModel", "Create bubble successful: ${response.body()}")
+                    }
+                } else {
+                    val errorMessage = "Erro ao criar bolha: ${response.errorBody()?.string()}"
+                    erro.postValue(errorMessage)
+                    Log.e("BubbleViewModel", errorMessage)
                 }
+            } catch (e: Exception) {
+                val errorMessage = "Erro FATAL bolha: ${e}"
+                erro.postValue(errorMessage)
                 Log.e("BubbleViewModel", errorMessage)
+            } finally {
+                isLoading.postValue(false)
             }
         }
     }
@@ -94,7 +97,6 @@ class BubbleViewModel : ViewModel() {
                     }
                     Log.e("BubbleViewModel", errorMessage)
 
-                    isLoading.value = false
                 }
             } catch (e: Exception) {
                 val errorMessage = "Erro ao atualizar bolha: ${e.message}"
@@ -102,6 +104,8 @@ class BubbleViewModel : ViewModel() {
                     erro.value = errorMessage
                 }
                 Log.e("BubbleViewModel", errorMessage)
+            } finally {
+                isLoading.postValue(false)
             }
         }
     }
@@ -123,7 +127,7 @@ class BubbleViewModel : ViewModel() {
                     Log.e("BubbleViewModel", errorMessage)
                 }
 
-                isLoading.value = false
+                isLoading.postValue(false)
             } catch (e: Exception) {
                 val errorMessage = "Erro ao excluir bolha: ${e.message}"
                 withContext(Dispatchers.Main) {

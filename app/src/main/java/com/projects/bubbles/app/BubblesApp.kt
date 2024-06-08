@@ -74,7 +74,7 @@ fun BubblesApp(
                         Feed(postViewModel = viewModel(), authViewModel, context)
                     }
                     composable("joinbubbles") {
-                        JoinBubble()
+                        JoinBubble(context = context)
                     }
                     composable("events") {
                         EventScreen()

@@ -1,11 +1,16 @@
 package com.projects.bubbles.screens
 
+import AuthViewModel
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -20,11 +25,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.components.*
 import com.projects.bubbles.dto.BubbleResponseDTO
+import com.projects.bubbles.dto.User
 import com.projects.bubbles.dto.getCategories
+import com.projects.bubbles.utils.DataStoreManager
 import com.projects.bubbles.viewmodel.BubbleViewModel
+import kotlinx.coroutines.flow.Flow
 
 @Composable
-fun JoinBubble(bubbleViewModel: BubbleViewModel = viewModel()) {
+fun JoinBubble(
+    bubbleViewModel: BubbleViewModel = viewModel(),
+    context: Context
+) {
+
     val allBubbles by bubbleViewModel.bubbleList.observeAsState(emptyList())
 
     var searchText by remember { mutableStateOf("") }
@@ -37,6 +49,16 @@ fun JoinBubble(bubbleViewModel: BubbleViewModel = viewModel()) {
         }
 
         categoryMatch || bubble.title?.startsWith(searchText, ignoreCase = true) ?: false
+    }
+
+    var isShowModal by remember { mutableStateOf<Boolean>(false) }
+
+    var user by remember { mutableStateOf<User?>(null) } // Estado para armazenar os dados do usuário
+
+    LaunchedEffect(Unit) {
+        DataStoreManager.getUser(context).collect { fetchedUser ->
+            user = fetchedUser
+        }
     }
 
     Spacer(modifier = Modifier.height(70.dp))
@@ -63,7 +85,15 @@ fun JoinBubble(bubbleViewModel: BubbleViewModel = viewModel()) {
 
                 Spacer(modifier = Modifier.width(10.dp))
 
-                AcessButton(content = "Criar +", onClick = {}, backgroundColor = Color.DarkGray)
+                CreateButton(onClick = { isShowModal = true })
+
+                if (isShowModal) {
+                    CreateBubbleModal(
+                        viewModel = bubbleViewModel,
+                        onClose = { isShowModal = false },
+                        idUser = user?.idUser!!
+                    )
+                }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
