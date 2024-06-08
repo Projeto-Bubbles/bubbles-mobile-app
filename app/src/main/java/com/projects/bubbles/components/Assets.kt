@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.projects.bubbles.R
+import com.projects.bubbles.ui.theme.Zinc350
 
 @Composable
 fun BubbleLogo() {
@@ -42,10 +43,10 @@ fun ArrowRight(){
 fun Perfil() {
     Box(
         modifier = Modifier
-            .size(25.dp)
+            .size(18.dp)
             .clip(CircleShape)
             .background(
-                color = Color(0xFFe4e4e4),
+                color = Zinc350,
                 shape = CircleShape
             ),
         contentAlignment = Alignment.Center

@@ -19,13 +19,9 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -37,15 +33,17 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.projects.bubbles.R
+import com.projects.bubbles.ui.theme.Red300
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
+import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.Zinc700
+import com.projects.bubbles.ui.theme.rounded
 
 @Composable
 fun ButtonComponent(value: String, onClick: () -> Unit) {
@@ -168,63 +166,6 @@ fun AcessButton(
         )
     }
 }
-
-@Composable
-fun ButtonSelectBubble(
-    valueText: String,
-    icon: Painter,
-    onClick: (() -> Unit)? = null,
-    backgroundColorButton: Color,
-    modifier: Modifier = Modifier
-) {
-    val clicked = remember { mutableStateOf(false) }
-
-    Box(
-        modifier = modifier
-            .wrapContentSize()
-            .clip(shape = RoundedCornerShape(6.dp))
-            .height(28.dp)
-            .background(color = if (clicked.value) backgroundColorButton else Color.LightGray)
-            .let {
-                if (onClick != null) {
-                    it.clickable {
-                        clicked.value = !clicked.value
-                        onClick()
-                    }
-                } else {
-                    it
-                        .background(backgroundColorButton)
-                }
-            }
-    ) {
-        Row(
-            modifier = Modifier,
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Spacer(modifier = Modifier.width(5.dp))
-            Icon(
-                modifier = Modifier
-                    .width(15.dp)
-                    .fillMaxHeight(),
-                painter = icon,
-                contentDescription = null,
-                tint = Slate800
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                modifier = Modifier
-                    .fillMaxHeight(),
-                text = valueText,
-                fontSize = 17.sp,
-                fontWeight = FontWeight.Light,
-                color = Slate800
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-        }
-    }
-}
-
 @Composable
 fun NavbarButton(icon: Painter, onClick: () -> Unit, isSelected: Boolean) {
     val backgroundColor = if (isSelected) Color(0xFFe4e4e4) else Color.Transparent
@@ -241,112 +182,6 @@ fun NavbarButton(icon: Painter, onClick: () -> Unit, isSelected: Boolean) {
             contentDescription = "Bolhas",
             tint = Color(0xFF423f46),
             modifier = Modifier.size(24.dp)
-        )
-    }
-}
-
-
-@Composable
-fun LocalEvent(texto: String) {
-    Box(
-        modifier = Modifier
-            .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
-    ) {
-        Row(
-            modifier = Modifier.padding(3.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Filled.LocationOn,
-                contentDescription = "localizacao",
-                modifier = Modifier.size(15.dp),
-                tint = Color.Gray
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = texto, style = TextStyle(
-                    fontSize = 10.sp,
-                )
-            )
-        }
-    }
-}
-
-@Composable
-fun DataEvent(texto: String) {
-    Box(
-        modifier = Modifier
-            .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
-    ) {
-        Row(
-            modifier = Modifier.padding(3.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.events_navbar),
-                contentDescription = "Localização",
-                modifier = Modifier.size(15.dp),
-                tint = Color.Gray
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = texto, style = TextStyle(
-                    fontSize = 10.sp,
-                )
-            )
-        }
-    }
-}
-
-@Composable
-fun HorarioEvent(texto: String) {
-    Box(
-        modifier = Modifier
-            .background(color = Color.LightGray, shape = RoundedCornerShape(16.dp))
-    ) {
-        Row(
-            modifier = Modifier.padding(3.dp),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(
-                imageVector = Icons.Filled.DateRange,
-                contentDescription = "Relógio",
-                modifier = Modifier.size(15.dp),
-                tint = Color.Gray
-            )
-            Spacer(modifier = Modifier.width(5.dp))
-            Text(
-                text = texto, style = TextStyle(
-                    fontSize = 10.sp,
-                )
-            )
-        }
-    }
-}
-
-
-@Composable
-fun EventButton(
-    content: String,
-    onClick: () -> Unit,
-    backgroundColor: Color
-) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(25.dp),
-        contentPadding = PaddingValues(start = 20.dp, end = 20.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor)
-    ) {
-        Text(
-            text = content,
-            fontSize = 10.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.White
         )
     }
 }
@@ -401,19 +236,42 @@ fun JoinButton(onClick: () -> Unit) {
     }
 }
 
-
 @Composable
-fun DeleteButton(onClick: () -> Unit) {
-    IconButton(
-        onClick = onClick,
+fun DeleteButton(
+    onDelete: () -> Unit
+) {
+    Box(
         modifier = Modifier
-            .size(30.dp)
-            .padding(4.dp),
+            .size(24.dp)
+            .clip(rounded.small)
+            .clickable { onDelete() }
+            .background(Red300)
     ) {
         Icon(
-            painter = painterResource(id = R.drawable.feed_navbar),
-            contentDescription = "Delete",
-            tint = Color.Red // Cor do ícone de lixeira
+            modifier = Modifier.align(Alignment.Center),
+            painter = painterResource(id = R.drawable.icon_delete),
+            contentDescription = "Deletar",
+            tint = Slate800
+        )
+    }
+}
+
+@Composable
+fun EditButton(
+    onEdit: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(24.dp)
+            .clip(rounded.small)
+            .clickable { onEdit() }
+            .background(Zinc350)
+    ) {
+        Icon(
+            modifier = Modifier.align(Alignment.Center),
+            painter = painterResource(id = R.drawable.icon_edit),
+            contentDescription = "Editar",
+            tint = Slate800
         )
     }
 }

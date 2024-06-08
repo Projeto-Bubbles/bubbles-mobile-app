@@ -106,6 +106,8 @@ class PostViewModel : ViewModel() {
     }
 
     fun updatePost(postId: Int, newContent: String) {
+        isLoading.value = true
+
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 isLoading.postValue(true)
@@ -121,6 +123,8 @@ class PostViewModel : ViewModel() {
                         erro.postValue("Erro ao atualizar post: $errorBody")
                     }
                 }
+
+                isLoading.value = false
             } catch (e: Exception) {
                 Log.e("PostViewModel", "Error updating post: ${e.message}")
                 withContext(Dispatchers.Main) {
@@ -129,7 +133,6 @@ class PostViewModel : ViewModel() {
             } finally {
                 withContext(Dispatchers.Main) {
                     delay(6000)
-                    isLoading.postValue(false)
                 }
             }
         }
