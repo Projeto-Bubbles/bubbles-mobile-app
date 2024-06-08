@@ -96,11 +96,11 @@ fun CommentBox(
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun CreatePostBox(
-    username: String,
-    nickname: String,
+    user: User,
     postViewModel: PostViewModel
 ) {
     val content = remember { mutableStateOf("") }
+
 
     Surface(
         modifier = Modifier
@@ -119,7 +119,7 @@ fun CreatePostBox(
                 Spacer(modifier = Modifier.width(8.dp))
 
                 Text(
-                    text = username,
+                    text = user.username,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF423f46)
@@ -129,7 +129,7 @@ fun CreatePostBox(
 
 
                 Text(
-                    text = "@$nickname",
+                    text = "@${user.nickname}",
                     fontSize = 10.sp,
                     color = Color(0xFF423f46)
                 )
@@ -181,7 +181,8 @@ fun CreatePostBox(
                     keyboardActions = KeyboardActions(
                         onDone = {
                             val newPost =
-                                PostRequest(contents = content.value, 1, 2)
+                                PostRequest(contents = content.value, user.idUser!!, 2)
+
                             postViewModel.createPost(newPost)
 
                             content.value = ""
@@ -288,17 +289,7 @@ fun PostBox(
                 color = Color(0xFF423f46)
             )
 
-//            Spacer(modifier = Modifier.height(8.dp))
-//
-//            CommentBox(
-//                username = "Paulo Alvares",
-//                nickname = "paulinhoAl",
-//                dateTime = "2 hours ago",
-//                commentContent = "Lorem ipsum dolor sit amet consectetur. In dolor porttitor malesuada sit et. Amet enim iaculis gravida nulla egestas ultrices phasellus consequat. Eget mauris in lacus risus porttitor."
-//            )
-
             Spacer(modifier = Modifier.height(16.dp))
-
 
             if (showEditDialog.value) {
                 EditPostDialog(

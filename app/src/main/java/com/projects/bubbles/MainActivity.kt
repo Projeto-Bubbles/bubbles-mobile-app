@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
         NavHost(
             navController = navController,
-            startDestination = "register"
+            startDestination = "bubbles"
         ) {
             composable("login") {
                 SignInScreen(navController, authViewModel, context)
@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     internalNavController = internalNavController,
                     authViewModel = authViewModel,
-                    viewModelStoreOwner = viewModelStoreOwner!! // Corrija o erro de nulidade
+                    viewModelStoreOwner = viewModelStoreOwner!!
                 )
             }
         }
