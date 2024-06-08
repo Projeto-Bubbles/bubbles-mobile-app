@@ -81,6 +81,7 @@ fun PasswordField(
 
     OutlinedTextField(
         modifier = modifier.fillMaxWidth(),
+        shape = shape,
         label = { Text(text = label) },
         colors = OutlinedTextFieldDefaults.colors(
             cursorColor = Color.Gray,

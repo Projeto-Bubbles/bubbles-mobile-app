@@ -51,7 +51,7 @@ fun Perfil() {
         contentAlignment = Alignment.Center
     ) {
         Icon(
-            painter = painterResource(id = R.mipmap.perfil),
+            painter = painterResource(id = R.drawable.icon_user),
             contentDescription = "Perfil",
             tint = Color(0xFF423f46),
             modifier = Modifier.size(13.dp)

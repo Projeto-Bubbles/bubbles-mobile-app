@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 
         NavHost(
             navController = navController,
-            startDestination = "bubbles"
+            startDestination = "register"
         ) {
             composable("login") {
                 SignInScreen(navController, authViewModel, context)

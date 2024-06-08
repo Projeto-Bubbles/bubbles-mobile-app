@@ -70,7 +70,7 @@ fun BubbleCard(
                     Icon(
                         modifier = Modifier
                             .height(16.dp),
-                        painter = painterResource(id = R.drawable.user_duotone),
+                        painter = painterResource(id = R.drawable.icon_user),
                         contentDescription = null,
                         tint = Slate800
                     )
@@ -85,7 +85,6 @@ fun BubbleCard(
                     )
                 }
             }
-
 
             Column(
                 modifier = Modifier
