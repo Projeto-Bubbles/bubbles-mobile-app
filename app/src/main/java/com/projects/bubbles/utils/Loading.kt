@@ -66,7 +66,7 @@ fun ShimmerEffect(showShimmer: Boolean = true, targetValue: Float = 1000f): Brus
             initialValue = 0f,
             targetValue = targetValue,
             animationSpec = infiniteRepeatable(
-                animation = tween(500), repeatMode = RepeatMode.Reverse
+                animation = tween(700), repeatMode = RepeatMode.Reverse
             ), label = ""
         )
 

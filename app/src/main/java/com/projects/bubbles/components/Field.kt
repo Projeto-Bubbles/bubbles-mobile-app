@@ -167,7 +167,7 @@ fun PostResponseField(postViewModel: PostViewModel = PostViewModel()) {
 
 
 @Composable
-fun Search(onValueChange: (String) -> Unit) {
+fun Search(placeholder: String, onValueChange: (String) -> Unit) {
     var searchedItem by remember { mutableStateOf("") }
 
     Row(
@@ -203,7 +203,7 @@ fun Search(onValueChange: (String) -> Unit) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     if (searchedItem.isEmpty()) {
                         Text(
-                            text = "Pesquisar bolhas...",
+                            text = placeholder,
                             color = Color.Gray,
                             style = TextStyle.Default,
                             modifier = Modifier.padding(horizontal = 2.dp)

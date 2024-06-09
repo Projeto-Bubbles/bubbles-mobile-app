@@ -6,12 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.projects.bubbles.dto.EventInPersonRequestDTO
 import com.projects.bubbles.dto.EventOnlineRequestDTO
-import com.projects.bubbles.dto.EventRequestDTO
 import com.projects.bubbles.dto.EventResponseDTO
 import com.projects.bubbles.services.Service
 import com.projects.bubbles.utils.HttpException
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

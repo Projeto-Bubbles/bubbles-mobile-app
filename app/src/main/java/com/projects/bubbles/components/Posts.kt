@@ -31,6 +31,7 @@ import com.projects.bubbles.R
 import com.projects.bubbles.dto.Post
 import com.projects.bubbles.dto.PostRequest
 import com.projects.bubbles.dto.User
+import com.projects.bubbles.utils.AnimationSlider
 import com.projects.bubbles.viewmodel.PostViewModel
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -214,71 +215,73 @@ fun PostBox(
     val hours = localDateTime?.format(DateTimeFormatter.ofPattern("HH")) ?: ""
     val date = localDateTime?.format(DateTimeFormatter.ofPattern("dd/MM")) ?: ""
 
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        color = Color(0xFFe4e4e4)
-    ) {
-        Column(
-            modifier = Modifier.padding(12.dp)
+    AnimationSlider {
+        Surface(
+            modifier = Modifier
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            color = Color(0xFFe4e4e4)
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+            Column(
+                modifier = Modifier.padding(12.dp)
             ) {
-                Perfil()
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    text = username,
-                    fontSize = 10.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xFF423f46)
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    text = "@$nickname   •   ${hours}h   •   $date",
-                    fontSize = 10.sp,
-                    color = Color(0xFF423f46)
-                )
-
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    if (post.author?.idUser == userState.idUser) {
-                        DeleteButton(onDelete = { postViewModel.deletePost(post.idPost!!) })
+                    Perfil()
 
-                        Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(8.dp))
 
-                        EditButton(onEdit = { showEditDialog.value = true })
+                    Text(
+                        text = username,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF423f46)
+                    )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "@$nickname   •   ${hours}h   •   $date",
+                        fontSize = 10.sp,
+                        color = Color(0xFF423f46)
+                    )
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        if (post.author?.idUser == userState.idUser) {
+                            DeleteButton(onDelete = { postViewModel.deletePost(post.idPost!!) })
+
+                            Spacer(modifier = Modifier.width(4.dp))
+
+                            EditButton(onEdit = { showEditDialog.value = true })
+                        }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = content,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
-                lineHeight = 16.sp,
-                color = Color(0xFF423f46)
-            )
-
-            if (showEditDialog.value) {
-                EditPostDialog(
-                    initialContent = content,
-                    onDismiss = { showEditDialog.value = false },
-                    onConfirm = { newContent ->
-                        postViewModel.updatePost(post.idPost!!, newContent)
-                        showEditDialog.value = false
-                    }
+                Text(
+                    text = content,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.SemiBold,
+                    lineHeight = 16.sp,
+                    color = Color(0xFF423f46)
                 )
+
+                if (showEditDialog.value) {
+                    EditPostDialog(
+                        initialContent = content,
+                        onDismiss = { showEditDialog.value = false },
+                        onConfirm = { newContent ->
+                            postViewModel.updatePost(post.idPost!!, newContent)
+                            showEditDialog.value = false
+                        }
+                    )
+                }
             }
         }
     }

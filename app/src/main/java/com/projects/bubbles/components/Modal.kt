@@ -161,7 +161,6 @@ fun EditBubbleModal(
     }
 }
 
-
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun CreateBubbleModal(
@@ -179,17 +178,8 @@ fun CreateBubbleModal(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-//            // Campo para imagem (pode ser um botão para selecionar imagem da galeria)
-//            OutlinedButton(
-//                onClick = { /* Lógica para selecionar imagem */ },
-//                modifier = Modifier.fillMaxWidth()
-//            ) {
-//                Text("Selecionar Imagem")
-//            }
-
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Input para o título da bolha
             OutlinedTextField(
                 value = title,
                 onValueChange = { title = it },
@@ -220,7 +210,7 @@ fun CreateBubbleModal(
                     DropdownMenuItem(
                         text = { Text(cat.toCapitalizedPortuguese()) },
                         onClick = {
-                            category = cat // Define o valor do enum
+                            category = cat
                             expanded = false
                         }
                     )
@@ -229,7 +219,6 @@ fun CreateBubbleModal(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Textarea para a descrição
             OutlinedTextField(
                 value = explanation,
                 onValueChange = { explanation = it },
@@ -241,7 +230,6 @@ fun CreateBubbleModal(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botão para criar a bolha
             Button(
                 onClick = {
                     viewModel.createBubble(

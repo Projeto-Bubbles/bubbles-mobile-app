@@ -28,6 +28,7 @@ import com.projects.bubbles.ui.theme.Red300
 import com.projects.bubbles.ui.theme.Zinc500
 import com.projects.bubbles.ui.theme.Zinc700
 import com.projects.bubbles.ui.theme.rounded
+import com.projects.bubbles.utils.AnimationSlider
 
 
 @Composable
@@ -81,41 +82,43 @@ fun NotFound(
     errorMessage: String,
     suggestion: String
 ) {
-    Column(
-        Modifier
-            .fillMaxWidth()
-            .padding(top = 32.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Box(
+    AnimationSlider {
+        Column(
             Modifier
-                .size(32.dp)
-                .clip(shape = rounded.small)
-                .background(Red300),
-            contentAlignment = Alignment.Center,
+                .fillMaxWidth()
+                .padding(top = 32.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Icon(
-                modifier = Modifier.size(20.dp),
-                painter = painterResource(id = R.drawable.not_found),
-                contentDescription = errorMessage,
-                tint = Zinc700
+            Box(
+                Modifier
+                    .size(32.dp)
+                    .clip(shape = rounded.small)
+                    .background(Red300),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    modifier = Modifier.size(20.dp),
+                    painter = painterResource(id = R.drawable.not_found),
+                    contentDescription = errorMessage,
+                    tint = Zinc700
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Text(
+                text = errorMessage,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+            )
+
+            Text(
+                text = suggestion,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
             )
         }
-
-        Spacer(modifier = Modifier.height(12.dp))
-
-        Text(
-            text = errorMessage,
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            textAlign = TextAlign.Center,
-        )
-
-        Text(
-            text = suggestion,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center
-        )
     }
 }

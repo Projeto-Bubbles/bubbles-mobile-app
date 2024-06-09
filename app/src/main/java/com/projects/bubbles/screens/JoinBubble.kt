@@ -30,6 +30,7 @@ import com.projects.bubbles.dto.User
 import com.projects.bubbles.dto.getCategories
 import com.projects.bubbles.utils.DataStoreManager
 import com.projects.bubbles.viewmodel.BubbleViewModel
+import kotlinx.coroutines.delay
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -82,7 +83,9 @@ fun JoinBubble(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Search(onValueChange = { searchText = it })
+                Search(
+                    placeholder = "Pesquisar bolhas...",
+                    onValueChange = { searchText = it })
 
                 Spacer(modifier = Modifier.width(10.dp))
 
@@ -146,21 +149,30 @@ fun GridBubbles(bubbles: List<BubbleResponseDTO>, viewModel: BubbleViewModel, id
                         )
 
                         if (bubble.creator?.idUser == idUser) {
-                            Spacer(modifier = Modifier.width(8.dp))
+                            var showButtons by remember { mutableStateOf(false) }
 
-                            Column {
-                                DeleteButton(onDelete = { viewModel.deleteBubble(bubble.idBubble!!) })
+                            LaunchedEffect(Unit) {
+                                delay(500)
+                                showButtons = true
+                            }
 
-                                Spacer(modifier = Modifier.height(8.dp))
+                            if (showButtons) {
+                                Spacer(modifier = Modifier.width(8.dp))
 
-                                EditButton(onEdit = { showEditModal = true })
+                                Column {
+                                    DeleteButton(onDelete = { viewModel.deleteBubble(bubble.idBubble!!) })
 
-                                if (showEditModal) {
-                                    EditBubbleModal(
-                                        bubble = bubble,
-                                        viewModel = viewModel,
-                                        onClose = { showEditModal = false }
-                                    )
+                                    Spacer(modifier = Modifier.height(8.dp))
+
+                                    EditButton(onEdit = { showEditModal = true })
+
+                                    if (showEditModal) {
+                                        EditBubbleModal(
+                                            bubble = bubble,
+                                            viewModel = viewModel,
+                                            onClose = { showEditModal = false }
+                                        )
+                                    }
                                 }
                             }
                         }
