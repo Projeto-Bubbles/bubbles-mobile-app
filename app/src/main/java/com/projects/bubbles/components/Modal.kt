@@ -1,5 +1,7 @@
 package com.projects.bubbles.components
 
+import android.os.Build
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.projects.bubbles.dto.BubbleRequestDTO
+import com.projects.bubbles.dto.BubbleResponseDTO
 import com.projects.bubbles.dto.enums.Category
 import com.projects.bubbles.ui.theme.Zinc350
 import com.projects.bubbles.ui.theme.rounded
@@ -91,6 +94,75 @@ fun Modal(
 }
 
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
+@Composable
+fun EditBubbleModal(
+    bubble: BubbleResponseDTO,
+    viewModel: BubbleViewModel,
+    onClose: () -> Unit
+) {
+    var editedTitle by remember(bubble.title) { mutableStateOf(bubble.title ?: "") }
+    var editedExplanation by remember(bubble.explanation) { mutableStateOf(bubble.explanation ?: "") }
+
+    Modal(title = "Editar Bolha", isVisible = true, onClose = onClose) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            OutlinedTextField(
+                value = editedTitle,
+                onValueChange = { editedTitle = it },
+                label = { Text("Nome da bolha") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = editedExplanation,
+                onValueChange = { editedExplanation = it },
+                label = { Text("Descrição") },
+                modifier = Modifier.fillMaxWidth().height(120.dp)
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceAround
+            ) {
+                Button(onClick = onClose) {
+                    Text("Cancelar")
+                }
+
+                Button(
+                    onClick = {
+                        viewModel.updateBubble(
+                            bubble.idBubble!!,
+                            BubbleResponseDTO(
+                                idBubble = bubble.idBubble,
+                                title = editedTitle,
+                                explanation = editedExplanation,
+                                category = bubble.category,
+                                creationDate = bubble.creationDate,
+                                creator = bubble.creator
+//                                image = bubble.image,
+                            )
+                        )
+                        onClose()
+                    },
+                    enabled = editedTitle.isNotBlank() && editedExplanation.isNotBlank()
+                ) {
+                    Text("Salvar")
+                }
+            }
+        }
+    }
+}
+
+
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
 fun CreateBubbleModal(
     viewModel: BubbleViewModel,
@@ -190,11 +262,11 @@ fun Category.toCapitalizedPortuguese(): String {
     return when (this) {
         Category.SPORTS -> "Esportes"
         Category.MUSIC -> "Música"
-        Category.GAME -> "Jogos"
+        Category.GAME -> "Games"
         Category.ART -> "Arte"
         Category.TECHNOLOGY -> "Tecnologia"
         Category.SCIENCE -> "Ciência"
-        Category.CULINARY -> "Culinária"
+        Category.CULINARY -> "Gastronomia"
         Category.READING -> "Leitura"
     }
 }

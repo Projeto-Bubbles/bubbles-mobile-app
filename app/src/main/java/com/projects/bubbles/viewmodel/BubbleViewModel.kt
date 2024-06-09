@@ -12,6 +12,7 @@ import com.projects.bubbles.services.Service
 import com.projects.bubbles.utils.HttpException
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -47,6 +48,7 @@ class BubbleViewModel : ViewModel() {
                 throw HttpException(response)
             }
 
+            delay(2000)
             isLoading.value = false
         }
     }
@@ -64,8 +66,6 @@ class BubbleViewModel : ViewModel() {
                 throw HttpException(response)
             }
         }
-
-        isLoading.value = false
     }
 
     fun updateBubble(bubbleId: Int, updatedBubble: BubbleResponseDTO) = viewModelScope.launch(coroutineExceptionHandler) {
@@ -81,8 +81,6 @@ class BubbleViewModel : ViewModel() {
                 throw HttpException(response)
             }
         }
-
-        isLoading.value = false
     }
 
     fun deleteBubble(bubbleId: Int) = viewModelScope.launch(coroutineExceptionHandler) {
@@ -97,7 +95,5 @@ class BubbleViewModel : ViewModel() {
                 throw HttpException(response)
             }
         }
-
-        isLoading.value = false
     }
 }

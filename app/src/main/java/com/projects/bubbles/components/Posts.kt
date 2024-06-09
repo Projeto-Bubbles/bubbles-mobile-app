@@ -260,7 +260,7 @@ fun PostBox(
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
             Text(
                 text = content,
@@ -269,8 +269,6 @@ fun PostBox(
                 lineHeight = 16.sp,
                 color = Color(0xFF423f46)
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             if (showEditDialog.value) {
                 EditPostDialog(
