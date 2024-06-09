@@ -35,4 +35,11 @@ data class EventInPersonRequestDTO(
     val address: Address
 )
 
+interface EventRequest {
+    val title: String
+    val dateTime: String
+    val duration: Int
+    val idCreator: Int
+    val idBubble: Int
+}
 

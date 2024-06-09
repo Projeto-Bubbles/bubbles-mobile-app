@@ -53,6 +53,8 @@ class EventViewModel : ViewModel() {
         viewModelScope.launch(coroutineExceptionHandler) {
             isLoading.value = true
 
+            Log.d("EventoPresencial", "Payload: " + eventRequest)
+
             val response = withContext(Dispatchers.IO) {
                 eventService.createInPersonEvent(eventRequest)
             }
