@@ -78,8 +78,7 @@ fun Feed(
 
             userState?.let { user ->
                 CreatePostBox(
-                    username = user.username,
-                    nickname = user.nickname,
+                    user = userState,
                     postViewModel = postViewModel
                 )
 

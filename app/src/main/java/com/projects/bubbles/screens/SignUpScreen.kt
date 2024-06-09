@@ -48,6 +48,7 @@ fun SignUpScreen(
     navController: NavHostController,
     authViewModel: AuthViewModel = AuthViewModel(),
 ) {
+    var name = remember { mutableStateOf("") }
     var nickname = remember { mutableStateOf("") }
     var email = remember { mutableStateOf("") }
     var password = remember { mutableStateOf("") }
@@ -74,7 +75,7 @@ fun SignUpScreen(
                 Row(
                     Modifier
                         .fillMaxWidth()
-                        .height(200.dp),
+                        .height(190.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
@@ -105,30 +106,35 @@ fun SignUpScreen(
                                 .padding(32.dp)
                         ) {
                             Column(
-                                modifier = Modifier.height(380.dp)
+                                modifier = Modifier.height(450.dp)
                             ) {
                                 SubtitleText(value = stringResource(id = R.string.sign_up_account_infos))
 
                                 Spacer(Modifier.height(20.dp))
 
+                                TextField(label = stringResource(id = R.string.sign_up_name),
+                                    icon = painterResource(id = R.drawable.icon_user),
+                                    value = name.value,
+                                    onValueChange = { name.value = it })
+
                                 TextField(label = stringResource(id = R.string.sign_up_nickname),
-                                    icon = painterResource(id = R.drawable.user_duotone),
+                                    icon = painterResource(id = R.drawable.icon_nickname),
                                     value = nickname.value,
                                     onValueChange = { nickname.value = it })
 
                                 TextField(label = stringResource(id = R.string.sign_up_email),
-                                    icon = painterResource(id = R.mipmap.email),
+                                    icon = painterResource(id = R.drawable.icon_email),
                                     value = email.value,
                                     onValueChange = { email.value = it })
 
 
                                 PasswordField(label = stringResource(id = R.string.sign_up_password),
-                                    icon = painterResource(id = R.mipmap.lock),
+                                    icon = painterResource(id = R.drawable.icon_password),
                                     value = password.value,
                                     onValueChange = { password.value = it })
 
                                 PasswordField(label = stringResource(id = R.string.sign_up_repeat_password),
-                                    icon = painterResource(id = R.mipmap.lock),
+                                    icon = painterResource(id = R.drawable.icon_password),
                                     value = repeatPassword.value,
                                     onValueChange = { repeatPassword.value = it })
 
@@ -138,11 +144,11 @@ fun SignUpScreen(
                                 ButtonComponent(value = stringResource(id = R.string.sign_up_action_button),
                                     onClick = {
                                         val registerRequest = RegisterRequest(
-                                            username = "Ruan", // Mock para campos que não têm entrada do usuário
+                                            username = name.value,
                                             nickname = nickname.value,
                                             email = email.value,
                                             password = password.value,
-                                            cpf = "46292412806" // Mock para campos que não têm entrada do usuário
+                                            cpf = "46292412806"
                                         )
                                         authViewModel.register(registerRequest)
                                     })
