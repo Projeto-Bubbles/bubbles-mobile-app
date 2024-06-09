@@ -3,6 +3,7 @@ package com.projects.bubbles.screens
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresExtension
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -32,12 +33,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalDensity
 import com.projects.bubbles.components.CreateButton
+import com.projects.bubbles.components.CreateEventModal
 import com.projects.bubbles.components.NotFound
 import com.projects.bubbles.components.Search
 import com.projects.bubbles.dto.User
 import com.projects.bubbles.dto.getCategories
 import com.projects.bubbles.utils.AnimationSlider
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun EventScreen(viewModel: EventViewModel = viewModel(), context: Context) {
@@ -48,6 +51,8 @@ fun EventScreen(viewModel: EventViewModel = viewModel(), context: Context) {
     val categories = getCategories()
 
     var user by remember { mutableStateOf<User?>(null) }
+
+    var showModal by remember { mutableStateOf<Boolean>(false) }
 
     LaunchedEffect(Unit) {
         DataStoreManager.getUser(context).collect { fetchedUser ->
@@ -81,7 +86,15 @@ fun EventScreen(viewModel: EventViewModel = viewModel(), context: Context) {
 
             Spacer(modifier = Modifier.width(10.dp))
 
-            CreateButton(onClick = { /* Lógica para abrir o modal de criação */ })
+            CreateButton(onClick = { showModal = true })
+
+            if (showModal) {
+                CreateEventModal(
+                    viewModel = viewModel,
+                    onClose = { showModal = false },
+                    userId = user?.idUser!!
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(20.dp))

@@ -53,7 +53,7 @@ fun JoinBubble(
         categoryMatch || bubble.title?.startsWith(searchText, ignoreCase = true) ?: false
     }
 
-    var isShowModal by remember { mutableStateOf<Boolean>(false) }
+    var showModal by remember { mutableStateOf<Boolean>(false) }
 
     var user by remember { mutableStateOf<User?>(null) }
 
@@ -89,12 +89,12 @@ fun JoinBubble(
 
                 Spacer(modifier = Modifier.width(10.dp))
 
-                CreateButton(onClick = { isShowModal = true })
+                CreateButton(onClick = { showModal = true })
 
-                if (isShowModal) {
+                if (showModal) {
                     CreateBubbleModal(
                         viewModel = bubbleViewModel,
-                        onClose = { isShowModal = false },
+                        onClose = { showModal = false },
                         idUser = user?.idUser!!
                     )
                 }
