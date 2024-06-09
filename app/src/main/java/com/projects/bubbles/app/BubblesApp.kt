@@ -3,6 +3,7 @@ package com.projects.bubbles.app
 import AuthViewModel
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.annotation.RequiresExtension
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,7 @@ import com.projects.bubbles.screens.EventScreen
 import com.projects.bubbles.screens.Feed
 import com.projects.bubbles.screens.JoinBubble
 
+@RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun BubblesApp(
@@ -74,10 +76,10 @@ fun BubblesApp(
                         Feed(postViewModel = viewModel(), authViewModel, context)
                     }
                     composable("joinbubbles") {
-                        JoinBubble()
+                        JoinBubble(context = context)
                     }
                     composable("events") {
-                        EventScreen()
+                        EventScreen(context = context)
                     }
                 }
 

@@ -32,6 +32,7 @@ import com.projects.bubbles.ui.theme.Orange200
 import com.projects.bubbles.ui.theme.Red300
 import com.projects.bubbles.ui.theme.Teal200
 import com.projects.bubbles.ui.theme.Violet300
+import com.projects.bubbles.utils.AnimationSlider
 import com.projects.bubbles.utils.ShimmerEffect
 
 
@@ -49,202 +50,97 @@ val colors = listOf(
 
 @Composable
 fun PostBoxSkeleton() {
-    Surface(
-        Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(brush = ShimmerEffect()),
-        color = Color(0xFFe4e4e4)
-    ) {
-        Column(modifier = Modifier.padding(12.dp)) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Spacer(
-                    modifier = Modifier
-                        .size(32.dp)
-                        .clip(RoundedCornerShape(100.dp))
-                        .background(brush = ShimmerEffect())
-                )
+  AnimationSlider {
+      Surface(
+          Modifier
+              .fillMaxWidth()
+              .clip(RoundedCornerShape(16.dp))
+              .background(brush = ShimmerEffect()),
+          color = Color(0xFFe4e4e4)
+      ) {
+          Column(modifier = Modifier.padding(12.dp)) {
+              Row(
+                  verticalAlignment = Alignment.CenterVertically,
+                  horizontalArrangement = Arrangement.SpaceBetween
+              ) {
+                  Spacer(
+                      modifier = Modifier
+                          .size(32.dp)
+                          .clip(RoundedCornerShape(100.dp))
+                          .background(brush = ShimmerEffect())
+                  )
 
-                Spacer(Modifier.width(8.dp))
+                  Spacer(Modifier.width(8.dp))
 
-                Row(
-                    modifier = Modifier.width(200.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Spacer(
-                        modifier = Modifier
-                            .width(80.dp)
-                            .height(12.dp)
-                            .clip(RoundedCornerShape(6.dp))
-                            .background(brush = ShimmerEffect()),
-                    )
+                  Row(
+                      modifier = Modifier.width(200.dp),
+                      horizontalArrangement = Arrangement.SpaceBetween
+                  ) {
+                      Spacer(
+                          modifier = Modifier
+                              .width(80.dp)
+                              .height(12.dp)
+                              .clip(RoundedCornerShape(6.dp))
+                              .background(brush = ShimmerEffect()),
+                      )
 
-                    Spacer(
-                        modifier = Modifier
-                            .width(60.dp)
-                            .height(12.dp)
-                            .clip(RoundedCornerShape(6.dp))
-                            .background(brush = ShimmerEffect()),
-                    )
+                      Spacer(
+                          modifier = Modifier
+                              .width(60.dp)
+                              .height(12.dp)
+                              .clip(RoundedCornerShape(6.dp))
+                              .background(brush = ShimmerEffect()),
+                      )
 
-                    repeat(2) {
-                        Spacer(
-                            modifier = Modifier
-                                .width(20.dp)
-                                .height(12.dp)
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(brush = ShimmerEffect()),
-                        )
-                    }
+                      repeat(2) {
+                          Spacer(
+                              modifier = Modifier
+                                  .width(20.dp)
+                                  .height(12.dp)
+                                  .clip(RoundedCornerShape(6.dp))
+                                  .background(brush = ShimmerEffect()),
+                          )
+                      }
 
 
-                    Spacer(modifier = Modifier.height(4.dp))
+                      Spacer(modifier = Modifier.height(4.dp))
 
-                }
-            }
+                  }
+              }
 
-            Spacer(modifier = Modifier.height(8.dp))
+              Spacer(modifier = Modifier.height(8.dp))
 
-            repeat(3) {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(14.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(brush = ShimmerEffect())
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-            }
-        }
-    }
+              repeat(3) {
+                  Spacer(
+                      modifier = Modifier
+                          .fillMaxWidth()
+                          .height(14.dp)
+                          .clip(RoundedCornerShape(6.dp))
+                          .background(brush = ShimmerEffect())
+                  )
+                  Spacer(modifier = Modifier.height(4.dp))
+              }
+          }
+      }
+  }
 }
 
 @Composable
 fun BubbleCardSkeleton() {
-    Box(
-        modifier = Modifier
-            .size(235.dp)
-            .background(brush = ShimmerEffect(), shape = RoundedCornerShape(16.dp))
-    ) {
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp)
-                    .height(30.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Spacer(
-                    modifier = Modifier
-                        .width(100.dp)
-                        .height(25.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(colors.random())
-                        .background(brush = ShimmerEffect())
-                )
-
-                Row {
-                    Spacer(
-                        modifier = Modifier
-                            .size(16.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(brush = ShimmerEffect())
-                    )
-
-                    Spacer(modifier = Modifier.width(5.dp))
-
-                    Spacer(
-                        modifier = Modifier
-                            .width(30.dp)
-                            .height(12.dp)
-                            .clip(RoundedCornerShape(16.dp))
-                            .background(brush = ShimmerEffect())
-                    )
-                }
-            }
-
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(90.dp)
-                    .padding(horizontal = 15.dp)
-            ) {
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth(0.8f)
-                        .height(20.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(brush = ShimmerEffect())
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth(0.9f)
-                        .height(12.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(brush = ShimmerEffect())
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Spacer(
-                    modifier = Modifier
-                        .fillMaxWidth(0.5f)
-                        .height(12.dp)
-                        .clip(RoundedCornerShape(16.dp))
-                        .background(brush = ShimmerEffect())
-                )
-            }
-
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        brush = ShimmerEffect(),
-                        shape = RoundedCornerShape(16.dp)
-                    )
-            )
-        }
-    }
-}
-
-@Composable
-fun EventCardSkeleton() {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(280.dp),
-        shape = RoundedCornerShape(16.dp),
-    ) {
-        Row(
+    AnimationSlider {
+        Box(
             modifier = Modifier
-                .fillMaxWidth()
+                .size(235.dp)
+                .background(brush = ShimmerEffect(), shape = RoundedCornerShape(16.dp))
         ) {
-            Spacer(
-                modifier = Modifier
-                    .weight(0.35f)
-                    .fillMaxHeight()
-                    .clip(RoundedCornerShape(16.dp))
-                    .background(brush = ShimmerEffect())
-            )
-
-            Spacer(modifier = Modifier.width(16.dp))
-
-            Column(
-                modifier = Modifier
-                    .weight(0.6f)
-                    .fillMaxHeight()
-                    .padding(0.dp, 20.dp, 16.dp, 20.dp)
-            ) {
+            Column {
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp)
+                        .height(30.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Spacer(
                         modifier = Modifier
@@ -254,132 +150,243 @@ fun EventCardSkeleton() {
                             .background(colors.random())
                             .background(brush = ShimmerEffect())
                     )
+
+                    Row {
+                        Spacer(
+                            modifier = Modifier
+                                .size(16.dp)
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(brush = ShimmerEffect())
+                        )
+
+                        Spacer(modifier = Modifier.width(5.dp))
+
+                        Spacer(
+                            modifier = Modifier
+                                .width(30.dp)
+                                .height(12.dp)
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(brush = ShimmerEffect())
+                        )
+                    }
                 }
 
-                Spacer(Modifier.height(8.dp))
-
                 Column(
-                    Modifier.fillMaxHeight(),
-                    verticalArrangement = Arrangement.SpaceBetween
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(90.dp)
+                        .padding(horizontal = 15.dp)
                 ) {
-                    Column {
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(20.dp)
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(brush = ShimmerEffect())
-                        )
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth(0.8f)
+                            .height(20.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(brush = ShimmerEffect())
+                    )
 
-                        Spacer(Modifier.height(8.dp))
-
-                        Spacer(
-                            modifier = Modifier
-                                .fillMaxWidth(0.8f)
-                                .height(16.dp)
-                                .clip(RoundedCornerShape(6.dp))
-                                .background(brush = ShimmerEffect())
-                        )
-                    }
-
-                    Column(){
-                        Row {
-                            Spacer(
-                                modifier = Modifier
-                                    .size(16.dp)
-                                    .clip(RoundedCornerShape(6.dp))
-                                    .background(brush = ShimmerEffect())
-                            )
-
-                            Spacer(Modifier.width(6.dp))
-
-                            Spacer(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.9f)
-                                    .height(16.dp)
-                                    .clip(RoundedCornerShape(6.dp))
-                                    .background(brush = ShimmerEffect())
-                            )
-                        }
-
-                        Spacer(Modifier.height(12.dp))
-
-                        Row {
-                            Row{
-                                Spacer(
-                                    modifier = Modifier
-                                        .size(16.dp)
-                                        .clip(RoundedCornerShape(6.dp))
-                                        .background(brush = ShimmerEffect())
-                                )
-
-                                Spacer(Modifier.width(6.dp))
-
-                                Spacer(
-                                    modifier = Modifier
-                                        .width(32.dp)
-                                        .height(16.dp)
-                                        .clip(RoundedCornerShape(6.dp))
-                                        .background(brush = ShimmerEffect())
-                                )
-                            }
-
-                            Spacer(Modifier.width(18.dp))
-
-                            Row{
-                                Spacer(
-                                    modifier = Modifier
-                                        .size(16.dp)
-                                        .clip(RoundedCornerShape(6.dp))
-                                        .background(brush = ShimmerEffect())
-                                )
-
-                                Spacer(Modifier.width(6.dp))
-
-                                Spacer(
-                                    modifier = Modifier
-                                        .width(32.dp)
-                                        .height(16.dp)
-                                        .clip(RoundedCornerShape(6.dp))
-                                        .background(brush = ShimmerEffect())
-                                )
-                            }
-
-                            Spacer(Modifier.width(18.dp))
-
-                            Row{
-                                Spacer(
-                                    modifier = Modifier
-                                        .size(16.dp)
-                                        .clip(RoundedCornerShape(6.dp))
-                                        .background(brush = ShimmerEffect())
-                                )
-
-                                Spacer(Modifier.width(6.dp))
-
-                                Spacer(
-                                    modifier = Modifier
-                                        .width(32.dp)
-                                        .height(16.dp)
-                                        .clip(RoundedCornerShape(6.dp))
-                                        .background(brush = ShimmerEffect())
-                                )
-                            }
-                        }
-                    }
-
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     Spacer(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .height(30.dp)
-                            .clip(RoundedCornerShape(100.dp))
+                            .fillMaxWidth(0.9f)
+                            .height(12.dp)
+                            .clip(RoundedCornerShape(16.dp))
+                            .background(brush = ShimmerEffect())
+                    )
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .height(12.dp)
+                            .clip(RoundedCornerShape(16.dp))
                             .background(brush = ShimmerEffect())
                     )
                 }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            brush = ShimmerEffect(),
+                            shape = RoundedCornerShape(16.dp)
+                        )
+                )
             }
         }
     }
+}
+
+@Composable
+fun EventCardSkeleton() {
+   AnimationSlider {
+       Card(
+           modifier = Modifier
+               .fillMaxWidth()
+               .height(280.dp),
+           shape = RoundedCornerShape(16.dp),
+       ) {
+           Row(
+               modifier = Modifier
+                   .fillMaxWidth()
+           ) {
+               Spacer(
+                   modifier = Modifier
+                       .weight(0.35f)
+                       .fillMaxHeight()
+                       .clip(RoundedCornerShape(16.dp))
+                       .background(brush = ShimmerEffect())
+               )
+
+               Spacer(modifier = Modifier.width(16.dp))
+
+               Column(
+                   modifier = Modifier
+                       .weight(0.6f)
+                       .fillMaxHeight()
+                       .padding(0.dp, 20.dp, 16.dp, 20.dp)
+               ) {
+                   Row(
+                       modifier = Modifier.fillMaxWidth(),
+                       horizontalArrangement = Arrangement.SpaceBetween
+                   ) {
+                       Spacer(
+                           modifier = Modifier
+                               .width(100.dp)
+                               .height(25.dp)
+                               .clip(RoundedCornerShape(6.dp))
+                               .background(colors.random())
+                               .background(brush = ShimmerEffect())
+                       )
+                   }
+
+                   Spacer(Modifier.height(8.dp))
+
+                   Column(
+                       Modifier.fillMaxHeight(),
+                       verticalArrangement = Arrangement.SpaceBetween
+                   ) {
+                       Column {
+                           Spacer(
+                               modifier = Modifier
+                                   .fillMaxWidth()
+                                   .height(20.dp)
+                                   .clip(RoundedCornerShape(6.dp))
+                                   .background(brush = ShimmerEffect())
+                           )
+
+                           Spacer(Modifier.height(8.dp))
+
+                           Spacer(
+                               modifier = Modifier
+                                   .fillMaxWidth(0.8f)
+                                   .height(16.dp)
+                                   .clip(RoundedCornerShape(6.dp))
+                                   .background(brush = ShimmerEffect())
+                           )
+                       }
+
+                       Column(){
+                           Row {
+                               Spacer(
+                                   modifier = Modifier
+                                       .size(16.dp)
+                                       .clip(RoundedCornerShape(6.dp))
+                                       .background(brush = ShimmerEffect())
+                               )
+
+                               Spacer(Modifier.width(6.dp))
+
+                               Spacer(
+                                   modifier = Modifier
+                                       .fillMaxWidth(0.9f)
+                                       .height(16.dp)
+                                       .clip(RoundedCornerShape(6.dp))
+                                       .background(brush = ShimmerEffect())
+                               )
+                           }
+
+                           Spacer(Modifier.height(12.dp))
+
+                           Row {
+                               Row{
+                                   Spacer(
+                                       modifier = Modifier
+                                           .size(16.dp)
+                                           .clip(RoundedCornerShape(6.dp))
+                                           .background(brush = ShimmerEffect())
+                                   )
+
+                                   Spacer(Modifier.width(6.dp))
+
+                                   Spacer(
+                                       modifier = Modifier
+                                           .width(32.dp)
+                                           .height(16.dp)
+                                           .clip(RoundedCornerShape(6.dp))
+                                           .background(brush = ShimmerEffect())
+                                   )
+                               }
+
+                               Spacer(Modifier.width(18.dp))
+
+                               Row{
+                                   Spacer(
+                                       modifier = Modifier
+                                           .size(16.dp)
+                                           .clip(RoundedCornerShape(6.dp))
+                                           .background(brush = ShimmerEffect())
+                                   )
+
+                                   Spacer(Modifier.width(6.dp))
+
+                                   Spacer(
+                                       modifier = Modifier
+                                           .width(32.dp)
+                                           .height(16.dp)
+                                           .clip(RoundedCornerShape(6.dp))
+                                           .background(brush = ShimmerEffect())
+                                   )
+                               }
+
+                               Spacer(Modifier.width(18.dp))
+
+                               Row{
+                                   Spacer(
+                                       modifier = Modifier
+                                           .size(16.dp)
+                                           .clip(RoundedCornerShape(6.dp))
+                                           .background(brush = ShimmerEffect())
+                                   )
+
+                                   Spacer(Modifier.width(6.dp))
+
+                                   Spacer(
+                                       modifier = Modifier
+                                           .width(32.dp)
+                                           .height(16.dp)
+                                           .clip(RoundedCornerShape(6.dp))
+                                           .background(brush = ShimmerEffect())
+                                   )
+                               }
+                           }
+                       }
+
+
+                       Spacer(
+                           modifier = Modifier
+                               .fillMaxWidth()
+                               .height(30.dp)
+                               .clip(RoundedCornerShape(100.dp))
+                               .background(brush = ShimmerEffect())
+                       )
+                   }
+               }
+           }
+       }
+   }
 }
 
 @Preview

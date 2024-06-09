@@ -66,7 +66,7 @@ class MainActivity : ComponentActivity() {
                     navController = navController,
                     internalNavController = internalNavController,
                     authViewModel = authViewModel,
-                    viewModelStoreOwner = viewModelStoreOwner!! // Corrija o erro de nulidade
+                    viewModelStoreOwner = viewModelStoreOwner!!
                 )
             }
         }

@@ -86,14 +86,14 @@ fun SignInScreen(
                             Column {
                                 TextField(
                                     label = stringResource(id = R.string.sign_up_email),
-                                    icon = painterResource(id = R.drawable.user_duotone),
+                                    icon = painterResource(id = R.drawable.icon_user),
                                     value = email.value,
                                     onValueChange = { email.value = it }
                                 )
 
                                 PasswordField(
                                     label = stringResource(id = R.string.sign_up_password),
-                                    icon = painterResource(id = R.drawable.user_duotone),
+                                    icon = painterResource(id = R.drawable.icon_password),
                                     value = password.value,
                                     onValueChange = { password.value = it }
                                 )

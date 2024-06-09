@@ -13,12 +13,13 @@
 
     <!-- Register info texts -->
     <string name="sign_up_title">Vamos furar a bolha!</string>
-    <string name="sign_up_disclaimer">Já faz parte da Bubbles? Entrar</string>
+    <string name="sign_up_disclaimer">Já faz parte da Bubbles?</string>
     <string name="sign_up_text_button">Entre</string>
     <string name="sign_up_action_button">CADASTRAR-SE</string>
     <string name="sign_up_account_infos">Informações da conta</string>
 
     <!-- Register fields names -->
+    <string name="sign_up_name">Nome</string>
     <string name="sign_up_nickname">Apelido</string>
     <string name="sign_up_email">E-mail</string>
     <string name="sign_up_password">Senha</string>

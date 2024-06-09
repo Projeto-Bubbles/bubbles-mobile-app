@@ -6,13 +6,33 @@ data class EventResponseDTO(
     val dateTime: String,
     val duration: Int,
     val organizer: UserInfoDTO,
-    val bubble: BubbleResponseDTO
+    val bubble: BubbleResponseDTO,
+    val publicPlace: Boolean? = null,
+    val peopleCapacity: Int? = null,
+    val address: Address? = null,
+    val platform: String? = null,
+    val link: String? = null
 )
 
-data class EventRequestDTO(
+data class EventOnlineRequestDTO(
     val title: String,
     val dateTime: String,
     val duration: Int,
     val idCreator: Int,
-    val idBubble: Int
+    val idBubble: Int,
+    val link: String,
+    val platform: String
 )
+
+data class EventInPersonRequestDTO(
+    val title: String,
+    val dateTime: String,
+    val duration: Int,
+    val idCreator: Int,
+    val idBubble: Int,
+    val publicPlace: Boolean,
+    val peopleCapacity: Int?,
+    val address: Address
+)
+
+

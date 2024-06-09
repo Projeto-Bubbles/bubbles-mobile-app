@@ -37,6 +37,7 @@ import com.projects.bubbles.dto.CategoryData
 import com.projects.bubbles.dto.getCategories
 import com.projects.bubbles.ui.theme.Slate800
 import com.projects.bubbles.ui.theme.Zinc300
+import com.projects.bubbles.utils.AnimationSlider
 
 
 @Composable
@@ -49,106 +50,107 @@ fun BubbleCard(
     val categories = getCategories()
     val categoryData = categories.find { it.category.name.equals(category, ignoreCase = true) }
 
-    Box(
-        modifier = Modifier
-            .size(235.dp)
-            .background(color = Zinc300, shape = RoundedCornerShape(16.dp))
-    ) {
-        Column {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .height(30.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
+   AnimationSlider {
+       Box(
+           modifier = Modifier
+               .size(235.dp)
+               .background(color = Zinc300, shape = RoundedCornerShape(16.dp))
+       ) {
+           Column {
+               Row(
+                   modifier = Modifier
+                       .fillMaxWidth()
+                       .padding(10.dp)
+                       .height(30.dp),
+                   horizontalArrangement = Arrangement.SpaceBetween,
+                   verticalAlignment = Alignment.CenterVertically
+               ) {
 
-                BubbleTag(categoryData = categoryData!!, fixed = true, onClick = {})
+                   BubbleTag(categoryData = categoryData!!, fixed = true, onClick = {})
 
-                Row {
-                    Icon(
-                        modifier = Modifier
-                            .height(16.dp),
-                        painter = painterResource(id = R.drawable.user_duotone),
-                        contentDescription = null,
-                        tint = Slate800
-                    )
+                   Row {
+                       Icon(
+                           modifier = Modifier
+                               .height(16.dp),
+                           painter = painterResource(id = R.drawable.icon_user),
+                           contentDescription = null,
+                           tint = Slate800
+                       )
 
-                    Spacer(modifier = Modifier.width(5.dp))
+                       Spacer(modifier = Modifier.width(5.dp))
 
-                    Text(
-                        text = "22K",
-                        fontSize = 12.sp,
-                        color = Color.Black,
-                        modifier = Modifier.align(Alignment.CenterVertically)
-                    )
-                }
-            }
+                       Text(
+                           text = "22K",
+                           fontSize = 12.sp,
+                           color = Color.Black,
+                           modifier = Modifier.align(Alignment.CenterVertically)
+                       )
+                   }
+               }
 
+               Column(
+                   modifier = Modifier
+                       .fillMaxWidth()
+                       .height(90.dp)
+                       .padding(horizontal = 15.dp)
+               ) {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(90.dp)
-                    .padding(horizontal = 15.dp)
-            ) {
+                   Text(
+                       text = title,
+                       fontSize = 20.sp,
+                       color = Color.Black,
+                       fontWeight = FontWeight.Bold
+                   )
 
-                Text(
-                    text = title,
-                    fontSize = 20.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold
-                )
+                   Spacer(modifier = Modifier.height(10.dp))
 
-                Spacer(modifier = Modifier.height(10.dp))
+                   Text(
+                       text = description,
+                       style = TextStyle(
+                           fontSize = 12.sp,
+                           fontWeight = FontWeight.Light,
+                           lineHeight = 16.sp,
+                           color = Color.Black
+                       )
+                   )
+               }
 
-                Text(
-                    text = description,
-                    style = TextStyle(
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Light,
-                        lineHeight = 16.sp,
-                        color = Color.Black
-                    )
-                )
-            }
+               Column(
+                   modifier = Modifier
+                       .fillMaxWidth()
+               ) {
+                   Spacer(modifier = Modifier.height(10.dp))
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-            ) {
-                Spacer(modifier = Modifier.height(10.dp))
+                   Box(
+                       modifier = Modifier
+                           .fillMaxSize()
+                           .background(
+                               color = Color.Transparent,
+                               shape = RoundedCornerShape(30.dp)
+                           )
+                   ) {
+                       Image(
+                           painter = image,
+                           contentDescription = "basquete",
+                           modifier = Modifier
+                               .fillMaxWidth()
+                               .clip(RoundedCornerShape(16.dp)),
+                           contentScale = ContentScale.Crop
+                       )
 
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            color = Color.Transparent,
-                            shape = RoundedCornerShape(30.dp)
-                        )
-                ) {
-                    Image(
-                        painter = image,
-                        contentDescription = "basquete",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .clip(RoundedCornerShape(16.dp)),
-                        contentScale = ContentScale.Crop
-                    )
-
-                    Row(
-                        modifier = Modifier
-                            .align(Alignment.CenterEnd)
-                            .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.End
-                    ) {
-                        JoinButton(onClick = { })
-                    }
-                }
-            }
-        }
-    }
+                       Row(
+                           modifier = Modifier
+                               .align(Alignment.CenterEnd)
+                               .fillMaxWidth(),
+                           horizontalArrangement = Arrangement.End
+                       ) {
+                           JoinButton(onClick = { })
+                       }
+                   }
+               }
+           }
+       }
+   }
 }
 
 @SuppressLint("DiscouragedApi")
