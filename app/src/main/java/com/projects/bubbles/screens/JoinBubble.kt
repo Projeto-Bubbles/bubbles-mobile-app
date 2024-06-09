@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -21,27 +19,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.components.*
 import com.projects.bubbles.dto.BubbleResponseDTO
 import com.projects.bubbles.dto.User
-import com.projects.bubbles.dto.enums.Category
 import com.projects.bubbles.dto.getCategories
-import com.projects.bubbles.ui.theme.Red300
-import com.projects.bubbles.ui.theme.Zinc700
-import com.projects.bubbles.ui.theme.rounded
 import com.projects.bubbles.utils.DataStoreManager
 import com.projects.bubbles.viewmodel.BubbleViewModel
-import kotlinx.coroutines.flow.Flow
 
 @RequiresExtension(extension = Build.VERSION_CODES.S, version = 7)
 @Composable
@@ -66,7 +54,7 @@ fun JoinBubble(
 
     var isShowModal by remember { mutableStateOf<Boolean>(false) }
 
-    var user by remember { mutableStateOf<User?>(null) } // Estado para armazenar os dados do usuário
+    var user by remember { mutableStateOf<User?>(null) }
 
     LaunchedEffect(Unit) {
         DataStoreManager.getUser(context).collect { fetchedUser ->
@@ -94,7 +82,7 @@ fun JoinBubble(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                SearchBubble(onValueChange = { searchText = it })
+                Search(onValueChange = { searchText = it })
 
                 Spacer(modifier = Modifier.width(10.dp))
 

@@ -167,8 +167,8 @@ fun PostResponseField(postViewModel: PostViewModel = PostViewModel()) {
 
 
 @Composable
-fun SearchBubble(onValueChange: (String) -> Unit) {
-    var searchedBubble by remember { mutableStateOf("") }
+fun Search(onValueChange: (String) -> Unit) {
+    var searchedItem by remember { mutableStateOf("") }
 
     Row(
         modifier = Modifier
@@ -192,16 +192,16 @@ fun SearchBubble(onValueChange: (String) -> Unit) {
         Spacer(modifier = Modifier.width(8.dp))
 
         BasicTextField(
-            value = searchedBubble,
+            value = searchedItem,
             onValueChange = {
-                searchedBubble = it
+                searchedItem = it
                 onValueChange(it)
             },
             textStyle = TextStyle.Default.copy(color = Color.Black),
             modifier = Modifier.fillMaxSize(),
             decorationBox = { innerTextField ->
                 Box(modifier = Modifier.fillMaxSize()) {
-                    if (searchedBubble.isEmpty()) {
+                    if (searchedItem.isEmpty()) {
                         Text(
                             text = "Pesquisar bolhas...",
                             color = Color.Gray,
