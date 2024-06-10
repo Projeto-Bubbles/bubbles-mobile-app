@@ -11,7 +11,8 @@ data class EventResponseDTO(
     val peopleCapacity: Int? = null,
     val address: Address? = null,
     val platform: String? = null,
-    val link: String? = null
+    val link: String? = null,
+    val image: String? = null
 )
 
 data class EventOnlineRequestDTO(

@@ -53,6 +53,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.projects.bubbles.R
 import com.projects.bubbles.dto.Address
 import com.projects.bubbles.dto.BubbleResponseDTO
@@ -97,14 +98,16 @@ fun EventCard(
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            Image(
-                painter = image,
-                contentDescription = null,
+            AsyncImage(
+                model = event.image ?: R.mipmap.event_cover_placeholder,
+                contentDescription = "Imagem do evento",
                 modifier = Modifier
                     .weight(0.35f)
                     .fillMaxHeight()
                     .clip(RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
+                error = painterResource(R.mipmap.event_cover_placeholder),
+                placeholder = painterResource(R.mipmap.event_cover_placeholder)
             )
 
             Spacer(modifier = Modifier.width(16.dp))
