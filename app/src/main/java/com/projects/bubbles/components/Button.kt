@@ -46,7 +46,6 @@ import com.projects.bubbles.R
 import com.projects.bubbles.ui.theme.Slate100
 import com.projects.bubbles.ui.theme.Slate800
 import com.projects.bubbles.ui.theme.Zinc700
-import com.projects.bubbles.ui.theme.bubblePurple
 
 @Composable
 fun ButtonComponent(value: String, onClick: () -> Unit) {
@@ -354,7 +353,6 @@ fun EventButton(
 
 @Composable
 fun JoinButton(onClick: () -> Unit) {
-
     Box(
         modifier = Modifier
             .wrapContentSize()
@@ -368,7 +366,6 @@ fun JoinButton(onClick: () -> Unit) {
             )
             .height(25.dp)
             .width(95.dp)
-            .background(bubblePurple)
             .clickable { onClick() }
     ) {
 

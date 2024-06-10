@@ -1,76 +1,61 @@
 package com.projects.bubbles.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.projects.bubbles.R
 import com.projects.bubbles.components.EventCard
 import com.projects.bubbles.ui.theme.Slate100
-import com.projects.bubbles.ui.theme.bubbleBlue
-import com.projects.bubbles.ui.theme.bubbleGreen
-import com.projects.bubbles.ui.theme.bubblePurple
+import com.projects.bubbles.viewmodel.EventViewModel
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun EventScreen() {
+fun EventScreen(viewModel: EventViewModel = viewModel()) {
+    val events by viewModel.eventList.observeAsState(emptyList())
+    val isLoading by viewModel.isLoading.observeAsState()
+
     Column(
-        Modifier.fillMaxSize().background(Slate100),
-        verticalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Slate100)
+            .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            item {
-                EventCard(
-                    bolha = "Jogos",
-                    titulo = "Torneio de Jogos",
-                    descricao = "Um torneio emocionante de jogos",
-                    endereco = "Rua dos Jogos, 123",
-                    data = "01/05/2024",
-                    imagem = painterResource(id = R.mipmap.campeonato),
-                    icon = painterResource(id = R.mipmap.games),
-                    cor = bubblePurple
-                )
+        if (isLoading!!) {
+            CircularProgressIndicator()
+        } else {
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(minSize = 300.dp),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                items(events.size) { index ->
+                    val event = events[index]
+                    EventCard(event, painterResource(id = R.mipmap.event_bg_2), onJoinClick = {})
+                }
             }
-            item {
-                EventCard(
-                    bolha = "Gastronomia",
-                    titulo = "Festival de Comida",
-                    descricao = "Um festival para os amantes da gastronomia",
-                    endereco = "Avenida da Comida, 456",
-                    data = "05/05/2024",
-                    imagem = painterResource(id = R.mipmap.comida),
-                    icon = painterResource(id = R.mipmap.culinary),
-                    cor = bubbleGreen
-                )
-            }
-            item {
-                EventCard(
-                    bolha = "música",
-                    titulo = "Vem no Forró",
-                    descricao = "Dança e Música Boa",
-                    endereco = "R Hadock Lobo, 456",
-                    data = "20/05/2024",
-                    imagem = painterResource(id = R.mipmap.forro),
-                    icon = painterResource(id = R.mipmap.music),
-                    cor = bubbleBlue
-                )
-            }
-
-
         }
     }
 }
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview
 @Composable
 fun PreviewEventScreen() {

@@ -1,5 +1,8 @@
 package com.projects.bubbles.services
 
+import com.projects.bubbles.services.endpoints.IAuth
+import com.projects.bubbles.services.endpoints.IBubble
+import com.projects.bubbles.services.endpoints.IEvent
 import com.projects.bubbles.services.endpoints.IPost
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -7,23 +10,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object Service {
-    const val BASE_URL = "http://10.18.32.92/"
 
-    val okHttpClient = OkHttpClient.Builder()
-        .connectTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de conexão
-        .readTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de leitura
-        .writeTimeout(12, TimeUnit.SECONDS) // Configura o tempo de espera de escrita
-        .build()
+    private const val BASE_URL = "https://bubbles.ddns.net/api/"
 
-    fun PostService(): IPost {
-        val post = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient) // Define o cliente OkHttpClient com as configurações de tempo de espera
+    private val okHttpClient: OkHttpClient by lazy {
+        OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
             .build()
-            .create(IPost::class.java)
-
-        return post
     }
 
+    private val retrofitBuilder: Retrofit.Builder by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+    }
+
+    val PostService: IPost by lazy { retrofitBuilder.build().create(IPost::class.java) }
+    val AuthService: IAuth by lazy { retrofitBuilder.build().create(IAuth::class.java) }
+    val BubbleService: IBubble by lazy { retrofitBuilder.build().create(IBubble::class.java) }
+    val EventService: IEvent by lazy { retrofitBuilder.build().create(IEvent::class.java) }
 }
