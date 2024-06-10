@@ -50,6 +50,7 @@ android {
 }
 
 dependencies {
+    implementation("io.coil-kt:coil-compose:2.5.0")
     implementation("com.valentinilk.shimmer:compose-shimmer:1.2.0")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.1")

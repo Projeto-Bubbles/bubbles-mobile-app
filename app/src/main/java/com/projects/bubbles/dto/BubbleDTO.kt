@@ -9,7 +9,8 @@ data class BubbleResponseDTO(
     val explanation: String?,
     val creationDate: String,
     val category: Category?,
-    val creator: UserInfoDTO?
+    val creator: UserInfoDTO?,
+    val image: String? = null
 )
 
 data class BubbleRequestDTO(

@@ -1,6 +1,7 @@
 package com.projects.bubbles.components
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,6 +33,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.projects.bubbles.R
 import com.projects.bubbles.dto.CategoryData
 import com.projects.bubbles.dto.getCategories
@@ -45,7 +47,7 @@ fun BubbleCard(
     title: String,
     description: String,
     category: String,
-    image: Painter,
+    image: String?,
 ) {
     val categories = getCategories()
     val categoryData = categories.find { it.category.name.equals(category, ignoreCase = true) }
@@ -129,13 +131,17 @@ fun BubbleCard(
                                shape = RoundedCornerShape(30.dp)
                            )
                    ) {
-                       Image(
-                           painter = image,
-                           contentDescription = "basquete",
+                       Log.d("Imagem:", image!!)
+
+                       AsyncImage(
+                           model = image,
+                           contentDescription = "Imagem do evento",
                            modifier = Modifier
                                .fillMaxWidth()
                                .clip(RoundedCornerShape(16.dp)),
-                           contentScale = ContentScale.Crop
+                           contentScale = ContentScale.Crop,
+                           error = painterResource(R.mipmap.event_cover_placeholder),
+                           placeholder = painterResource(R.mipmap.event_cover_placeholder)
                        )
 
                        Row(

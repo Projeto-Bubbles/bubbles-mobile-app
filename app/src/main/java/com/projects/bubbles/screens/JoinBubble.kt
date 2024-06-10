@@ -145,7 +145,7 @@ fun GridBubbles(bubbles: List<BubbleResponseDTO>, viewModel: BubbleViewModel, id
                             title = bubble.title ?: "",
                             description = bubble.explanation ?: "",
                             category = bubble.category?.name ?: "",
-                            image = painterResource(id = R.mipmap.forro),
+                            image = bubble.image,
                         )
 
                         if (bubble.creator?.idUser == idUser) {
